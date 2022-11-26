@@ -1,6 +1,10 @@
-#ifndef JEU_H
-#define JEU_H
+#pragma once
 
+#include <iostream>
+#include <vector>
+
+class Joueur;
+class Carte;
 
 class Jeu
 {
@@ -11,21 +15,23 @@ class Jeu
     Jeu(const Jeu&)=delete;
     Jeu& operator=(const Jeu&)=delete;
     //Attribus
-    list<Joueur> joueurs;
+    std::vector<Joueur> joueurs;
     int joueursActif;
-    list<Carte> cartesEnJeu;
-    Marche marche;
-    //Méthode pour l'initialisation du jeu
+    std::vector<Carte> cartesEnJeu;
+
+    //Marche marche;                c'est quoi Ã§a ?
+
+    //MÃ©thode pour l'initialisation du jeu
     void initialiserCartes();
     void initialiserJoueurs();
-    //Méthode pour un tour de jeu
+    //MÃ©thode pour un tour de jeu
     int lancerDes() const;
     void activerCartesBleues(int nbDes) const; //Voir si il faut un const
     void activerCartesVertes(int nbDes) const;
     void activerCartesRouges(int nbDes) const;
     void activerCartesViolettes(int nbDes) const;
     void achat();
-    bool vérifierVictoire();
+    bool verifierVictoire();
 public:
     static Jeu& getJeu();
     static void libererJeu();
@@ -35,5 +41,3 @@ public:
     void joueurSuivant();
 
 };
-
-#endif // JEU_H

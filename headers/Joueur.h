@@ -1,17 +1,20 @@
-#ifndef JOUEUR_H
-#define JOUEUR_H
-#include "Batiment.h"
-#include "Monument.h"
+#pragma once
 
-enum class TypeJoueur { humain, IA };
+#include <iostream>
+#include <vector>
+
+#include "enums.h"
+
+class Batiment;
+class Monument;
 
 class Joueur
 {
     TypeJoueur type;
-    string pseudo;
+    std::string pseudo;
     int pieces;
-    list<Batiment&> constructions;
-    list<Monument> monuments;
+    std::vector<Batiment*> constructions;
+    std::vector<Monument> monuments;
 
 public:
     bool hasDoubleDes() const;
@@ -26,5 +29,3 @@ public:
 
 
 };
-
-#endif // JOUEUR_H
