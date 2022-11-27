@@ -9,11 +9,12 @@ class Carte
 {
     int id;
     std::string nom;
-    EnumType type;
+    TypeBatiment type;
     int prix;
 
   public:
-    Carte(int i, std::string n, EnumType t, int p);
+    Carte();
+    Carte(int i, std::string n, TypeBatiment t, int p);
     ~Carte();
     std::ostream& toString() const;
 };

@@ -5,6 +5,6 @@
 
 class Monument : public Carte
 {
-    EnumEffet effet;
+    TypeBatiment effet;
     bool construit;
 };
