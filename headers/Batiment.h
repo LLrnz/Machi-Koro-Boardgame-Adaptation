@@ -10,7 +10,7 @@ class Batiment : public Carte
     std::vector<int> combinaisons;
     int gain;
 public:
-    Batiment(int id, std::string nom, EnumType type, int prix, int gain, std::vector<int> combinaisons);
+    Batiment(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons);
     void activer();
 };
 
