@@ -26,6 +26,4 @@ public:
     void activerCartesRouges();
     void activerCartesViolettes();
     void gagnerPieces();
-
-
 };

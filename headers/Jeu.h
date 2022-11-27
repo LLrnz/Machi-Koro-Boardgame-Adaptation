@@ -2,9 +2,10 @@
 
 #include <iostream>
 #include <vector>
+#include "Carte.h"
 
 class Joueur;
-class Carte;
+// class Carte;
 
 class Jeu
 {

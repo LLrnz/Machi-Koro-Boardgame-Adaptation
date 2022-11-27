@@ -13,6 +13,7 @@ class Carte
     int prix;
 
   public:
+    Carte();
     Carte(int i, std::string n, EnumType t, int p);
     ~Carte();
     std::ostream& toString() const;
