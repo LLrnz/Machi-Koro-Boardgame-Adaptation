@@ -3,19 +3,20 @@
 #include <iostream>
 #include <vector>
 #include "Jeu.h"
+#include "InterfaceTerminal.h"
 using namespace std;
 
 
-class Controlleur
+class Controleur
 {
-    //Singleton
-    static Controlleur* controlleur;
-    Controlleur();
-    ~Controlleur();
-    Controlleur(const Controlleur&)=delete;
-    Controlleur& operator=(const Controlleur&)=delete;
+    // Singleton
+    static Controleur* controleur;
+    Controleur();
+    ~Controleur();
+    Controleur(const Controleur&)=delete;
+    Controleur& operator=(const Controleur&)=delete;
 
-    //Attribus
+    // Attributs
     int nbJoueurs; 
     vector<string> pseudos;
     vector<bool> extensions;
@@ -23,7 +24,7 @@ class Controlleur
 
     
 public:
-    static Controlleur& getControlleur();
+    static Controleur& getControleur();
     static void libererJeu();
 
     void nouvellePartie();
