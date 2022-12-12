@@ -4,3 +4,4 @@
 .user
 *.user
 *.pro.user*
+.vscode/settings.json
