@@ -9,10 +9,7 @@ CONFIG -= app_bundle
 
 SOURCES += \
         main.cpp \
-        src/Batiment.cpp \
-        src/Carte.cpp \
-        src/Controleur.cpp \
-        src/CarteBleue.cpp
+        src/*.cpp \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -23,18 +20,4 @@ DISTFILES += \
     README.md
 
 HEADERS += \
-    headers/Batiment.h \
-    headers/Carte.h \
-    headers/CarteBleue.h \
-    headers/CarteRouge.h \
-    headers/CarteVerte.h \
-    headers/CarteViolette.h \
-    headers/Jeu.h \
-    headers/Controleur.h \
-    headers/enums.h \
-    headers/InterfaceInterminal.h \
-    headers/Jeu.h \
-    headers/Joueur.h \
-    headers/Monument.h \
-    headers/marche.h \
-    headers/enums.h
+    headers/*.h \
