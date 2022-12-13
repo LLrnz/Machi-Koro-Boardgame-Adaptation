@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include "Carte.h"
+#include "Controleur.h"
+#include "marche.h"
 
 class Joueur;
 // class Carte;
@@ -17,10 +19,10 @@ class Jeu
     Jeu& operator=(const Jeu&)=delete;
     //Attribus
     std::vector<Joueur> joueurs;
-    int joueursActif;
+    int joueurActif;
     std::vector<Carte> cartesEnJeu;
-
-    //Marche marche;                c'est quoi ça ?
+    Marche marche;
+    bool partieTerminee = false;
 
     //Méthode pour l'initialisation du jeu
     void initialiserCartes();
@@ -32,13 +34,18 @@ class Jeu
     void activerCartesRouges(int nbDes) const;
     void activerCartesViolettes(int nbDes) const;
     void achat();
-    bool verifierVictoire();
+    void tourDeJeu();
 public:
     static Jeu& getJeu();
     static void libererJeu();
 
     void genererPartie();
-    void boucledeJeu();
+    void boucleDeJeu();
+    void tourDeJeu();
     void joueurSuivant();
+    void setJoueurActif(int i) { joueurActif = i; };
+    bool getPartieTerminee() const { return partieTerminee; };
+    int getJoueurActif() const { return joueurActif; };
+    vector<Joueur> getJoueurs() const { return joueurs; };
 
 };

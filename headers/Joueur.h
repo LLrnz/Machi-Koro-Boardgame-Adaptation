@@ -17,6 +17,7 @@ class Joueur
     std::vector<Monument> monuments;
 
 public:
+    Joueur(string psdo, TypeJoueur typ);
     bool hasDoubleDes() const;
     bool hasDoubleProduction() const;
     bool hasRejouerDouble() const;

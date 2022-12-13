@@ -21,15 +21,22 @@ class Controleur
     vector<string> pseudos;
     vector<bool> extensions;
     InterfaceTerminal interface;
+    vector<TypeJoueur> typeJoueurs;
 
     
 public:
     static Controleur& getControleur();
-    static void libererJeu();
+    static void libererControleur();
 
     void nouvellePartie();
     void demarrer();
-    void afficher(ostream& f) const;
+    void afficher(string s);
+    void afficher(int i);
     ostream& lire();
 
+    // Fonctions de service
+
+    int getNbJoueurs() const { return nbJoueurs; };
+    string getPseudo(int i) { return pseudos[i]; };
+    TypeJoueur getTypeJoueur(int i) { return typeJoueurs[i]; };
 };
