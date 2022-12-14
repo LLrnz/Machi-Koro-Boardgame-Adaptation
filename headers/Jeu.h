@@ -28,13 +28,14 @@ class Jeu
     void initialiserCartes();
     void initialiserJoueurs();
     //Méthode pour un tour de jeu
-    int lancerDes() const;
+    int lancerDes();
     void activerCartesBleues(int nbDes) const; //Voir si il faut un const
     void activerCartesVertes(int nbDes) const;
     void activerCartesRouges(int nbDes) const;
     void activerCartesViolettes(int nbDes) const;
     void achat();
     void tourDeJeu();
+    int jetDes();
 public:
     static Jeu& getJeu();
     static void libererJeu();

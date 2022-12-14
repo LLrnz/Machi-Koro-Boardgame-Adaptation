@@ -6,6 +6,7 @@
 class InterfaceTerminal
 {
 public:
-    void afficher(ostream& f) const;
-    ostream& lire() const;
+    void afficher(string message) const;
+    void afficher(int i) const;
+    string& lire() const;
 };

@@ -12,8 +12,11 @@ void Controleur::libererControleur() {
 }
 
 void Controleur::afficher(string s) {
-	std::cout << s;
+	interface.afficher(s);
 }
 void Controleur::afficher(int i) {
-	std::cout << i;
+	interface.afficher(i);
+}
+string& Controleur::lire(){
+	return interface.lire();
 }

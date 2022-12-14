@@ -32,7 +32,7 @@ public:
     void demarrer();
     void afficher(string s);
     void afficher(int i);
-    ostream& lire();
+    string& lire();
 
     // Fonctions de service
 
