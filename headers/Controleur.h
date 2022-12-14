@@ -29,7 +29,7 @@ public:
 
     void nouvellePartie();
     void demarrer();
-    void afficher(ostream& f) const;
-    ostream& lire();
+    void afficher(std::string f) const;
+    std::string lire();
 
 };

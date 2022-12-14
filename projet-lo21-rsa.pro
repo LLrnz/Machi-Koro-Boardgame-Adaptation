@@ -10,6 +10,7 @@ CONFIG -= app_bundle
 SOURCES += \
         main.cpp \
         src/*.cpp \
+    src/InterfaceTerminal.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

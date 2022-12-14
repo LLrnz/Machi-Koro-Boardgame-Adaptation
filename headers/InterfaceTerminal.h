@@ -1,11 +1,10 @@
 #pragma once
 
 #include <iostream>
-#include "Controleur.h"
 
 class InterfaceTerminal
 {
 public:
-    void afficher(ostream& f) const;
-    ostream& lire() const;
+    void afficher(std::string f) const;
+    std::string lire() const;
 };
