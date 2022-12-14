@@ -19,22 +19,22 @@ class Jeu
 
     //Attribus
     std::vector<Joueur> joueurs;
-    int joueursActif;
-
-
-    //Marche marche;                c'est quoi ça ?
+    int joueurActif;
+    Marche marche;
+    bool partieTerminee = false;
 
     //Méthode pour l'initialisation du jeu
     void initialiserCartes();
     void initialiserJoueurs();
     //Méthode pour un tour de jeu
-    int lancerDes() const;
+    int lancerDes();
     void activerCartesBleues(int nbDes) const; //Voir si il faut un const
     void activerCartesVertes(int nbDes) const;
     void activerCartesRouges(int nbDes) const;
     void activerCartesViolettes(int nbDes) const;
     void achat();
-    bool verifierVictoire();
+    void tourDeJeu();
+    int jetDes();
 public:
     static Jeu& getJeu();
     static void libererJeu();
@@ -42,7 +42,12 @@ public:
 
 
     void genererPartie();
-    void boucledeJeu();
+    void boucleDeJeu();
+    void tourDeJeu();
     void joueurSuivant();
+    void setJoueurActif(int i) { joueurActif = i; };
+    bool getPartieTerminee() const { return partieTerminee; };
+    int getJoueurActif() const { return joueurActif; };
+    vector<Joueur> getJoueurs() const { return joueurs; };
 
 };

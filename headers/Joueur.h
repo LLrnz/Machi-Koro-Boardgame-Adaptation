@@ -13,17 +13,22 @@ class Joueur
     TypeJoueur type;
     std::string pseudo;
     int pieces;
+    bool rejoueTour;
     std::vector<Batiment*> constructions;
     //std::vector<Monument> monuments;
 
 public:
+    Joueur(string psdo, TypeJoueur typ);
     bool hasDoubleDes() const;
     bool hasDoubleProduction() const;
     bool hasRejouerDouble() const;
     bool hasRelancerDes() const;
+    bool hasPort() const;
+    bool hasAeroport()const;
     void activerCartesBleues();
     void activerCartesVertes();
     void activerCartesRouges();
     void activerCartesViolettes();
     void gagnerPieces();
+    void setRejoueTour(bool b){rejoueTour = b;};
 };

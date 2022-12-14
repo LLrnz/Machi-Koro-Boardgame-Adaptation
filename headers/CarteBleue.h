@@ -10,5 +10,5 @@ class CarteBleue : public Batiment
 {
 public:
     void activer();
-    CarteBleue(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons);
+    CarteBleue(int id, string nom, TypeBatiment type, int prix, int gain, vector<int> combinaisons);
 };

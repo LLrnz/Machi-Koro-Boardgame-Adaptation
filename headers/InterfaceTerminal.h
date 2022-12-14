@@ -1,11 +1,12 @@
 #pragma once
 
 #include <iostream>
-#include "Controlleur.h"
+#include "Controleur.h"
 
-class Jeu
+class InterfaceTerminal
 {
- public:
-    void afficher(ostream& f) const;
-    ostream& lire() const;
-}
+public:
+    void afficher(string message) const;
+    void afficher(int i) const;
+    string& lire() const;
+};

@@ -1,8 +1,11 @@
 .code/
+.vscode/
 .xySAaz
 .NVhmam
 .user
 *.user
+*.pro.user*
+.vscode/settings.json
 .vs/
 debug/
 release/

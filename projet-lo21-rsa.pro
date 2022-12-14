@@ -28,15 +28,19 @@ DISTFILES += \
     cartes.json
 
 HEADERS += \
-    headers/Batiment.h \
-    headers/Carte.h \
-    headers/CarteBleue.h \
-    headers/Jeu.h \
-    headers/Joueur.h \
-    headers/enums.h \
-    headers/CarteVerte.h \
-    headers/CarteRouge.h \
-    headers/CarteViolette.h
+    headers\Batiment.h \
+    headers\Carte.h \
+    headers\CarteBleue.h \
+    headers\CarteRouge.h \
+    headers\CarteVerte.h \
+    headers\CarteViolette.h \
+    headers\Controleur.h \
+    headers\enums.h \
+    headers\InterfaceTerminal.h \
+    headers\Jeu.h \
+    headers\Joueur.h \
+    headers\Marche.h \
+    headers\Monument.h \
 
 
 RESOURCES += \
