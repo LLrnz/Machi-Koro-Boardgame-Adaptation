@@ -8,12 +8,11 @@ class Carte
 {
     int id;
     string nom;
-    TypeBatiment type;
     int prix;
 
   public:
     // Carte();
-    Carte(int i, string n, TypeBatiment t, int p);
+    Carte(int i, string n, int p);
     ~Carte();
     std::ostream& toString() const;
     //accessors
