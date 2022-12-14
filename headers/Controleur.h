@@ -1,16 +1,15 @@
 #pragma once
-
 #include <iostream>
 #include <vector>
-#include "Jeu.h"
-#include "InterfaceTerminal.h"
+#include "../headers/InterfaceTerminal.h"
+#include "../headers/enums.h"
 using namespace std;
 
 
 class Controleur
 {
     // Singleton
-    static Controleur* controleur;
+    static Controleur* controleur_;
     Controleur();
     ~Controleur();
     Controleur(const Controleur&)=delete;
@@ -25,14 +24,14 @@ class Controleur
 
     
 public:
-    static Controleur& getControleur();
+    static Controleur* getControleur();
     static void libererControleur();
 
     void nouvellePartie();
     void demarrer();
     void afficher(string s);
     void afficher(int i);
-    string& lire();
+    string lire();
 
     // Fonctions de service
 

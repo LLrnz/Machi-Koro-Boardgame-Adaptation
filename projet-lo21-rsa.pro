@@ -15,7 +15,10 @@ SOURCES += \
         src/Jeu.cpp \
         src/CarteRouge.cpp \
         src/CarteVerte.cpp \
-        src/CarteViolette.cpp
+        src/CarteViolette.cpp \
+        src/Controleur.cpp \
+        src/Joueur.cpp \
+        src\InterfaceTerminal.cpp \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

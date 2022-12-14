@@ -20,7 +20,7 @@ class Jeu
     //Attribus
     std::vector<Joueur> joueurs;
     int joueurActif;
-    Marche marche;
+    //Marche marche;
     bool partieTerminee = false;
 
     //Méthode pour l'initialisation du jeu
@@ -33,7 +33,6 @@ class Jeu
     void activerCartesRouges(int nbDes) const;
     void activerCartesViolettes(int nbDes) const;
     void achat();
-    void tourDeJeu();
     int jetDes();
 public:
     static Jeu& getJeu();
