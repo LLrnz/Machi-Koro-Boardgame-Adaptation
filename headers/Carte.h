@@ -15,8 +15,10 @@ class Carte
     // Carte();
     Carte(int i, string n, TypeBatiment t, int p);
     ~Carte();
-    string getNom() const {return nom;}
-    int getId() const {return id;}
-    
-    ostream& toString() const;
+    std::ostream& toString() const;
+    //accessors
+    int getId() const;
+    std::string getNom() const;
+    TypeBatiment getType() const;
+    int getPrix() const;
 };

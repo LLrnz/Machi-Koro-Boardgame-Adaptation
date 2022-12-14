@@ -2,26 +2,25 @@
 
 #include <iostream>
 #include <vector>
-#include "Carte.h"
-#include "Controleur.h"
-#include "marche.h"
-
-class Joueur;
-// class Carte;
+#include "../headers/Carte.h"
+#include "../headers/Joueur.h"
 
 class Jeu
 {
     //Singleton
     static Jeu* jeu;
+
     Jeu();
     ~Jeu();
-    Jeu(const Jeu&)=delete;
-    Jeu& operator=(const Jeu&)=delete;
+    std::vector<Carte*> cartesEnJeu;
+
+    Jeu(const Jeu&) = delete;
+    Jeu& operator=(const Jeu&) = delete;
+
     //Attribus
     std::vector<Joueur> joueurs;
     int joueurActif;
-    std::vector<Carte> cartesEnJeu;
-    Marche marche;
+    //Marche marche;
     bool partieTerminee = false;
 
     //Méthode pour l'initialisation du jeu
@@ -34,11 +33,12 @@ class Jeu
     void activerCartesRouges(int nbDes) const;
     void activerCartesViolettes(int nbDes) const;
     void achat();
-    void tourDeJeu();
     int jetDes();
 public:
     static Jeu& getJeu();
     static void libererJeu();
+    void afficherCartes();
+
 
     void genererPartie();
     void boucleDeJeu();

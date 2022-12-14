@@ -6,7 +6,7 @@
 #include "enums.h"
 
 class Batiment;
-class Monument;
+//class Monument;
 
 class Joueur
 {
@@ -15,10 +15,10 @@ class Joueur
     int pieces;
     bool rejoueTour;
     std::vector<Batiment*> constructions;
-    std::vector<Monument> monuments;
+    //std::vector<Monument> monuments;
 
 public:
-    Joueur(string psdo, TypeJoueur typ);
+    Joueur(std::string psdo, TypeJoueur typ);
     bool hasDoubleDes() const;
     bool hasDoubleProduction() const;
     bool hasRejouerDouble() const;

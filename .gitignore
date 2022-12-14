@@ -6,3 +6,7 @@
 *.user
 *.pro.user*
 .vscode/settings.json
+.vs/
+debug/
+release/
+.vscode/

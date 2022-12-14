@@ -8,10 +8,10 @@
 using namespace std;
 
 
-class Carteviolette : public Batiment 
+class CarteViolette : public Batiment 
 {
-    string couleur;
     Source source;
 public:
     void activer();
+    CarteViolette(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Source source);
 };

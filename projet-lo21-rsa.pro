@@ -8,13 +8,17 @@ CONFIG -= app_bundle
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    main.cpp \
-    src\Batiment.cpp \
-    src\Carte.cpp \
-    src\cartebleue.cpp \
-    src\Controleur.cpp \
-    src\Jeu.cpp \
-    src\Marche.cpp \
+        main.cpp \
+        src/Batiment.cpp \
+        src/Carte.cpp \
+        src/CarteBleue.cpp \
+        src/Jeu.cpp \
+        src/CarteRouge.cpp \
+        src/CarteVerte.cpp \
+        src/CarteViolette.cpp \
+        src/Controleur.cpp \
+        src/Joueur.cpp \
+        src\InterfaceTerminal.cpp \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -22,7 +26,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    README.md
+    .gitignore \
+    README.md \
+    cartes.json
 
 HEADERS += \
     headers\Batiment.h \
@@ -39,3 +45,6 @@ HEADERS += \
     headers\Marche.h \
     headers\Monument.h \
 
+
+RESOURCES += \
+    ressources.qrc

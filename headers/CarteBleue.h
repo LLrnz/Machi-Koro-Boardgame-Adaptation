@@ -8,7 +8,6 @@ using namespace std;
 
 class CarteBleue : public Batiment 
 {
-    string couleur;
 public:
     void activer();
     CarteBleue(int id, string nom, TypeBatiment type, int prix, int gain, vector<int> combinaisons);
