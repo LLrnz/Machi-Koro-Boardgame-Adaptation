@@ -16,20 +16,23 @@ class Controleur
     Controleur(const Controleur&)=delete;
     Controleur& operator=(const Controleur&)=delete;
 
+    void nouvellePartie();
+    void demarrer();
+    void afficher(std::string f) const;
+    std::string lire();
+
     // Attributs
     int nbJoueurs; 
     vector<string> pseudos;
     vector<bool> extensions;
     InterfaceTerminal interface;
 
+
+
     
 public:
-    static Controleur& getControleur();
+    static Controleur* getControleur();
     static void libererJeu();
 
-    void nouvellePartie();
-    void demarrer();
-    void afficher(std::string f) const;
-    std::string lire();
 
 };
