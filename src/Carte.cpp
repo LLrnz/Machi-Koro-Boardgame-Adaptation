@@ -1,6 +1,6 @@
 #include "../headers/Carte.h"
 
-Carte::Carte(int i, std::string n, TypeBatiment t, int p) : id(i),nom(n),prix(p) {
+Carte::Carte(int i, std::string n, int p) : id(i),nom(n),prix(p) {
     
 }
 
@@ -15,10 +15,6 @@ int Carte::getId() const {
 
 std::string Carte::getNom() const {
     return nom;
-}
-
-TypeBatiment Carte::getType() const {
-    return type;
 }
 
 int Carte::getPrix() const {

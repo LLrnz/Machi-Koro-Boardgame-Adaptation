@@ -10,5 +10,5 @@ class CarteBleue : public Batiment
 {
 public:
     void activer();
-    CarteBleue(int id, string nom, TypeBatiment type, int prix, int gain, vector<int> combinaisons);
+    CarteBleue(int id, string nom, TypeBatiment type, int prix, int gain, vector<int> combinaisons, Couleur couleur);
 };

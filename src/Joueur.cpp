@@ -1,17 +1,17 @@
 #include "../headers/Joueur.h"
-#include "headers/CarteBleue.h"
-#include "headers/Monument.h"
-#include "headers/Batiment.h"
+#include "../headers/Monument.h"
+#include "../headers/Batiment.h"
+#include "../headers/enums.h"
 
 Joueur::Joueur(std::string psdo, TypeJoueur typ) : type(typ), pseudo(psdo), pieces(3), rejoueTour(false), constructions(){
-    monuments = {Monument("Gare"), Monument("Centre commercial"), Monument("Parc d'atractions"), Monument("Tour radio")};
+    monuments = {Monument("Gare",4), Monument("Centre commercial",10), Monument("Parc d'atractions",16), Monument("Tour radio",22)};
 }
 
-bool Joueur::hasDoubleDes() const {
+bool Joueur::hasGare() const {
     return monuments[0].getConstruit();
 }
 
-bool Joueur::hasRelancerDes() const {
+bool Joueur::hasTourRadio() const {
     return monuments[3].getConstruit();
     return false;
 }
@@ -27,7 +27,7 @@ bool Joueur::hasDoubleProduction() const {
     return false;
 }
 
-bool Joueur::hasRejouerDouble() const{
+bool Joueur::hasParcAttractions() const{
     return monuments[2].getConstruit();
 }
 bool Joueur::hasAeroport() const{
@@ -37,22 +37,34 @@ bool Joueur::hasAeroport() const{
 }
 void Joueur::activerCartesBleues(int nbDes) {
     for (auto it = constructions.begin(); it != constructions.end(); it++){
-        //bool bonNombreAuDe = false;
-        //for (auto it2 = *it.getCombinaisons().begin(); it2 != *it.getCombinaisons().end(); it2++) if (it2 == nbDes) { bonNombreAuDe = true;}
-        //if (*it.getType()==CarteBleue && bonNombreAuDe) *it.activer();
+        bool bonNombreAuDe = false;
+        for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++) if (*it2 == nbDes) { bonNombreAuDe = true;}
+        if ((*it)->getCouleur()==Couleur::bleu && bonNombreAuDe) (*it)->activer();
     }
 }
 
 void Joueur::activerCartesVertes(int nbDes) {
-    //to do
+    for (auto it = constructions.begin(); it != constructions.end(); it++){
+        bool bonNombreAuDe = false;
+        for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++) if (*it2 == nbDes) { bonNombreAuDe = true;}
+        if ((*it)->getCouleur()==Couleur::vert && bonNombreAuDe) (*it)->activer();
+    }
 }
 
 void Joueur::activerCartesRouges(int nbDes) {
-    //to do
+    for (auto it = constructions.begin(); it != constructions.end(); it++){
+        bool bonNombreAuDe = false;
+        for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++) if (*it2 == nbDes) { bonNombreAuDe = true;}
+        if ((*it)->getCouleur()==Couleur::rouge && bonNombreAuDe) (*it)->activer();
+    }
 }
 
 void Joueur::activerCartesViolettes(int nbDes){
-    //to do
+    for (auto it = constructions.begin(); it != constructions.end(); it++){
+        bool bonNombreAuDe = false;
+        for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++) if (*it2 == nbDes) { bonNombreAuDe = true;}
+        if ((*it)->getCouleur()==Couleur::violet && bonNombreAuDe) (*it)->activer();
+    }
 }
 
 void Joueur::gagnerPieces() {

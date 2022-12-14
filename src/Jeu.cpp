@@ -45,7 +45,7 @@ void Jeu::initialiserCartes() {
 
 
         for (int i = 0; i < quantite; i++) {
-            cartesEnJeu.push_back(new CarteBleue(id, nom, type, prix, gain, combinaisons));
+            cartesEnJeu.push_back(new CarteBleue(id, nom, type, prix, gain, combinaisons,Couleur::bleu));
             id += 1;
         }
 
@@ -73,7 +73,7 @@ void Jeu::initialiserCartes() {
         TypeBatiment type = determineType(otype);
 
         for (int i = 0; i < quantite; i++) {
-            cartesEnJeu.push_back(new CarteVerte(id, nom, type, prix, gain, combinaisons));
+            cartesEnJeu.push_back(new CarteVerte(id, nom, type, prix, gain, combinaisons,Couleur::vert));
             id += 1;
         }
     }
@@ -100,7 +100,7 @@ void Jeu::initialiserCartes() {
         TypeBatiment type = determineType(otype);
 
         for (int i = 0; i < quantite; i++) {
-            cartesEnJeu.push_back(new CarteRouge(id, nom, type, prix, gain, combinaisons));
+            cartesEnJeu.push_back(new CarteRouge(id, nom, type, prix, gain, combinaisons,Couleur::rouge));
             id += 1;
         }
     }
@@ -131,7 +131,7 @@ void Jeu::initialiserCartes() {
         Source typeSource = determineSource(source);
 
         for (int i = 0; i < quantite; i++) {
-            cartesEnJeu.push_back(new CarteViolette(id, nom, type, prix, gain, combinaisons, typeSource));
+            cartesEnJeu.push_back(new CarteViolette(id, nom, type, prix, gain, combinaisons, Couleur::violet, typeSource));
             id += 1;
         }
     }
@@ -210,7 +210,7 @@ void Jeu::tourDeJeu() {
 
 int Jeu::jetDes(){
 	int resultatJet;
-	if (Jeu::getJeu().getJoueurs()[joueurActif].hasDoubleDes() == true){
+    if (Jeu::getJeu().getJoueurs()[joueurActif].hasGare() == true){
         Controleur::getControleur()->afficher("1 : Lancer un de \n");
         Controleur::getControleur()->afficher("2 : Lancer deux des \n");
 		string reponse;
@@ -250,7 +250,7 @@ int Jeu::jetDes(){
 
 int Jeu::lancerDes(){
 	int resultatJet = jetDes();
-	if (Jeu::getJeu().getJoueurs()[joueurActif].hasRelancerDes()){
+    if (Jeu::getJeu().getJoueurs()[joueurActif].hasTourRadio()){
         Controleur::getControleur()->afficher("1 : Ne pas relancer les des \n");
         Controleur::getControleur()->afficher("2 : Relancer les des \n");
 		string reponse;

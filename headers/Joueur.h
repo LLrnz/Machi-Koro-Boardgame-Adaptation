@@ -20,10 +20,10 @@ class Joueur
 
 public:
     Joueur(std::string psdo, TypeJoueur typ);
-    bool hasDoubleDes() const;
+    bool hasGare() const;
     bool hasDoubleProduction() const;
-    bool hasRejouerDouble() const;
-    bool hasRelancerDes() const;
+    bool hasParcAttractions() const;
+    bool hasTourRadio() const;
     bool hasPort() const;
     bool hasAeroport()const;
     void extracted(int &nbDes, std::vector<Batiment *>::iterator &it,
