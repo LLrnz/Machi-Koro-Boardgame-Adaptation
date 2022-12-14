@@ -1,10 +1,7 @@
 #pragma once
-
 #include <iostream>
 #include <string>
-
 #include "enums.h"
-
 using namespace std;
 
 class Carte
@@ -15,7 +12,7 @@ class Carte
     int prix;
 
   public:
-    Carte();
+    // Carte();
     Carte(int i, string n, TypeBatiment t, int p);
     ~Carte();
     string getNom() const {return nom;}

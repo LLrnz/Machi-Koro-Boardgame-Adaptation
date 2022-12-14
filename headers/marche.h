@@ -8,19 +8,19 @@ class Marche
 {
 private:
     // Attributs
-    vector<Carte&> enJeu;
-    vector<Carte&> pioche;
+    vector<Carte*> enJeu;
+    vector<Carte*> pioche;
     int tailleMarche;
 
     // Méthodes
-    Carte& piocherUneCarte();
-    int getTailleMarche() const;
-    void retirerCarteAchetee(Carte& c);
+    Carte* piocherUneCarte();  // debug ok
+    int getTailleMarche() const;  // debug ok
+    void retirerCarteAchetee(Carte* c);  // debug ok
     
-public:
-    void distribuer();
-    vector<Carte> getCarteDispAchat() const;
-    Carte& acheter(int achat);
-
-};
-
+public: 
+    Marche(vector<Carte*> cartes);  // debug ok
+    ~Marche()=default;
+    void distribuer();  // debug ok
+    vector<Carte*> getCarteDispAchat() const;  // debug ok
+    Carte* acheter(int achat);  // debug ok
+}; 
