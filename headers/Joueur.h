@@ -4,9 +4,10 @@
 #include <vector>
 
 #include "enums.h"
+#include "headers/Monument.h"
 
 class Batiment;
-//class Monument;
+class Monument;
 
 class Joueur
 {
@@ -15,7 +16,7 @@ class Joueur
     int pieces;
     bool rejoueTour;
     std::vector<Batiment*> constructions;
-    //std::vector<Monument> monuments;
+    std::vector<Monument> monuments;
 
 public:
     Joueur(std::string psdo, TypeJoueur typ);
@@ -25,10 +26,12 @@ public:
     bool hasRelancerDes() const;
     bool hasPort() const;
     bool hasAeroport()const;
-    void activerCartesBleues();
-    void activerCartesVertes();
-    void activerCartesRouges();
-    void activerCartesViolettes();
+    void extracted(int &nbDes, std::vector<Batiment *>::iterator &it,
+                   bool &bonNombreAuDe);
+    void activerCartesBleues(int nbDes);
+    void activerCartesVertes(int nbDes);
+    void activerCartesRouges(int nbDes);
+    void activerCartesViolettes(int nbDes);
     void gagnerPieces();
     void setRejoueTour(bool b){rejoueTour = b;};
 };

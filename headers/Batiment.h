@@ -8,9 +8,11 @@
 class Batiment : public Carte
 {
     std::vector<int> combinaisons;
+    TypeBatiment type;
     int gain;
 public:
     Batiment(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons);
+    std::vector<int> getCombinaisons() const {return combinaisons;}
     void activer();
 };
 

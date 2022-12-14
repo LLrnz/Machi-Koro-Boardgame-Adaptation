@@ -32,6 +32,7 @@ DISTFILES += \
     cartes.json
 
 HEADERS += \
+    headers/Monument.h \
     headers\Batiment.h \
     headers\Carte.h \
     headers\CarteBleue.h \
