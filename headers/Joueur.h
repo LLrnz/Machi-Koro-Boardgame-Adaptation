@@ -6,7 +6,7 @@
 #include "enums.h"
 
 class Batiment;
-class Monument;
+//class Monument;
 
 class Joueur
 {
@@ -14,7 +14,7 @@ class Joueur
     std::string pseudo;
     int pieces;
     std::vector<Batiment*> constructions;
-    std::vector<Monument> monuments;
+    //std::vector<Monument> monuments;
 
 public:
     bool hasDoubleDes() const;

@@ -11,7 +11,11 @@ SOURCES += \
         main.cpp \
         src/Batiment.cpp \
         src/Carte.cpp \
-        src/CarteBleue.cpp
+        src/CarteBleue.cpp \
+        src/Jeu.cpp \
+        src/CarteRouge.cpp \
+        src/CarteVerte.cpp \
+        src/CarteViolette.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -19,7 +23,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    README.md
+    .gitignore \
+    README.md \
+    cartes.json
 
 HEADERS += \
     headers/Batiment.h \
@@ -27,5 +33,11 @@ HEADERS += \
     headers/CarteBleue.h \
     headers/Jeu.h \
     headers/Joueur.h \
-    headers/Monument.h \
-    headers/enums.h
+    headers/enums.h \
+    headers/CarteVerte.h \
+    headers/CarteRouge.h \
+    headers/CarteViolette.h
+
+
+RESOURCES += \
+    ressources.qrc

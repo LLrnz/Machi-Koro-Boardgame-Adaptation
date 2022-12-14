@@ -2,23 +2,25 @@
 
 #include <iostream>
 #include <vector>
-#include "Carte.h"
-
-class Joueur;
-// class Carte;
+#include "../headers/Carte.h"
+#include "../headers/Joueur.h"
 
 class Jeu
 {
     //Singleton
     static Jeu* jeu;
+
     Jeu();
     ~Jeu();
-    Jeu(const Jeu&)=delete;
-    Jeu& operator=(const Jeu&)=delete;
+    std::vector<Carte*> cartesEnJeu;
+
+    Jeu(const Jeu&) = delete;
+    Jeu& operator=(const Jeu&) = delete;
+
     //Attribus
     std::vector<Joueur> joueurs;
     int joueursActif;
-    std::vector<Carte> cartesEnJeu;
+
 
     //Marche marche;                c'est quoi ça ?
 
@@ -36,6 +38,8 @@ class Jeu
 public:
     static Jeu& getJeu();
     static void libererJeu();
+    void afficherCartes();
+
 
     void genererPartie();
     void boucledeJeu();
