@@ -38,6 +38,6 @@ void CarteRouge::activer(Joueur joueurProprietaire){
         joueurActif.perdrePieces(joueurActif.getPieces());
     }              
     }
-    
+
 }
 
