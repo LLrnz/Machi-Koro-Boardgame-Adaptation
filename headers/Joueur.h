@@ -36,5 +36,7 @@ public:
     int perdrePieces(int montant);
     void setRejoueTour(bool b){rejoueTour = b;};
     std::vector<Monument> getMonuments()const{return monuments;};
+    std::vector<Batiment*> getConstructions() const {return constructions;};
     int getPieces() const {return pieces;};
+    string getPseudo() const {return pseudo;};
 };

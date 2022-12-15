@@ -17,7 +17,7 @@ public:
     std::vector<int> getCombinaisons() const {return combinaisons;}
     TypeBatiment getType() const;
     Couleur getCouleur() const;
-    virtual void activer(Joueur joueurProprietaire) = 0;
+    virtual void activer(Joueur joueurProprietaire){};
     int getGain(){return gain;};
 };
 
