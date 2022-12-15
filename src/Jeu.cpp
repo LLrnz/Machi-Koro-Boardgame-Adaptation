@@ -167,6 +167,7 @@ void Jeu::afficherCartes() {
 
 
 Jeu* Jeu::jeu = nullptr;
+
 Jeu& Jeu::getJeu() {
 	if (jeu == nullptr)
         jeu = new Jeu;

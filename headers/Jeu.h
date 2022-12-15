@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include "../headers/Batiment.h"
 #include "../headers/Joueur.h"
 #include "../headers/Marche.h"
