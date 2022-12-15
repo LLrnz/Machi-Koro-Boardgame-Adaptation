@@ -21,3 +21,16 @@ bool Joueur::hasPort() const {
 }
 
 
+int Joueur::perdrePieces(int nb){
+// Soustrait le nombre nb de pièces au joueur et retourne le nombre de pièces 
+// réellement soustraites (un joueur ne peut pas avoir un nombre négatif de pièces).
+
+    if (pieces - nb < 0){ // si le joueur doit perdre plus d'argent qu'il n'en a
+        pieces = 0;    // ben il est fauché
+        return pieces; // et on retourne ce qu'il avait (=ce qu'il a perdu)
+    }
+
+    pieces -= nb; // sinon, on diminue son solde 
+    return nb; // et on retourne ce qu'il a perdu
+};
+

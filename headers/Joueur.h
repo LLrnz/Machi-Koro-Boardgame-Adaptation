@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-#include "enums.h"
+#include "../headers/enums.h"
 
 class Batiment;
 //class Monument;
@@ -14,7 +14,7 @@ class Joueur
     std::string pseudo;
     int pieces;
     bool rejoueTour;
-    std::vector<Batiment*> constructions;
+    std::vector<Batiment*> batiments;
     //std::vector<Monument> monuments;
 
 public:
@@ -29,6 +29,11 @@ public:
     void activerCartesVertes();
     void activerCartesRouges();
     void activerCartesViolettes();
-    void gagnerPieces();
     void setRejoueTour(bool b){rejoueTour = b;};
+
+    int getPieces() const {return pieces;};
+    void gagnerPieces(int nb){pieces += nb;};
+    int perdrePieces(int nb);
+
+    void ajouterBatiment(Batiment* b){batiments.push_back(b);};
 };
