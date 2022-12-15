@@ -18,7 +18,7 @@ class Controleur
     Controleur(const Controleur&)=delete;
     Controleur& operator=(const Controleur&)=delete;
 
-    void nouvellePartie();
+
 
 
     // Attributs
@@ -35,6 +35,7 @@ public:
     static Controleur* getControleur();
     static void libererJeu();
     static void libererControleur();
+    void nouvellePartie();
 
 
     // Fonctions de service

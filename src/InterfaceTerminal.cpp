@@ -11,26 +11,28 @@ std::string InterfaceTerminal::lire() const{
 }
 
 int InterfaceTerminal::lire_int(){
-
-    int res = NULL;
-    while (res == NULL){
+    bool chiffre = false;
+    int res;
+    while (!chiffre){
         std::string str = this->lire();
 
-        try {
+       try {
             res = std::stoi(str);
-        } catch (...) {
+            chiffre = true;
+       }catch (...) {
             std::cout << "Merci d'entrer un chiffre.";
-        }
+       }
     }
     return res;
 }
 
 int InterfaceTerminal::lire_int(int x, int y){
-    int res = NULL;
-    while(res == NULL){
+    bool bornesOk = false;
+    int res;
+    while(!bornesOk){
         res = this->lire_int();
-        if(!((res >= x) && (res <= y))){
-            res = NULL;
+        if(((res >= x) && (res <= y))){
+            bornesOk = true;
         }
     }
     return res;
