@@ -5,3 +5,7 @@ CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int pri
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur), source(source) {
 
 }
+
+void CarteViolette::activer(Joueur joueurProprietaire){
+
+}

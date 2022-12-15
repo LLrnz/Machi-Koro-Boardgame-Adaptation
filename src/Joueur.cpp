@@ -55,7 +55,7 @@ void Joueur::activerCartesVertes(int nbDes){
         for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++)
             if (*it2 == nbDes) { bonNombreAuDe = true;}
         if ((*it)->getCouleur()==Couleur::vert && bonNombreAuDe)
-            dynamic_cast<CarteVerte*>(*it)->activer(*this);
+            dynamic_cast<CarteVerte*>(*it)->activer();
     }
 }
 
@@ -96,4 +96,7 @@ int Joueur::perdrePieces(int montant){
 
     pieces -= montant; // sinon, on diminue son solde 
     return montant; // et on retourne ce qu'il a perdu
+}
+
+string getPseudo() {return getPseudo();}
 };

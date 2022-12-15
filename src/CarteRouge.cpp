@@ -13,12 +13,11 @@ void CarteRouge::activer(Joueur joueurProprietaire){
         joueurProprietaire.gagnerPieces(joueurActif.perdrePieces(this->getGain()));
     } 
     if (name == "Bar a sushi"){
-        int compteur = 0;
         Joueur joueurActif = Jeu::getJeu().getJoueurActif();
         if (joueurActif.hasPort())
             joueurProprietaire.gagnerPieces(joueurActif.perdrePieces(4));
     }
-    if (name == "Restaurant  etoiles"){
+    if (name == "Restaurant 5 etoiles"){
         int compteur = 0;
         Joueur joueurActif = Jeu::getJeu().getJoueurActif();
         for (int i = 0; i<size(joueurActif.getMonuments());i++)

@@ -34,7 +34,8 @@ public:
     void activerCartesViolettes(int nbDes);
     void gagnerPieces(int montant);
     int perdrePieces(int montant);
-    void setRejoueTour(bool b){rejoueTour = b;};
-    std::vector<Monument> getMonuments()const{return monuments;};
-    int getPieces() const {return pieces;};
+    void setRejoueTour(bool b){rejoueTour = b;}
+    std::vector<Monument> getMonuments()const{return monuments;}
+    const std::vector<Batiment*> getBatiments() const {return constructions;}
+    int getPieces() const {return pieces;}
 };

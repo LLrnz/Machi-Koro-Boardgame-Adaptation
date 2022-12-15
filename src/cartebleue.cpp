@@ -5,3 +5,7 @@ CarteBleue::CarteBleue(int id, std::string nom, TypeBatiment type, int prix, int
     :Batiment(id, nom, type, prix, gain, combinaisons, couleur) {
 
 }
+
+void CarteBleue::activer(Joueur joueurProprietaire){
+
+}

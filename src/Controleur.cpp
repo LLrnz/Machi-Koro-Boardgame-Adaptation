@@ -18,7 +18,6 @@ void Controleur::libererControleur() {
 }
 
 
-
 void Controleur::afficher(string s) {
 	interface.afficher(s);
 }
