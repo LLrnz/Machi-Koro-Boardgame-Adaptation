@@ -4,6 +4,7 @@
 #include <vector>
 #include "../headers/Carte.h"
 #include "../headers/Joueur.h"
+#include "../headers/Marche.h"
 
 class Jeu
 {
@@ -20,7 +21,7 @@ class Jeu
     //Attribus
     std::vector<Joueur> joueurs;
     int joueurActif;
-    //Marche marche;
+    Marche marche;
     bool partieTerminee = false;
 
     //Méthode pour l'initialisation du jeu
@@ -46,7 +47,8 @@ public:
     void joueurSuivant();
     void setJoueurActif(int i) { joueurActif = i; };
     bool getPartieTerminee() const { return partieTerminee; };
-    int getJoueurActif() const { return joueurActif; };
+    Joueur getJoueurActif() const { return joueurs[joueurActif]; };
+    int getIndiceJoueurActif() const { return joueurActif; };
     vector<Joueur> getJoueurs() const { return joueurs; };
 
 };

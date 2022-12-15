@@ -5,10 +5,15 @@
 #include "headers/CarteViolette.h"
 #include "headers/Controleur.h"
 #include "headers/Joueur.h"
+#include "headers/Marche.h"
 #include "services.cpp"
 #include <QtCore>
 #include <iostream>
-#include <cstdlib> 
+#include <cstdlib>
+#include <sstream>
+
+
+using namespace std;
 
 void Jeu::initialiserCartes() {
     QByteArray val;
@@ -139,6 +144,7 @@ void Jeu::initialiserCartes() {
 
 Jeu::Jeu() {
     initialiserCartes();
+    Marche marche(cartesEnJeu); // TODO : initialisation du Marché à revoir 
 }
 
 Jeu::~Jeu() {
@@ -175,7 +181,7 @@ void Jeu::initialiserJoueurs() {
 }
 
 void Jeu::joueurSuivant() {
-    if (Jeu::getJeu().getJoueurActif() == static_cast<int>(size(joueurs)) - 1)
+    if (Jeu::getJeu().getIndiceJoueurActif() == static_cast<int>(size(joueurs)) - 1)
 		Jeu::getJeu().setJoueurActif(1);
 	else
 		joueurActif += 1;
@@ -194,7 +200,7 @@ void Jeu::boucleDeJeu() {
 	}
 	
     Controleur::getControleur()->afficher("Le joueur ");
-    Controleur::getControleur()->afficher(Jeu::getJeu().getJoueurActif());
+    Controleur::getControleur()->afficher(Jeu::getJeu().getIndiceJoueurActif());
     Controleur::getControleur()->afficher("a gagne la partie ! \n");
 	//std::ostream& f = std::cout;
 	//f << "Le joueur " << Jeu::getJeu().getJoueurActif() << "a gagne la partie ! \n";
@@ -203,7 +209,7 @@ void Jeu::boucleDeJeu() {
 }
 
 void Jeu::tourDeJeu() {
-    std::cout << "C'est a " << Controleur::getControleur()->getPseudo(Jeu::getJeu().getJoueurActif()) << "de jouer ! \n";
+    std::cout << "C'est a " << Controleur::getControleur()->getPseudo(Jeu::getJeu().getIndiceJoueurActif()) << "de jouer ! \n";
 	Jeu::getJeu().lancerDes();
 
 }
@@ -217,7 +223,7 @@ int Jeu::jetDes(){
         reponse = Controleur::getControleur()->lire();
 		if (std::stoi(reponse) == 2){
 			int de1 = rand() % 6;
-			int de2 = rand() % 6;
+			int de2 = rand() % 6;   
 			resultatJet = de1 + de2;
 			if (de1 == de2){
                 Controleur::getControleur()->afficher("Le resultat est un double, vous rejouez un tour apres celui ci ! \n");
@@ -260,3 +266,58 @@ int Jeu::lancerDes(){
 	}
 	return resultatJet;
 }
+
+
+void Jeu::achat(){
+// 6e étape de la boucle de jeu. Propose au joueur la liste des cartes achetables 
+// du Marché, puis appelle la méthode acheter() du Marché.
+
+    // on récupère l'instance actuelle du marché et le joueur actif :
+    Joueur joueur = getJoueurActif();
+    Marche marche = this->marche;
+
+    // affiche la liste des cartes achetables :
+    vector<Batiment*> cartesAchetables = marche.getCarteDispAchat();
+
+    Controleur::getControleur()->afficher("\nListe des cartes achetables sur le marché :");
+    int i = 0;
+    for (Carte* c : cartesAchetables){
+        stringstream s;
+        s << "  " << i << " : " << c->getNom() << " (" << c->getPrix() << ")\n";
+        Controleur::getControleur()->afficher(s.str());
+        i++;
+    }
+    // on récupère le solde actuel du joueur :
+    int soldeJoueur = joueur.getPieces();
+
+    // on demande au joueur quelle carte il souhaite acheter :
+    // TODO : proposer également les monuments !!
+    Controleur::getControleur()->afficher("Saisir le numéro de la carte que vous souhaitez acheter, et 'R' si vous n'achetez rien : ");
+    bool choixValide = false;
+    string rep;
+    while(!choixValide){
+        rep = Controleur::getControleur()->lire();
+        if (rep=="R"){
+            break;
+        }
+        int num = stoi(rep);
+        if (cartesAchetables[i]->getPrix() > soldeJoueur){
+            Controleur::getControleur()->afficher("\nVous ne possédez pas assez d'argent pour acheter cette carte. Veuillez en choisir une autre, ou saisir 'R' pour terminer votre tour.\n");
+        }
+        else{
+            // si le joueur a assez d'argent pour acheter la carte
+            choixValide = true;
+            // on enlève la carte du marché
+            Carte* c = marche.acheter(i);
+            // on la donne au joueur
+            joueur.ajouterBatiment(c);
+            // et on actualise son solde
+            joueur.perdrePieces(cartesAchetables[i]->getPrix());
+
+            Controleur::getControleur()->afficher("Achat effectué avec succès.\n");
+        }
+    }
+    
+    Controleur::getControleur()->afficher("Fin du tour");
+    return;
+};
