@@ -1,11 +1,11 @@
-#include "headers/Jeu.h"
-#include "headers/CarteBleue.h"
-#include "headers/CarteRouge.h"
-#include "headers/CarteVerte.h"
-#include "headers/CarteViolette.h"
-#include "headers/Controleur.h"
-#include "headers/Joueur.h"
-#include "headers/Marche.h"
+#include "../headers/Jeu.h"
+#include "../headers/CarteBleue.h"
+#include "../headers/CarteRouge.h"
+#include "../headers/CarteVerte.h"
+#include "../headers/CarteViolette.h"
+#include "../headers/Controleur.h"
+#include "../headers/Joueur.h"
+#include "../headers/Marche.h"
 #include "services.cpp"
 #include <QtCore>
 #include <iostream>
@@ -30,6 +30,10 @@ void Jeu::initialiserCartes() {
 
 
     int id = 0;
+
+    // Parcours de la liste des cartes bleues
+    // On récupère les informations de chaque carte
+    // On les stocke dans un vecteur de cartes
     QJsonObject lstCarteBleue = item.value(QString("bleu")).toObject();
     for(const QString& key: lstCarteBleue.keys()) {
         QJsonObject value = lstCarteBleue.value(key).toObject();
@@ -141,20 +145,21 @@ void Jeu::initialiserCartes() {
         }
     }
 }
-
-Jeu::Jeu() {
+    
+Jeu::Jeu():marche(nullptr) {
     initialiserCartes();
-    Marche marche(cartesEnJeu); // TODO : initialisation du Marché à revoir 
+    marche = new Marche(cartesEnJeu);
 }
 
 Jeu::~Jeu() {
-    for (Carte* c : cartesEnJeu) {
+    delete marche;
+    for (Batiment* c : cartesEnJeu) {
         delete c;
     }
 }
 
 void Jeu::afficherCartes() {
-    for (Carte* c : cartesEnJeu) {
+    for (Batiment* c : cartesEnJeu) {
         std::cout << c->getNom() << std::endl;
     }
 }
@@ -274,14 +279,14 @@ void Jeu::achat(){
 
     // on récupère l'instance actuelle du marché et le joueur actif :
     Joueur joueur = getJoueurActif();
-    Marche marche = this->marche;
+    Marche m = *marche;
 
     // affiche la liste des cartes achetables :
-    vector<Batiment*> cartesAchetables = marche.getCarteDispAchat();
+    vector<Batiment*> batimentsAchetables = m.getCarteDispAchat();
 
     Controleur::getControleur()->afficher("\nListe des cartes achetables sur le marché :");
     int i = 0;
-    for (Carte* c : cartesAchetables){
+    for (Batiment* c : batimentsAchetables){
         stringstream s;
         s << "  " << i << " : " << c->getNom() << " (" << c->getPrix() << ")\n";
         Controleur::getControleur()->afficher(s.str());
@@ -301,18 +306,18 @@ void Jeu::achat(){
             break;
         }
         int num = stoi(rep);
-        if (cartesAchetables[i]->getPrix() > soldeJoueur){
+        if (batimentsAchetables[i]->getPrix() > soldeJoueur){
             Controleur::getControleur()->afficher("\nVous ne possédez pas assez d'argent pour acheter cette carte. Veuillez en choisir une autre, ou saisir 'R' pour terminer votre tour.\n");
         }
         else{
             // si le joueur a assez d'argent pour acheter la carte
             choixValide = true;
             // on enlève la carte du marché
-            Carte* c = marche.acheter(i);
+            Batiment* c = m.acheter(num);
             // on la donne au joueur
             joueur.ajouterBatiment(c);
             // et on actualise son solde
-            joueur.perdrePieces(cartesAchetables[i]->getPrix());
+            joueur.perdrePieces(batimentsAchetables[num]->getPrix());
 
             Controleur::getControleur()->afficher("Achat effectué avec succès.\n");
         }

@@ -2,34 +2,35 @@
 
 #include <iostream>
 #include <vector>
-#include "../headers/Carte.h"
+#include "../headers/Batiment.h"
 #include "../headers/Joueur.h"
 #include "../headers/Marche.h"
+using namespace std;
 
 class Jeu
 {
-    //Singleton
+    // Singleton
     static Jeu* jeu;
 
     Jeu();
     ~Jeu();
-    std::vector<Carte*> cartesEnJeu;
+    vector<Batiment*> cartesEnJeu;
 
     Jeu(const Jeu&) = delete;
     Jeu& operator=(const Jeu&) = delete;
 
-    //Attribus
-    std::vector<Joueur> joueurs;
+    // Attributs
+    vector<Joueur> joueurs;
     int joueurActif;
-    Marche marche;
+    Marche* marche;
     bool partieTerminee = false;
 
-    //Méthode pour l'initialisation du jeu
+    // Méthode pour l'initialisation du jeu
     void initialiserCartes();
     void initialiserJoueurs();
-    //Méthode pour un tour de jeu
+    // Méthode pour un tour de jeu
     int lancerDes();
-    void activerCartesBleues(int nbDes) const; //Voir si il faut un const
+    void activerCartesBleues(int nbDes) const; // TODO Voir si il faut un const
     void activerCartesVertes(int nbDes) const;
     void activerCartesRouges(int nbDes) const;
     void activerCartesViolettes(int nbDes) const;
