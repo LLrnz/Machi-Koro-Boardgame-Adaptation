@@ -317,9 +317,9 @@ void Jeu::achat(){
         int num = stoi(rep);
 
         // s'il n'achète rien
-        if (num==-1) break; 
+        if (num==-1) break; // on quitte le while en gardant achatEffectue=False
         
-        // si la carte demandée est un batiement du marché :
+        // si la carte demandée est un batiment du marché :
         if (num<10){
             if (batimentsAchetables[num]->getPrix() > soldeJoueur)
                 Controleur::getControleur()->afficher("\nVous ne possédez pas assez d'argent pour acheter cette carte. Veuillez en choisir une autre, ou saisir 'R' pour terminer votre tour.\n");
@@ -335,6 +335,7 @@ void Jeu::achat(){
                 Controleur::getControleur()->afficher("Achat effectué avec succès.\n");
             }
         }
+
         // si la carte demandée est un monument :
         else if (num>=10){
             num-=10;
