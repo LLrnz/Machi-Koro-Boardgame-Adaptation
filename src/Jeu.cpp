@@ -309,13 +309,16 @@ void Jeu::achat(){
     int soldeJoueur = joueur.getPieces();
 
     // on demande au joueur quelle carte il souhaite acheter :
-    Controleur::getControleur()->afficher("Saisir le numéro de la carte que vous souhaitez acheter, et 'R' si vous n'achetez rien : ");
+    Controleur::getControleur()->afficher("Saisir le numéro de la carte que vous souhaitez acheter, et -1 si vous n'achetez rien : ");
     bool achatEffectue = false;
     string rep;
     while(!achatEffectue){
         rep = Controleur::getControleur()->lire();
-        if (rep=="R") break; // s'il n'achète rien : achatEffectue = false
         int num = stoi(rep);
+
+        // s'il n'achète rien
+        if (num==-1) break; 
+        
         // si la carte demandée est un batiement du marché :
         if (num<10){
             if (batimentsAchetables[num]->getPrix() > soldeJoueur)
