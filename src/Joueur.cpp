@@ -26,8 +26,9 @@ int Joueur::perdrePieces(int nb){
 // réellement soustraites (un joueur ne peut pas avoir un nombre négatif de pièces).
 
     if (pieces - nb < 0){ // si le joueur doit perdre plus d'argent qu'il n'en a
+        int tmp = pieces;
         pieces = 0;    // ben il est fauché
-        return pieces; // et on retourne ce qu'il avait (=ce qu'il a perdu)
+        return tmp; // et on retourne ce qu'il avait (=ce qu'il a perdu)
     }
 
     pieces -= nb; // sinon, on diminue son solde 
