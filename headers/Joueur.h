@@ -1,9 +1,8 @@
 #pragma once
-
 #include <iostream>
 #include <vector>
-
 #include "../headers/enums.h"
+using namespace std;
 
 class Batiment;
 //class Monument;
@@ -11,14 +10,14 @@ class Batiment;
 class Joueur
 {
     TypeJoueur type;
-    std::string pseudo;
+    string pseudo;
     int pieces;
     bool rejoueTour;
-    std::vector<Batiment*> batiments;
+    vector<Batiment*> batiments;
     //std::vector<Monument> monuments;
 
 public:
-    Joueur(std::string psdo, TypeJoueur typ);
+    Joueur(string psdo, TypeJoueur typ);
     bool hasDoubleDes() const;
     bool hasDoubleProduction() const;
     bool hasRejouerDouble() const;
