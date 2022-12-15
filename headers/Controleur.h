@@ -25,6 +25,7 @@ class Controleur
     int nbJoueurs; 
     vector<string> pseudos;
     map<Extensions, bool> extensions;
+    map<std::string, TypeJoueur> joueurs;
     InterfaceTerminal interface;
     vector<TypeJoueur> typeJoueurs;
 
@@ -41,8 +42,20 @@ public:
     // Fonctions de service
 
     int getNbJoueurs() const { return nbJoueurs; };
-    string getPseudo(int i) { return pseudos[i]; };
-    TypeJoueur getTypeJoueur(int i) { return typeJoueurs[i]; };
+
+    //[DEPRECIEE] très laid il faut arrêter d'accéder aux pseudos comme ça
+    string getPseudo(int i) {
+        auto it = joueurs.begin();
+        std::advance(it, i);
+        return it->first;
+    };
+
+    //[DEPRECIEE] très laid il faut arrêter d'accéder aux types comme ça
+    TypeJoueur getTypeJoueur(int i) {
+        auto it = joueurs.begin();
+        std::advance(it, i);
+        return joueurs.at(it->first);
+    };
     void demarrer();
     void afficher(std::string f) const;
     std::string lire_str();

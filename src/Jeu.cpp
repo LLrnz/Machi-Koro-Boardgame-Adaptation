@@ -169,8 +169,8 @@ void Jeu::afficherCartes() {
 Jeu* Jeu::jeu = nullptr;
 
 Jeu& Jeu::getJeu() {
-	if (jeu == nullptr)
-        jeu = new Jeu;
+    if (Jeu::jeu == nullptr){
+        Jeu::jeu = new Jeu;}
 	return *jeu;
 }
 
@@ -182,7 +182,9 @@ void Jeu::libererJeu() {
 
 void Jeu::initialiserJoueurs() {
     for (int i = 0; i < Controleur::getControleur()->getNbJoueurs(); i++) {
-        joueurs.push_back(Joueur(Controleur::getControleur()->getPseudo(i), Controleur::getControleur()->getTypeJoueur(i)));
+        std::string pseudo = Controleur::getControleur()->getPseudo(i);
+        TypeJoueur type = Controleur::getControleur()->getTypeJoueur(i);
+        joueurs.push_back(Joueur(pseudo, type));
 	}
 }
 

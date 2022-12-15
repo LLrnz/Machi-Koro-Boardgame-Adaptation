@@ -10,12 +10,12 @@ int main() {
     Jeu::getJeu().afficherCartes();
 
     //Recap
-    Controleur::getControleur()->afficher("Récap : ");
-    Controleur::getControleur()->afficher(to_string(Controleur::getControleur()->getNbJoueurs()));
-    Controleur::getControleur()->afficher("\n");
-    Controleur::getControleur()->afficher(Controleur::getControleur()->getPseudo(0));
-    Controleur::getControleur()->afficher("\n");
-    Controleur::getControleur()->afficher(Controleur::getControleur()->getPseudo(1));
+//    Controleur::getControleur()->afficher("Récap : ");
+//    Controleur::getControleur()->afficher(to_string(Controleur::getControleur()->getNbJoueurs()));
+//    Controleur::getControleur()->afficher("\n");
+//    Controleur::getControleur()->afficher(Controleur::getControleur()->getPseudo(0));
+//    Controleur::getControleur()->afficher("\n");
+//    Controleur::getControleur()->afficher(Controleur::getControleur()->getPseudo(1));
 
     return 0;
 }
