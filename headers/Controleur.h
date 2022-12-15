@@ -23,11 +23,11 @@ class Controleur
 
     // Attributs
     int nbJoueurs; 
-    vector<string> pseudos;
+    //vector<string> pseudos;
     map<Extensions, bool> extensions;
     map<std::string, TypeJoueur> joueurs;
     InterfaceTerminal interface;
-    vector<TypeJoueur> typeJoueurs;
+    //vector<TypeJoueur> typeJoueurs;
 
 
 
