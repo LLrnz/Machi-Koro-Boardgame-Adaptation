@@ -9,17 +9,18 @@ CONFIG -= app_bundle
 
 SOURCES += \
         main.cpp \
-        src/Batiment.cpp \
-        src/Carte.cpp \
-        src/CarteBleue.cpp \
-        src/Jeu.cpp \
-        src/CarteRouge.cpp \
-        src/CarteVerte.cpp \
-        src/CarteViolette.cpp \
-        src/Controleur.cpp \
-        src/Joueur.cpp \
-        src/services.cpp \
-        src/InterfaceTerminal.cpp \
+        src\Batiment.cpp \
+        src\Carte.cpp \
+        src\cartebleue.cpp \
+        src\CarteRouge.cpp \
+        src\CarteVerte.cpp \
+        src\CarteViolette.cpp \
+        src\Controleur.cpp \
+        src\InterfaceTerminal.cpp \
+        src\Jeu.cpp \
+        src\Joueur.cpp \
+        src\Marche.cpp \
+        src\services.cpp \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
