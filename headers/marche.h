@@ -1,26 +1,28 @@
 #pragma once
-
 #include <iostream>
 #include <vector>
-
-class Carte;
+#include "Carte.h"
+#include "Batiment.h"
+using namespace std;
 
 class Marche
 {
-    //Attributs
-    std::vector<Carte> enJeu;
-    std::vector<Carte> pioche;
+private:
+    // Attributs
+    vector<Batiment*> enJeu;
+    vector<Batiment*> pioche;
     int tailleMarche;
 
-    //Méthodes
-    &Carte piocherUneCarte();
+    // Méthodes
+    Batiment* piocherUneCarte();
     int getTailleMarche() const;
-    void retirerCarteAchetee(Carte& aSup);
+    void retirerCarteAchetee(Batiment* c);
     
-public:
-    void piocher(); //rename en distribuer
-    std::vector<Carte> getCarteDispAchat() const;
-    Cartes& acheter(int achat);
-
-};
-
+public: 
+    Marche(vector<Batiment*> cartes);
+    ~Marche()=default;
+    
+    void distribuer();
+    vector<Batiment*> getCarteDispAchat() const;
+    Batiment* acheter(int achat);
+}; 

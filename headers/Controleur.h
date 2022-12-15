@@ -1,17 +1,18 @@
 #pragma once
-
 #include <iostream>
 #include <vector>
 #include <map>
 #include "Jeu.h"
 #include "InterfaceTerminal.h"
+#include "../headers/InterfaceTerminal.h"
+#include "../headers/enums.h"
 using namespace std;
 
 
 class Controleur
 {
     // Singleton
-    static Controleur* controleur;
+    static Controleur* controleur_;
     Controleur();
     ~Controleur();
     Controleur(const Controleur&)=delete;
@@ -28,6 +29,7 @@ class Controleur
     vector<string> pseudos;
     map<Extensions, bool> extensions;
     InterfaceTerminal interface;
+    vector<TypeJoueur> typeJoueurs;
 
 
 
@@ -37,4 +39,9 @@ public:
     static void libererJeu();
 
 
+    // Fonctions de service
+
+    int getNbJoueurs() const { return nbJoueurs; };
+    string getPseudo(int i) { return pseudos[i]; };
+    TypeJoueur getTypeJoueur(int i) { return typeJoueurs[i]; };
 };

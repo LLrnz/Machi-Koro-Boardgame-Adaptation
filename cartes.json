@@ -1,0 +1,252 @@
+{
+    "cartes" : {
+        "bleu" : {
+            "champsDeBle" : {
+                "quantite" : 6,
+                "nom" : "Champs de blé",
+                "prix" : 1,
+                "type" : "ble",
+                "activation" : {
+                    "nb" : [1],
+                    "gain" : 1
+                }
+            },
+
+            "ferme" : {
+                "quantite" : 6,
+                "nom" : "Ferme",
+                "prix" : 1,
+                "type" : "vache",
+                "activation" : {
+                    "tour" : "tous",
+                    "nb" : [2],
+                    "gain" : 1,
+                    "source" : "banque" 
+                }
+            },
+
+            "foret" : {
+                "quantite" : 6,
+                "nom" : "Forêt",
+                "prix" : 3,
+                "type" : "ecrou",
+                "activation" : {
+                    "tour" : "tous",
+                    "nb" : [5],
+                    "gain" : 1,
+                    "source" : "banque" 
+                }
+            },
+
+            "mine" : {
+                "quantite" : 6,
+                "nom" : "Mine",
+                "prix" : 6,
+                "type" : "ecrou",
+                "activation" : {
+                    "tour" : "tous",
+                    "nb" : [9],
+                    "gain" : 5,
+                    "source" : "banque" 
+                }
+            },
+
+            "vergerPomme" : {
+                "quantite" : 6,
+                "nom" : "Verger de Pommiers",
+                "prix" : 3,
+                "type" : "ble",
+                "activation" : {
+                    "tour" : "tous",
+                    "nb" : [10],
+                    "gain" : 3,
+                    "source" : "banque" 
+                }
+            }
+        },
+
+        "verte" : {
+            "boulangerie" : {
+                "quantite" : 6,
+                "nom" : "Boulangerie",
+                "prix" : 1,
+                "type" : "magasin",
+                "activation" : {
+                    "tour" : "soi",
+                    "nb" : [2, 3],
+                    "gain" : 1,
+                    "source" : "banque" 
+                }
+            },
+
+            "superette" : {
+                "quantite" : 6,
+                "nom" : "Supérette",
+                "prix" : 2,
+                "type" : "magasin",
+                "activation" : {
+                    "tour" : "soi",
+                    "nb" : [4],
+                    "gain" : 3,
+                    "source" : "banque" 
+                }
+            },
+
+            "usineFromage" : {
+                "quantite" : 6,
+                "nom" : "Usine de fromage",
+                "prix" : 3,
+                "type" : "usine",
+                "activation" : {
+                    "tour" : "soi",
+                    "nb" : [7],
+                    "gain" : "fonction" ,
+                    "fonction" : {
+                        "nb" : 3,
+                        "type" : "vache"
+                    },
+                    "source" : "banque" 
+                }
+            },
+
+            "magasinMeuble" : {
+                "quantite" : 6,
+                "nom" : "Magasin de meubles",
+                "prix" : 3,
+                "type" : "usine",
+                "activation" : {
+                    "tour" : "soi",
+                    "nb" : [8],
+                    "gain" : "fonction" ,
+                    "fonction" : {
+                        "nb" : 3,
+                        "type" : "ecrou"
+                    },
+                    "source" : "banque" 
+                }
+            },
+
+            "marcherFL" : {
+                "quantite" : 6,
+                "nom" : "Marché de fruits et légumes",
+                "prix" : 2,
+                "type" : "fruit",
+                "activation" : {
+                    "tour" : "soi",
+                    "nb" : [11, 12],
+                    "gain" : "fonction" ,
+                    "fonction" : {
+                        "nb" : 2,
+                        "type" : "ble"
+                    },
+                    "source" : "banque" 
+                }
+            }
+        },
+
+        "rouge" : {
+            "cafe" : {
+                "quantite" : 6,
+                "nom" : "Café",
+                "prix" : 2,
+                "type" : "restaurant",
+                "activation" : {
+                    "tour" : "tous",
+                    "nb" : [3],
+                    "gain" : 1,
+                    "source" : "joueur_actif" 
+                }
+            },
+
+            "restaurantFamiliale" : {
+                "quantite" : 6,
+                "nom" : "Restaurant Familiale",
+                "prix" : 3,
+                "type" : "restaurant",
+                "activation" : {
+                    "tour" : "tous",
+                    "nb" : [9, 10],
+                    "gain" : 2,
+                    "source" : "joueur_actif" 
+                }
+            }
+        },
+
+        "violet" : {
+            "stade" : {
+                "quantite" : 4,
+                "nom" : "Stade",
+                "prix" : 6,
+                "type" : "special",
+                "activation" : {
+                    "tour" : "soi",
+                    "nb" : [6],
+                    "gain" : 2,
+                    "source" : "tous_les_joueurs" 
+                }
+            },
+
+            "chaineTV" : {
+                "quantite" : 4,
+                "nom" : "Chaine TV",
+                "prix" : 7,
+                "type" : "special",
+                "activation" : {
+                    "tour" : "soi",
+                    "nb" : [6],
+                    "gain" : 2,
+                    "source" : "choix_joueur" 
+                }
+            },
+
+            "centreAffaires" : {
+                "quantite" : 4,
+                "nom" : "Centre des Affaires",
+                "prix" : 8,
+                "type" : "special",
+                "activation" : {
+                    "tour" : "soi",
+                    "nb" : [6],
+                    "gain" : "effet",
+                    "effet" : "echange",
+                    "source" : "choix_joueur"
+                }
+            }
+        },
+
+        "jaune" : {
+            "gare" : {
+                "nom" : "Gare",
+                "prix" : 4,
+                "type" : "special",
+                "quand_achete" : "deuxDes"
+            },
+
+            "centreCommercial" : {
+                "nom" : "Centre Commercial",
+                "prix" : 10,
+                "type" : "special",
+                "quand_achete" : "doubleProduction"
+            },
+
+            "parcAttraction" : {
+                "nom" : "Parc d'Attraction",
+                "prix" : 16,
+                "type" : "special",
+                "quand_achete" : "rejouerDouble"
+            },
+
+            "tourRadio" : {
+                "nom" : "Tour Radio",
+                "prix" : 22,
+                "type" : "special",
+                "quand_achete" : "relancerDes"
+            }
+        }
+    }, 
+
+    "enumType" : ["ble", "vache", "ecrou", "fruit", "magasin", "usine", "restaurant", "special"],
+    "enumSource" : ["banque", "joueur_actif", "tous_les_joueurs", "choix_joueur"]
+
+    
+}

@@ -1,17 +1,22 @@
 #include "../headers/Controleur.h"
 
-Controleur::Controleur(){
-    //déclaration vector pseudo - taille non définie
-    //déclaration map extensions - taille définie, tout à 0
+Controleur::Controleur() {}
+Controleur::~Controleur() {}
 
-}
-
-Controleur* Controleur::getControleur(){
-    if(!Controleur::controleur){
-        Controleur::controleur = new Controleur();
+Controleur* Controleur::controleur_ = nullptr;
+Controleur* Controleur::getControleur() {
+    if (controleur_ == nullptr){
+        Controleur* controleur_ = new Controleur();
+        return controleur_;
     }
-    return Controleur::controleur;
+    return controleur_;
 }
+
+void Controleur::libererControleur() {
+    delete controleur_;
+    controleur_ = nullptr;
+}
+
 
 void Controleur::afficher(std::string f) const{
     this->interface.afficher(f);
@@ -48,6 +53,3 @@ void Controleur::nouvellePartie(){
     }
 
     Jeu j = Jeu::getJeu();
-
-    //
-}

@@ -1,9 +1,14 @@
 #include <QtCore>
 #include <iostream>
+#include "src/Jeu.cpp"
+
 
 int main() {
 
-    std::cout << "Hello LO21" << std::endl;
+    Jeu& j = Jeu::getJeu();
+
+    j.afficherCartes();
+
 
     return 0;
 }
