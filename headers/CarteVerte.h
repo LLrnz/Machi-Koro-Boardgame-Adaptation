@@ -9,6 +9,6 @@ using namespace std;
 class CarteVerte : public Batiment 
 {
 public:
-    void activer();
+    void activer(Joueur joueurProprietaire);
     CarteVerte(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur);
 };

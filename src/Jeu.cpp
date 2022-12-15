@@ -175,7 +175,7 @@ void Jeu::initialiserJoueurs() {
 }
 
 void Jeu::joueurSuivant() {
-    if (Jeu::getJeu().getJoueurActif() == static_cast<int>(size(joueurs)) - 1)
+    if (joueurActif == static_cast<int>(size(joueurs)) - 1)
 		Jeu::getJeu().setJoueurActif(1);
 	else
 		joueurActif += 1;
@@ -194,7 +194,7 @@ void Jeu::boucleDeJeu() {
 	}
 	
     Controleur::getControleur()->afficher("Le joueur ");
-    Controleur::getControleur()->afficher(Jeu::getJeu().getJoueurActif());
+    Controleur::getControleur()->afficher(joueurActif);
     Controleur::getControleur()->afficher("a gagne la partie ! \n");
 	//std::ostream& f = std::cout;
 	//f << "Le joueur " << Jeu::getJeu().getJoueurActif() << "a gagne la partie ! \n";
@@ -203,10 +203,14 @@ void Jeu::boucleDeJeu() {
 }
 
 void Jeu::tourDeJeu() {
-    std::cout << "C'est a " << Controleur::getControleur()->getPseudo(Jeu::getJeu().getJoueurActif()) << "de jouer ! \n";
-	Jeu::getJeu().lancerDes();
-
+    std::cout << "C'est a " << Controleur::getControleur()->getPseudo(joueurActif) << "de jouer ! \n";
+	int resultatJet = jeu->lancerDes();
+	jeu->activerCartesRouges(resultatJet);
+	jeu->activerCartesBleues(resultatJet);
+	jeu->activerCartesVertes(resultatJet);
+	jeu->activerCartesViolettes(resultatJet);
 }
+
 
 int Jeu::jetDes(){
 	int resultatJet;
@@ -260,3 +264,19 @@ int Jeu::lancerDes(){
 	}
 	return resultatJet;
 }
+
+void Jeu::activerCartesRouges(int nbDes){
+    for (size_t i = joueurActif-1;i>joueurActif-sizeof(jeu->getJoueurs());i--)
+		joueurs[i].activerCartesRouges(nbDes);
+}
+void Jeu::activerCartesBleues(int nbDes){
+    for (size_t i = 0;i<sizeof(jeu->getJoueurs());i++)
+		joueurs[i].activerCartesBleues(nbDes);
+}
+void Jeu::activerCartesVertes(int nbDes){
+    joueurs[joueurActif].activerCartesVertes(nbDes);
+}
+void Jeu::activerCartesViolettes(int nbDes){
+    joueurs[joueurActif].activerCartesViolettes(nbDes);
+}
+

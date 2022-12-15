@@ -12,6 +12,6 @@ class CarteViolette : public Batiment
 {
     Source source;
 public:
-    void activer();
+    void activer(Joueur joueurProprietaire);
     CarteViolette(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, Source source);
 };

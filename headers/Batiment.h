@@ -3,6 +3,7 @@
 #include "Carte.h"
 #include <vector>
 #include "enums.h"
+#include "Joueur.h"
 
 
 class Batiment : public Carte
@@ -16,7 +17,8 @@ public:
     std::vector<int> getCombinaisons() const {return combinaisons;}
     TypeBatiment getType() const;
     Couleur getCouleur() const;
-    void activer(){}
+    virtual void activer(Joueur joueurProprietaire) = 0;
+    int getGain(){return gain;};
 };
 
 

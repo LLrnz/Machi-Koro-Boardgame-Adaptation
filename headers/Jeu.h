@@ -28,10 +28,10 @@ class Jeu
     void initialiserJoueurs();
     //Méthode pour un tour de jeu
     int lancerDes();
-    void activerCartesBleues(int nbDes) const; //Voir si il faut un const
-    void activerCartesVertes(int nbDes) const;
-    void activerCartesRouges(int nbDes) const;
-    void activerCartesViolettes(int nbDes) const;
+    void activerCartesBleues(int nbDes); //Voir si il faut un const
+    void activerCartesVertes(int nbDes);
+    void activerCartesRouges(int nbDes);
+    void activerCartesViolettes(int nbDes);
     void achat();
     int jetDes();
 public:
@@ -46,7 +46,8 @@ public:
     void joueurSuivant();
     void setJoueurActif(int i) { joueurActif = i; };
     bool getPartieTerminee() const { return partieTerminee; };
-    int getJoueurActif() const { return joueurActif; };
+    int getIndiceJoueurActif() const { return joueurActif; };
+    Joueur getJoueurActif() const { return joueurs[joueurActif]; };
     vector<Joueur> getJoueurs() const { return joueurs; };
 
 };
