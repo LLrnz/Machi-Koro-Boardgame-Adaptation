@@ -5,7 +5,9 @@
 #include <map>
 #include "../headers/Batiment.h"
 #include "../headers/Joueur.h"
-#include "../headers/Marche.h"
+#include "../headers/marche.h"
+#include "../headers/Controleur.h"
+
 using namespace std;
 
 class Jeu
@@ -25,6 +27,7 @@ class Jeu
     int joueurActif;
     Marche* marche;
     bool partieTerminee = false;
+    Controleur* controleur; //accès rapide vers le singleton
 
     // Méthode pour l'initialisation du jeu
     void initialiserCartes();

@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include "Jeu.h"
 #include "InterfaceTerminal.h"
 #include "../headers/InterfaceTerminal.h"
 #include "../headers/enums.h"
@@ -23,11 +22,14 @@ class Controleur
 
     // Attributs
     int nbJoueurs; 
-    //vector<string> pseudos;
+
+    //vector<TypeJoueur> typeJoueurs;
+    //vector<string> pseudos; inutiles car utilisation de map joueurs
+
     map<Extensions, bool> extensions;
     map<std::string, TypeJoueur> joueurs;
     InterfaceTerminal interface;
-    //vector<TypeJoueur> typeJoueurs;
+
 
 
 
@@ -43,19 +45,24 @@ public:
 
     int getNbJoueurs() const { return nbJoueurs; };
 
-    //[DEPRECIEE] très laid il faut arrêter d'accéder aux pseudos comme ça
-    string getPseudo(int i) {
-        auto it = joueurs.begin();
-        std::advance(it, i);
-        return it->first;
-    };
+    map<std::string, TypeJoueur> getJoueurs(){
+        return joueurs;
+    }
 
-    //[DEPRECIEE] très laid il faut arrêter d'accéder aux types comme ça
-    TypeJoueur getTypeJoueur(int i) {
-        auto it = joueurs.begin();
-        std::advance(it, i);
-        return joueurs.at(it->first);
-    };
+//    //[DEPRECIEE] très laid il faut arrêter d'accéder aux pseudos comme ça
+//    string getPseudo(int i) {
+//        auto it = joueurs.begin();
+//        std::advance(it, i);
+//        return it->first;
+//    };
+
+//    //[DEPRECIEE] très laid il faut arrêter d'accéder aux types comme ça
+//    TypeJoueur getTypeJoueur(int i) {
+//        auto it = joueurs.begin();
+//        std::advance(it, i);
+//        return it->second;
+//    };
+
     void demarrer();
     void afficher(std::string f) const;
     std::string lire_str();

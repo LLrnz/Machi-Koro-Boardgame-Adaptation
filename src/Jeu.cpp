@@ -5,7 +5,7 @@
 #include "../headers/CarteViolette.h"
 #include "../headers/Controleur.h"
 #include "../headers/Joueur.h"
-#include "../headers/Marche.h"
+#include "../headers/marche.h"
 #include "services.cpp"
 #include <QtCore>
 #include <iostream>
@@ -149,6 +149,7 @@ void Jeu::initialiserCartes() {
 Jeu::Jeu():marche(nullptr) {
     initialiserCartes();
     marche = new Marche(cartesEnJeu);
+    this->controleur = Controleur::getControleur();
 }
 
 Jeu::~Jeu() {
@@ -181,9 +182,9 @@ void Jeu::libererJeu() {
 
 
 void Jeu::initialiserJoueurs() {
-    for (int i = 0; i < Controleur::getControleur()->getNbJoueurs(); i++) {
-        std::string pseudo = Controleur::getControleur()->getPseudo(i);
-        TypeJoueur type = Controleur::getControleur()->getTypeJoueur(i);
+    for (const auto &j : controleur->getJoueurs()) {
+        std::string pseudo = j.first;
+        TypeJoueur type = j.second;
         joueurs.push_back(Joueur(pseudo, type));
 	}
 }
@@ -217,7 +218,7 @@ void Jeu::boucleDeJeu() {
 }
 
 void Jeu::tourDeJeu() {
-    std::cout << "C'est a " << Controleur::getControleur()->getPseudo(Jeu::getJeu().getIndiceJoueurActif()) << "de jouer ! \n";
+    controleur->afficher("C'est à " + joueurs.at(getIndiceJoueurActif()).getPseudo() + "de jouer ! \n");
 	Jeu::getJeu().lancerDes();
 
 }

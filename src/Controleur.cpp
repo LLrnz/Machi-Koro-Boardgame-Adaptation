@@ -1,4 +1,5 @@
 #include "../headers/Controleur.h"
+#include "../headers/Jeu.h"
 
 Controleur::Controleur() {}
 Controleur::~Controleur() {}
@@ -38,6 +39,7 @@ void Controleur::nouvellePartie(){
     //nb joueurs
     this->afficher("Bonjour, combien de joueurs ?");
     this->nbJoueurs = this->lire_int(1, 4);
+
     //pseudos joueurs
     for(int i = 0; i < this->nbJoueurs; i++){
 

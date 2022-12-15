@@ -34,6 +34,9 @@ public:
     int perdrePieces(int nb);
 
     void ajouterBatiment(Batiment* b){batiments.push_back(b);};
+    std::string getPseudo() const{
+        return pseudo;
+    }
 
     
 };
