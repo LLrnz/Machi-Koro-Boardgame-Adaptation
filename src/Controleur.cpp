@@ -51,5 +51,6 @@ void Controleur::nouvellePartie(){
         this->extensions.emplace(e, val);
 
     }
+}
 
-    Jeu j = Jeu::getJeu();
+    //Jeu j = Jeu::getJeu();

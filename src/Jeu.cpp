@@ -205,7 +205,7 @@ void Jeu::boucleDeJeu() {
 	}
 	
     Controleur::getControleur()->afficher("Le joueur ");
-    Controleur::getControleur()->afficher(Jeu::getJeu().getIndiceJoueurActif());
+    Controleur::getControleur()->afficher(to_string(Jeu::getJeu().getIndiceJoueurActif()));
     Controleur::getControleur()->afficher("a gagne la partie ! \n");
 	//std::ostream& f = std::cout;
 	//f << "Le joueur " << Jeu::getJeu().getJoueurActif() << "a gagne la partie ! \n";
@@ -225,7 +225,7 @@ int Jeu::jetDes(){
         Controleur::getControleur()->afficher("1 : Lancer un de \n");
         Controleur::getControleur()->afficher("2 : Lancer deux des \n");
 		string reponse;
-        reponse = Controleur::getControleur()->lire();
+        reponse = Controleur::getControleur()->lire_str();
 		if (std::stoi(reponse) == 2){
 			int de1 = rand() % 6;
 			int de2 = rand() % 6;   
@@ -245,16 +245,16 @@ int Jeu::jetDes(){
 	if ((resultatJet >= 10) && (Jeu::getJeu().getJoueurs()[joueurActif].hasPort())){
         Controleur::getControleur()->afficher("Le resultat est superieur a 10 ! \n");
         Controleur::getControleur()->afficher("Le resultat du jet est ");
-        Controleur::getControleur()->afficher(resultatJet);
+        Controleur::getControleur()->afficher(to_string(resultatJet));
         Controleur::getControleur()->afficher("1 : Ne pas ajouter 2 au resultat \n");
         Controleur::getControleur()->afficher("2 : Ajouter 2 au resultat \n");
 		string rep;
-        rep = Controleur::getControleur()->lire();
+        rep = Controleur::getControleur()->lire_str();
 		if (std::stoi(rep) == 2)
 			resultatJet += 2;
 	}
     Controleur::getControleur()->afficher("Le resultat du jet est ");
-    Controleur::getControleur()->afficher(resultatJet);
+    Controleur::getControleur()->afficher(to_string(resultatJet));
     Controleur::getControleur()->afficher("\n");
 	return resultatJet;
 }
@@ -265,7 +265,7 @@ int Jeu::lancerDes(){
         Controleur::getControleur()->afficher("1 : Ne pas relancer les des \n");
         Controleur::getControleur()->afficher("2 : Relancer les des \n");
 		string reponse;
-        reponse = Controleur::getControleur()->lire();
+        reponse = Controleur::getControleur()->lire_str();
 		if (std::stoi(reponse) == 2)
 			resultatJet = jetDes();
 	}
@@ -313,7 +313,7 @@ void Jeu::achat(){
     bool achatEffectue = false;
     string rep;
     while(!achatEffectue){
-        rep = Controleur::getControleur()->lire();
+        rep = Controleur::getControleur()->lire_str();
         int num = stoi(rep);
 
         // s'il n'achète rien
