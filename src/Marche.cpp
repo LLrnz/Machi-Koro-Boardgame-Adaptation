@@ -9,6 +9,14 @@ Batiment* Marche::piocherUneCarte() {
     return c;
 };
 
+// méthode indiquant si une string str est présente dans un vecteur de strings v
+bool isInVector(vector<string> v, string str){
+    for(const string& s : v)
+    // remarque : on pourrait aussi comparer directement les cartes deux à deux en surchargeant l'opérateur ==
+        if(s==str)
+            return true;
+    return false;
+}
 
 vector<Batiment*> Marche::getCarteDispAchat() const {
 // Renvoie un vecteur d’exactement 9 éléments qui sont les 9 bâtiments 
@@ -16,10 +24,8 @@ vector<Batiment*> Marche::getCarteDispAchat() const {
     vector<string> nomsCartes;
     vector<Batiment*> ptCartes;
     for (Batiment* c : enJeu) {
-        string nom = c->getNom();
-        bool CarteDejaDansLaListe = (find(nomsCartes.begin(), nomsCartes.end(), nom) != nomsCartes.end());
-        if (!CarteDejaDansLaListe){
-            nomsCartes.push_back(nom);
+        if (!isInVector(nomsCartes,c->getNom())){
+            nomsCartes.push_back(c->getNom());
             ptCartes.push_back(c);
         }
     }
