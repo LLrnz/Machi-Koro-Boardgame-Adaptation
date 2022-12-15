@@ -277,12 +277,11 @@ void Jeu::achat(){
 // 6e étape de la boucle de jeu. Propose au joueur la liste des cartes achetables 
 // du Marché, puis appelle la méthode acheter() du Marché.
 
-    // on récupère l'instance actuelle du marché et le joueur actif :
+    // on récupère le joueur actif :
     Joueur joueur = getJoueurActif();
-    Marche m = *marche;
 
     // affiche la liste des cartes achetables :
-    vector<Batiment*> batimentsAchetables = m.getCarteDispAchat();
+    vector<Batiment*> batimentsAchetables = marche->getCarteDispAchat();
 
     Controleur::getControleur()->afficher("\nListe des cartes achetables sur le marché :");
     int i = 0;
@@ -313,7 +312,7 @@ void Jeu::achat(){
             // si le joueur a assez d'argent pour acheter la carte
             choixValide = true;
             // on enlève la carte du marché
-            Batiment* c = m.acheter(num);
+            Batiment* c = marche->acheter(num);
             // on la donne au joueur
             joueur.ajouterBatiment(c);
             // et on actualise son solde
