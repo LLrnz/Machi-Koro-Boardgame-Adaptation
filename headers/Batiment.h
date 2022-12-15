@@ -13,4 +13,5 @@ class Batiment : public Carte
 public:
     Batiment(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons);
     void activer();
+    TypeBatiment getType() const {return type;};
 };

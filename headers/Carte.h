@@ -18,6 +18,5 @@ class Carte
     //accessors
     int getId() const;
     std::string getNom() const;
-    TypeBatiment getType() const;
     int getPrix() const;
 };

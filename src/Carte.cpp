@@ -17,10 +17,6 @@ std::string Carte::getNom() const {
     return nom;
 }
 
-TypeBatiment Carte::getType() const {
-    return type;
-}
-
 int Carte::getPrix() const {
     return prix;
 }
