@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include "Jeu.h"
 #include "InterfaceTerminal.h"
 using namespace std;
@@ -19,12 +20,13 @@ class Controleur
     void nouvellePartie();
     void demarrer();
     void afficher(std::string f) const;
-    std::string lire();
+    std::string lire_str();
+    int lire_int(int borneInf, int borneSupp);
 
     // Attributs
     int nbJoueurs; 
     vector<string> pseudos;
-    vector<bool> extensions;
+    map<Extensions, bool> extensions;
     InterfaceTerminal interface;
 
 
