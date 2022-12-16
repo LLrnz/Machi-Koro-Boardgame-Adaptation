@@ -2,9 +2,12 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include "../headers/Batiment.h"
 #include "../headers/Joueur.h"
-#include "../headers/Marche.h"
+#include "../headers/marche.h"
+#include "../headers/Controleur.h"
+
 using namespace std;
 
 class Jeu
@@ -24,10 +27,11 @@ class Jeu
     int joueurActif;
     Marche* marche;
     bool partieTerminee = false;
+    Controleur* controleur; //accès rapide vers le singleton
 
     // Méthode pour l'initialisation du jeu
-    void initialiserCartes();
-    void initialiserJoueurs();
+    void initialiserCartes(map<Extensions, bool> extensions);
+    void initialiserJoueurs(map<std::string, TypeJoueur> listeJoueurs);
     // Méthode pour un tour de jeu
     int lancerDes();
     void activerCartesBleues(int nbDes) const; // TODO Voir si il faut un const
@@ -42,7 +46,7 @@ public:
     void afficherCartes();
 
 
-    void genererPartie();
+    void genererPartie(map<std::string, TypeJoueur> listeJoueurs, map<Extensions, bool> extensions);
     void boucleDeJeu();
     void tourDeJeu();
     void joueurSuivant();

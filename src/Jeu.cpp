@@ -5,7 +5,7 @@
 #include "../headers/CarteViolette.h"
 #include "../headers/Controleur.h"
 #include "../headers/Joueur.h"
-#include "../headers/Marche.h"
+#include "../headers/marche.h"
 #include "services.cpp"
 #include <QtCore>
 #include <iostream>
@@ -15,7 +15,7 @@
 
 using namespace std;
 
-void Jeu::initialiserCartes() {
+void Jeu::initialiserCartes(map<Extensions, bool> extensions) {
     QByteArray val;
     QFile file(":/cartes/cartes.json");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -147,8 +147,9 @@ void Jeu::initialiserCartes() {
 }
     
 Jeu::Jeu():marche(nullptr) {
-    initialiserCartes();
-    marche = new Marche(cartesEnJeu);
+    //initialiserCartes();
+
+    this->controleur = Controleur::getControleur();
 }
 
 Jeu::~Jeu() {
@@ -167,9 +168,10 @@ void Jeu::afficherCartes() {
 
 
 Jeu* Jeu::jeu = nullptr;
+
 Jeu& Jeu::getJeu() {
-	if (jeu == nullptr)
-        jeu = new Jeu;
+    if (Jeu::jeu == nullptr){
+        Jeu::jeu = new Jeu;}
 	return *jeu;
 }
 
@@ -179,9 +181,11 @@ void Jeu::libererJeu() {
 }
 
 
-void Jeu::initialiserJoueurs() {
-    for (int i = 0; i < Controleur::getControleur()->getNbJoueurs(); i++) {
-        joueurs.push_back(Joueur(Controleur::getControleur()->getPseudo(i), Controleur::getControleur()->getTypeJoueur(i)));
+void Jeu::initialiserJoueurs(map<std::string, TypeJoueur> listeJoueurs) {
+    for (const auto &j : listeJoueurs) {
+        std::string pseudo = j.first;
+        TypeJoueur type = j.second;
+        joueurs.push_back(Joueur(pseudo, type));
 	}
 }
 
@@ -193,9 +197,10 @@ void Jeu::joueurSuivant() {
 
 };
 
-void Jeu::genererPartie() {
-	Jeu::getJeu().initialiserJoueurs();
-	Jeu::getJeu().initialiserCartes();
+void Jeu::genererPartie(map<std::string, TypeJoueur> listeJoueurs, map<Extensions, bool> extensions) {
+    this->initialiserJoueurs(listeJoueurs);
+    this->initialiserCartes(extensions);
+    marche = new Marche(cartesEnJeu);
 }
 
 void Jeu::boucleDeJeu() {
@@ -205,7 +210,7 @@ void Jeu::boucleDeJeu() {
 	}
 	
     Controleur::getControleur()->afficher("Le joueur ");
-    Controleur::getControleur()->afficher(Jeu::getJeu().getIndiceJoueurActif());
+    Controleur::getControleur()->afficher(to_string(Jeu::getJeu().getIndiceJoueurActif()));
     Controleur::getControleur()->afficher("a gagne la partie ! \n");
 	//std::ostream& f = std::cout;
 	//f << "Le joueur " << Jeu::getJeu().getJoueurActif() << "a gagne la partie ! \n";
@@ -214,7 +219,7 @@ void Jeu::boucleDeJeu() {
 }
 
 void Jeu::tourDeJeu() {
-    std::cout << "C'est a " << Controleur::getControleur()->getPseudo(Jeu::getJeu().getIndiceJoueurActif()) << "de jouer ! \n";
+    controleur->afficher("C'est à " + joueurs.at(getIndiceJoueurActif()).getPseudo() + "de jouer ! \n");
 	Jeu::getJeu().lancerDes();
 
 }
@@ -225,7 +230,7 @@ int Jeu::jetDes(){
         Controleur::getControleur()->afficher("1 : Lancer un de \n");
         Controleur::getControleur()->afficher("2 : Lancer deux des \n");
 		string reponse;
-        reponse = Controleur::getControleur()->lire();
+        reponse = Controleur::getControleur()->lire_str();
 		if (std::stoi(reponse) == 2){
 			int de1 = rand() % 6;
 			int de2 = rand() % 6;   
@@ -245,16 +250,16 @@ int Jeu::jetDes(){
 	if ((resultatJet >= 10) && (Jeu::getJeu().getJoueurs()[joueurActif].hasPort())){
         Controleur::getControleur()->afficher("Le resultat est superieur a 10 ! \n");
         Controleur::getControleur()->afficher("Le resultat du jet est ");
-        Controleur::getControleur()->afficher(resultatJet);
+        Controleur::getControleur()->afficher(to_string(resultatJet));
         Controleur::getControleur()->afficher("1 : Ne pas ajouter 2 au resultat \n");
         Controleur::getControleur()->afficher("2 : Ajouter 2 au resultat \n");
 		string rep;
-        rep = Controleur::getControleur()->lire();
+        rep = Controleur::getControleur()->lire_str();
 		if (std::stoi(rep) == 2)
 			resultatJet += 2;
 	}
     Controleur::getControleur()->afficher("Le resultat du jet est ");
-    Controleur::getControleur()->afficher(resultatJet);
+    Controleur::getControleur()->afficher(to_string(resultatJet));
     Controleur::getControleur()->afficher("\n");
 	return resultatJet;
 }
@@ -265,7 +270,7 @@ int Jeu::lancerDes(){
         Controleur::getControleur()->afficher("1 : Ne pas relancer les des \n");
         Controleur::getControleur()->afficher("2 : Relancer les des \n");
 		string reponse;
-        reponse = Controleur::getControleur()->lire();
+        reponse = Controleur::getControleur()->lire_str();
 		if (std::stoi(reponse) == 2)
 			resultatJet = jetDes();
 	}
@@ -313,13 +318,13 @@ void Jeu::achat(){
     bool achatEffectue = false;
     string rep;
     while(!achatEffectue){
-        rep = Controleur::getControleur()->lire();
+        rep = Controleur::getControleur()->lire_str();
         int num = stoi(rep);
 
         // s'il n'achète rien
-        if (num==-1) break; // on quitte le while en gardant achatEffectue=False
+        if (num==-1) break; 
         
-        // si la carte demandée est un batiment du marché :
+        // si la carte demandée est un batiement du marché :
         if (num<10){
             if (batimentsAchetables[num]->getPrix() > soldeJoueur)
                 Controleur::getControleur()->afficher("\nVous ne possédez pas assez d'argent pour acheter cette carte. Veuillez en choisir une autre, ou saisir 'R' pour terminer votre tour.\n");
@@ -335,7 +340,6 @@ void Jeu::achat(){
                 Controleur::getControleur()->afficher("Achat effectué avec succès.\n");
             }
         }
-
         // si la carte demandée est un monument :
         else if (num>=10){
             num-=10;

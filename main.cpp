@@ -5,9 +5,9 @@
 
 int main() {
 
-    Jeu& j = Jeu::getJeu();
 
-    j.afficherCartes();
+    Controleur::getControleur()->nouvellePartie();
+    Jeu::getJeu().afficherCartes();
 
 
     return 0;
