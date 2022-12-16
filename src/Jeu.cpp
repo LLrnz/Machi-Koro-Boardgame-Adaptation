@@ -300,15 +300,15 @@ void Jeu::achat(){
     i = 10;  // i=10 correspond donc à monumentsAchetables[0]
     Controleur::getControleur()->afficher("\nListe des monuments non construits :");
     vector<Monument*> monumentsAchetables; 
+    stringstream s;
     for (Monument m : joueur.getMonuments()){
         if (!m.getConstruit()){
             monumentsAchetables.push_back(&m);
-            stringstream s;
             s << "  " << i << " : " << m.getNom() << " (" << m.getPrix() << ")\n";
-            Controleur::getControleur()->afficher("\nListe des monuments :");
             i++;
         }
     }
+    Controleur::getControleur()->afficher(s.str());
 
     // on récupère le solde actuel du joueur :
     int soldeJoueur = joueur.getPieces();
