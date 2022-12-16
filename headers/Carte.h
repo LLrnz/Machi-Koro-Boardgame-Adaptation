@@ -13,11 +13,11 @@ class Carte
   public:
     // Carte();
     Carte(int i, string n, int p);
-    ~Carte();
+    ~Carte() = default;
     std::ostream& toString() const;
     //accessors
-    int getId() const;
-    std::string getNom() const;
+    int getId() const{return id;};
+    std::string getNom() const {return nom;};
     TypeBatiment getType() const;
-    int getPrix() const;
+    int getPrix() const {return prix;};
 };

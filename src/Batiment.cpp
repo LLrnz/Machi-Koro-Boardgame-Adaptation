@@ -4,12 +4,3 @@ Batiment::Batiment(int id, std::string nom, TypeBatiment t, int prix, int gain, 
     : Carte(id, nom, prix), combinaisons(combinaisons), type(t), gain(gain), couleur(c) {
 
 }
-
-
-TypeBatiment Batiment::getType() const {
-    return type;
-}
-
-Couleur Batiment::getCouleur() const {
-    return couleur;
-}

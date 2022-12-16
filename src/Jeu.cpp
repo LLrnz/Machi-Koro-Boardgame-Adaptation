@@ -73,7 +73,8 @@ void Jeu::initialiserCartes() {
         TypeBatiment type = determineType(otype);
 
         for (int i = 0; i < quantite; i++) {
-            cartesEnJeu.push_back(new CarteVerte(id, nom, type, prix, gain, combinaisons,Couleur::vert));
+            cartesEnJeu.push_back(new CarteVerte(id, nom, type, prix, gain, combinaisons,Couleur::vert, TypeBatiment::ble));
+            //cartesEnJeu.push_back(new CarteVerte(id, nom, type, prix, gain, combinaisons,Couleur::vert, effectType));
             id += 1;
         }
     }
@@ -100,7 +101,8 @@ void Jeu::initialiserCartes() {
         TypeBatiment type = determineType(otype);
 
         for (int i = 0; i < quantite; i++) {
-            cartesEnJeu.push_back(new CarteRouge(id, nom, type, prix, gain, combinaisons,Couleur::rouge));
+            cartesEnJeu.push_back(new CarteRouge(id, nom, type, prix, gain, combinaisons,Couleur::rouge, 2));
+            //cartesEnJeu.push_back(new CarteRouge(id, nom, type, prix, gain, combinaisons,Couleur::rouge, nbMonuToActivate));
             id += 1;
         }
     }
@@ -127,11 +129,11 @@ void Jeu::initialiserCartes() {
         }
         TypeBatiment type = determineType(otype);
 
-        std::string source = activation.toObject().value("source").toString().toStdString();
-        Source typeSource = determineSource(source);
+        //std::string source = activation.toObject().value("source").toString().toStdString();
+        //Source typeSource = determineSource(source);
 
         for (int i = 0; i < quantite; i++) {
-            cartesEnJeu.push_back(new CarteViolette(id, nom, type, prix, gain, combinaisons, Couleur::violet, typeSource));
+            cartesEnJeu.push_back(new CarteViolette(id, nom, type, prix, gain, combinaisons, Couleur::violet));
             id += 1;
         }
     }
@@ -176,15 +178,15 @@ void Jeu::initialiserJoueurs() {
 
 void Jeu::joueurSuivant() {
     if (joueurActif == static_cast<int>(size(joueurs)) - 1)
-		Jeu::getJeu().setJoueurActif(1);
+		joueurActif = 1;
 	else
 		joueurActif += 1;
 
 };
 
 void Jeu::genererPartie() {
-	Jeu::getJeu().initialiserJoueurs();
-	Jeu::getJeu().initialiserCartes();
+	jeu->initialiserJoueurs();
+	jeu->initialiserCartes();
 }
 
 void Jeu::boucleDeJeu() {
@@ -205,7 +207,7 @@ void Jeu::tourDeJeu() {
 	jeu->activerCartesBleues(resultatJet);
 	jeu->activerCartesVertes(resultatJet);
 	jeu->activerCartesViolettes(resultatJet);
-    jeu->achat();
+    //jeu->achat();
     partieTerminee = jeu->verifierVictoire();
 }
 
@@ -217,16 +219,17 @@ bool Jeu::verifierVictoire(){
             if (joueurs[joueurActif].getMonuments()[i].getConstruit())
                 compteur += 1;
         if (compteur >= 5)
-            partieTerminee = true;
+            return true;
     }
     else
         if (joueurs[joueurActif].hasGare() && joueurs[joueurActif].hasCentreCommercial() && joueurs[joueurActif].hasParcAttractions() && joueurs[joueurActif].hasTourRadio())
-            partieTerminee = true;
+            return true;
+    return false;
 }
 
 int Jeu::jetDes(){
 	int resultatJet;
-    if (Jeu::getJeu().getJoueurs()[joueurActif].hasGare() == true){
+    if (joueurs[joueurActif].hasGare() == true){
         Controleur::getControleur()->afficher("1 : Lancer un de \n");
         Controleur::getControleur()->afficher("2 : Lancer deux des \n");
 		string reponse;
@@ -237,17 +240,17 @@ int Jeu::jetDes(){
 			resultatJet = de1 + de2;
 			if (de1 == de2){
                 Controleur::getControleur()->afficher("Le resultat est un double, vous rejouez un tour apres celui ci ! \n");
-				Jeu::getJeu().getJoueurs()[joueurActif].setRejoueTour(true);
+				joueurs[joueurActif].setRejoueTour(true);
 			}
 			else
-				Jeu::getJeu().getJoueurs()[joueurActif].setRejoueTour(false);
+				joueurs[joueurActif].setRejoueTour(false);
 		}
 		else
 			resultatJet = (rand() % 6);
 	}
 	else
 		resultatJet = (rand() % 6);
-	if ((resultatJet >= 10) && (Jeu::getJeu().getJoueurs()[joueurActif].hasPort())){
+	if ((resultatJet >= 10) && (joueurs[joueurActif].hasPort())){
         Controleur::getControleur()->afficher("Le resultat est superieur a 10 ! \n");
         Controleur::getControleur()->afficher("Le resultat du jet est ");
         Controleur::getControleur()->afficher(resultatJet);
@@ -266,7 +269,7 @@ int Jeu::jetDes(){
 
 int Jeu::lancerDes(){
 	int resultatJet = jetDes();
-    if (Jeu::getJeu().getJoueurs()[joueurActif].hasTourRadio()){
+    if (joueurs[joueurActif].hasTourRadio()){
         Controleur::getControleur()->afficher("1 : Ne pas relancer les des \n");
         Controleur::getControleur()->afficher("2 : Relancer les des \n");
 		string reponse;

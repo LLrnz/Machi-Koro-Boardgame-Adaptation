@@ -26,8 +26,7 @@ public:
     bool hasTourRadio() const;
     bool hasPort() const;
     bool hasAeroport()const;
-    void extracted(int &nbDes, std::vector<Batiment *>::iterator &it,
-                   bool &bonNombreAuDe);
+    void extracted(int &nbDes, std::vector<Batiment *>::iterator &it, bool &bonNombreAuDe);
     void activerCartesBleues(int nbDes);
     void activerCartesVertes(int nbDes);
     void activerCartesRouges(int nbDes);
@@ -39,6 +38,6 @@ public:
     std::vector<Batiment*> getConstructions() const {return constructions;};
     int getPieces() const {return pieces;};
     string getPseudo() const {return pseudo;};
-    void ajouterBatiment(Batiment* b){constructions.push_back(b);};
-    void enleverBatiment(Batiment* b){constructions.push_back(b);};
+    void ajouterBatiment(Batiment * batiment){constructions.push_back(batiment);};
+    void enleverBatimentParIndice(int i){constructions.erase(constructions.begin()+i);};
 };

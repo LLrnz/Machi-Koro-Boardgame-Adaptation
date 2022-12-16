@@ -5,6 +5,7 @@
 CarteBleue::CarteBleue(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur) {
 }
+
 void CarteBleue::activer(Joueur joueurProprietaire) {
     string name = this->getNom();
     Controleur *controleur = Controleur::getControleur();
@@ -36,6 +37,4 @@ void CarteBleue::activer(Joueur joueurProprietaire) {
     controleur->afficher(s.str());
 }
 
-void CarteBleue::activer(Joueur joueurProprietaire){
 
-}

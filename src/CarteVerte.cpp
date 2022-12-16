@@ -4,17 +4,12 @@
 #include <sstream>
 
 CarteVerte::CarteVerte(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, TypeBatiment effectType)
-    : Batiment(id, nom, type, prix, gain, combinaisons, couleur), effectType(effectType)
-{
-}
+    : Batiment(id, nom, type, prix, gain, combinaisons, couleur), effectType(effectType){}
 
-TypeBatiment CarteVerte::getEffectType()
-{
-    return effectType;
-}
 
 void CarteVerte::activer(Joueur joueurProprietaire){
     Joueur joueurActif = Jeu::getJeu().getJoueurActif();
+    vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
     string nomCarte = getNom();
     int idCarte = getId();
 
@@ -62,60 +57,59 @@ void CarteVerte::activer(Joueur joueurProprietaire){
         }
     }
     // ! Revoir cette partie
-    else if (idCarte == 9){                                                                            // si c'est Entreprise de travaux publics
-        std::vector<string> monumentsConstruits;                                              // vecteur qui contient les noms des monuments construits
-        for (auto i = joueurActif.getMonuments().begin(); i != joueurActif.getMonuments().end(); i++)       // pour chaque monument du joueur actif
-            if ((*i).getConstruit() == true)                                                         // si le monument est construit
-                monumentsConstruits.push_back((*i).getNom());                                  // on ajoute son nom au vecteur
-
-        if (!monumentsConstruits.empty())                                                          // si le vecteur n'est pas vide{
-            Controleur::getControleur()->afficher("Vous devez retourner une de vos cartes monuments sur sa face travaux : \n"); // on affiche les monuments construits
-            stringstream s;
-            for (auto i = monumentsConstruits.begin(); i != monumentsConstruits.end(); i++){        // pour chaque monument construit
-                s << "-" << *i << ")\n";
-                Controleur::getControleur()->afficher(s.str());                                     // on affiche le nom du monument
-            }
-            Controleur::getControleur()->afficher("Quel batiment voulez vous mettre en travaux : ");    // on demande à l'utilisateur de choisir un monument
-
-            // ! revoir pour utiliser les id plutôt que les noms
-            string choix = Controleur::getControleur()->lire();
-
-            for (auto i = joueurActif.getMonuments().begin(); i != joueurActif.getMonuments().end(); i++){
-                if ((*i).getNom() == choix) {
-                    (*i).detruit();
-                }
+    else if (idCarte == 9){  // si c'est Entreprise de travaux publics
+        vector<Monument*> monumentsVendables; 
+        int i = 0;
+        stringstream s;
+        Controleur::getControleur()->afficher("Liste des monuments construits : \n");
+        for (Monument monu : joueurProprietaire.getMonuments()){
+            if (monu.getConstruit()){
+                monumentsVendables.push_back(&monu);
+                s.str("");
+                s << "  " << i << " : " << monu.getNom() << ")\n";
+                Controleur::getControleur()->afficher(s.str());
+                i++;
             }
         }
-
+        if (!monumentsVendables.empty()){
+            Controleur::getControleur()->afficher("Choisisez le monument a detruire pour gagner 8 pieces \n");
+            int reponse = std::stoi(Controleur::getControleur()->lire());
+            monumentsVendables[reponse]->detruire();
+            gain = 8;
+        }
+        else {
+            Controleur::getControleur()->afficher("Vous n'avez aucun monument a vendre \n");
+            gain = 0;
+        } 
+    }
     // ! Finir ça
     else if (idCarte == 11){                                                                        // si c'est Entreprise de déménagement
         stringstream s;
-        int n = 0;
         Controleur::getControleur()->afficher("Liste des cartes possibles à déménager : \n");     // on affiche les cartes possibles à déménager
-        for (auto i = joueurActif.getConstructions().begin(); i != joueurActif.getConstructions().end(); i++)   // pour chaque batiment du joueur actif
-        {
-            if ((*i)->getType() != TypeBatiment::special)                                         // si le batiment n'est pas spécial
-            {
-                s << "-" << (*i)->getNom() << " (" << n++ << ")\n";
+        for (size_t i = 0; i<joueurProprietaire.getConstructions().size();i++){  // pour chaque batiment du joueur actif
+            if (joueurProprietaire.getConstructions()[i]->getType()!=TypeBatiment::special)
+                s << i << " : " << joueurProprietaire.getConstructions()[i]->getNom() << "\n";
+        }
+        Controleur::getControleur()->afficher("Votre choix : \n");
+        int choixIndiceBatiment = std::stoi(Controleur::getControleur()->lire());
+        Controleur::getControleur()->afficher("Choisisez un AUTRE joueur a qui gracieusement donner cette carte \n");
+        for (size_t i =0; i< joueurs.size();i++){
+            if (Jeu::getJeu().getIndiceJoueurActif()!=i){
+                s.str("");
+                s << i << " : " << joueurs[i].getPseudo() << "\n";
                 Controleur::getControleur()->afficher(s.str());
             }
         }
-        Controleur::getControleur()->afficher("Votre choix : ");
-        int choix = std::stoi(Controleur::getControleur()->lire());
-        bool demenagement = false;
-        n = 0;
-        for (auto i = joueurActif.getConstructions().begin(); demenagement && i != joueurActif.getConstructions().end(); i++)   // pour chaque batiment du joueur actif
-        {
-            if ((*i)->getType() != TypeBatiment::special){                                       // si le batiment n'est pas spécial
-                if (n++ == choix){
-                    // Echange avec le joueur à choisir
-                    Controleur::getControleur()->afficher("Chez qui voulez vous déménager : \n");
-                    for (auto j = Jeu::getJeu().getJoueurs().begin(); j != Jeu::getJeu().getJoueurs().end(); j++){
-
-                    }
-                    demenagement = true;
-                }
-            }
+        int joueurChoisi = std::stoi(Controleur::getControleur()->lire());
+        if (joueurChoisi == Jeu::getJeu().getIndiceJoueurActif()){
+            gain = 0;
+            Controleur::getControleur()->afficher("Apprend a lire les instructons");
+        }
+        else {
+            Batiment* batimentDonne = joueurProprietaire.getConstructions()[choixIndiceBatiment];
+            joueurs[joueurChoisi].ajouterBatiment(batimentDonne);
+            joueurProprietaire.enleverBatimentParIndice(choixIndiceBatiment);
+            gain = 4;
         }
     }
 

@@ -12,6 +12,6 @@ private:
 public:
     virtual void activer(Joueur joueurProprietaire);
     CarteVerte(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, TypeBatiment effectType);
-    TypeBatiment getEffectType();
+    TypeBatiment getEffectType(){return effectType;};
 };
 

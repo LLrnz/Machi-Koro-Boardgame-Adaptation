@@ -31,7 +31,7 @@ TypeBatiment determineType(std::string s) {
     return type;
 }
 
-Source determineSource(std::string s) {
+/*Source determineSource(std::string s) {
     Source source;
     if (s == "tous_les_joueurs") {
         source = Source::tous_les_joueurs;
@@ -40,4 +40,4 @@ Source determineSource(std::string s) {
         source = Source::choix_joueur;
     }
     return source;
-}
+}*/

@@ -15,10 +15,10 @@ class Batiment : public Carte
 public:
     Batiment(int id, std::string nom, TypeBatiment t, int prix, int gain, std::vector<int> combinaisons, Couleur c);
     std::vector<int> getCombinaisons() const {return combinaisons;}
-    TypeBatiment getType() const;
-    Couleur getCouleur() const;
-    virtual void activer(Joueur joueurProprietaire){};
-    int getGain(){return gain;};
+    TypeBatiment getType() const{return type;};
+    Couleur getCouleur() const {return couleur;};
+    int getGain()const{return gain;};
+    virtual void activer(){};
 };
 
 

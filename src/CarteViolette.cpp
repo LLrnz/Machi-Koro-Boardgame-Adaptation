@@ -4,8 +4,8 @@
 #include "../headers/Controleur.h"
 #include <cmath>
 
-CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, Source source)
-    : Batiment(id, nom, type, prix, gain, combinaisons, couleur), source(source) {
+CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
+    : Batiment(id, nom, type, prix, gain, combinaisons, couleur){
 
 }
 void CarteViolette::activer(Joueur joueurProprietaire){
@@ -86,10 +86,10 @@ void CarteViolette::activer(Joueur joueurProprietaire){
             int repEchange = std::stoi(controleur->lire());
             Batiment* ptTempPrendre = joueurs[reponse].getConstructions()[repPrendre];
             Batiment* ptTempEchange = joueurActif.getConstructions()[repEchange];
-            joueurActif.getConstructions().push_back(ptTempPrendre);
-            joueurs[reponse].getConstructions().push_back(ptTempEchange);
-            joueurActif.getConstructions().erase(joueurActif.getConstructions().begin()+repEchange);
-            joueurs[reponse].getConstructions().erase(joueurs[reponse].getConstructions().begin()+repPrendre);
+            joueurActif.ajouterBatiment(ptTempPrendre);
+            joueurs[reponse].ajouterBatiment(ptTempEchange);
+            joueurActif.enleverBatimentParIndice(repEchange);
+            joueurs[reponse].enleverBatimentParIndice(repPrendre);
         }
     }
     if (name == "Maison d'édition"){

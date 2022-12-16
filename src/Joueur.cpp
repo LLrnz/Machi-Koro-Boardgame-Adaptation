@@ -8,37 +8,35 @@
 #include "../headers/CarteBleue.h"
 
 Joueur::Joueur(std::string psdo, TypeJoueur typ) : type(typ), pseudo(psdo), pieces(3), rejoueTour(false), constructions(){
-    monuments = {Monument("Gare",4), Monument("Centre commercial",10), Monument("Parc d'atractions",16), Monument("Tour radio",22)};
+    monuments = {Monument("Port",2), Monument("Gare",4), Monument("Centre commercial",10), Monument("Parc d'atractions",16), Monument("Tour radio",22), Monument("Aeroport",30)};
 }
 
-bool Joueur::hasGare() const {
+bool Joueur::hasPort() const {
     return monuments[0].getConstruit();
 }
 
-bool Joueur::hasTourRadio() const {
-    return monuments[3].getConstruit();
-    return false;
-}
-
-// va falloir se décider
-bool Joueur::hasPort() const {
-    // TO DO
-    return false;
+bool Joueur::hasGare() const {
+    return monuments[1].getConstruit();
 }
 
 bool Joueur::hasCentreCommercial() const {
-    //TO DO
-    return false;
+    return monuments[2].getConstruit();
 }
 
 bool Joueur::hasParcAttractions() const{
-    return monuments[2].getConstruit();
+    return monuments[3].getConstruit();
 }
-bool Joueur::hasAeroport() const{
-    //to do
-    return false;
 
+bool Joueur::hasTourRadio() const {
+    return monuments[4].getConstruit();
+    return false;
 }
+
+bool Joueur::hasAeroport() const{
+    return monuments[5].getConstruit();
+}
+
+
 void Joueur::activerCartesBleues(int nbDes){
     for (auto it = constructions.begin(); it != constructions.end(); it++){
         bool bonNombreAuDe = false;
@@ -55,7 +53,7 @@ void Joueur::activerCartesVertes(int nbDes){
         for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++)
             if (*it2 == nbDes) { bonNombreAuDe = true;}
         if ((*it)->getCouleur()==Couleur::vert && bonNombreAuDe)
-            dynamic_cast<CarteVerte*>(*it)->activer();
+            dynamic_cast<CarteVerte*>(*it)->activer(*this);
     }
 }
 
@@ -97,6 +95,3 @@ int Joueur::perdrePieces(int montant){
     pieces -= montant; // sinon, on diminue son solde 
     return montant; // et on retourne ce qu'il a perdu
 }
-
-string getPseudo() {return getPseudo();}
-};

@@ -3,8 +3,8 @@
 #include "../headers/Controleur.h"
 #include <sstream>
 
-CarteRouge::CarteRouge(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<> combinaisons, Couleur couleur, int nbMonuToActivate)
-    : Batiment(id, nom, type, prix, gain, combinaisons, couleur) nbMonuToActivate(nbMonuToActivate) {
+CarteRouge::CarteRouge(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, int nbMonuToActivate)
+    : Batiment(id, nom, type, prix, gain, combinaisons, couleur),nbMonuToActivate(nbMonuToActivate) {
 
 }
 
