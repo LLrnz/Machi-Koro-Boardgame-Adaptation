@@ -3,7 +3,7 @@
 #include "Carte.h"
 #include <vector>
 #include "enums.h"
-#include "Joueur.h"
+using namespace std;
 
 
 class Batiment : public Carte
@@ -20,5 +20,3 @@ public:
     int getGain()const{return gain;};
     virtual void activer(){};
 };
-
-

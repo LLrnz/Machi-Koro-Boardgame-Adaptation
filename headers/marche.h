@@ -2,25 +2,27 @@
 #include <iostream>
 #include <vector>
 #include "Carte.h"
+#include "Batiment.h"
 using namespace std;
 
 class Marche
 {
 private:
     // Attributs
-    vector<Carte*> enJeu;
-    vector<Carte*> pioche;
+    vector<Batiment*> enJeu;
+    vector<Batiment*> pioche;
     int tailleMarche;
 
     // Méthodes
-    Carte* piocherUneCarte();  // debug ok
-    int getTailleMarche() const;  // debug ok
-    void retirerCarteAchetee(Carte* c);  // debug ok
+    Batiment* piocherUneCarte();
+    int getTailleMarche() const;
+    void retirerCarteAchetee(Batiment* c);
     
 public: 
-    Marche(vector<Carte*> cartes);  // debug ok
+    Marche(vector<Batiment*> cartes);
     ~Marche()=default;
-    void distribuer();  // debug ok
-    vector<Carte*> getCarteDispAchat() const;  // debug ok
-    Carte* acheter(int achat);  // debug ok
+    
+    void distribuer();
+    vector<Batiment*> getCarteDispAchat() const;
+    Batiment* acheter(int achat);
 }; 

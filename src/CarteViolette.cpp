@@ -33,7 +33,7 @@ void CarteViolette::activer(Joueur joueurProprietaire){
             controleur->afficher(joueurs[i].getPieces());
             controleur->afficher(" pieces \n ");
         }
-        string reponse = controleur->lire();
+        string reponse = controleur->lire_str();
         Jeu::getJeu().getJoueurActif().gagnerPieces(joueurs[std::stoi(reponse)].perdrePieces(5));
     }
     if (name == "Centre des Affaires"){
@@ -51,7 +51,7 @@ void CarteViolette::activer(Joueur joueurProprietaire){
             }
             controleur->afficher("\n");
         }
-        int reponse = std::stoi(controleur->lire());
+        int reponse = std::stoi(controleur->lire_str());
         bool confirmeEchange = false;
         //Si il choisis -1, il n'effectue pas d'échange
         if (reponse != -1)
@@ -70,7 +70,7 @@ void CarteViolette::activer(Joueur joueurProprietaire){
                     controleur->afficher(" ");
                 }
             }
-            int repPrendre = std::stoi(controleur->lire());
+            int repPrendre = std::stoi(controleur->lire_str());
             controleur->afficher("Choisisez la carte a echanger depuis chez vous");
             controleur->afficher(joueurActif.getPseudo());
             controleur->afficher("\n");
@@ -83,7 +83,7 @@ void CarteViolette::activer(Joueur joueurProprietaire){
                 }
             }
             controleur->afficher("\n");
-            int repEchange = std::stoi(controleur->lire());
+            int repEchange = std::stoi(controleur->lire_str());
             Batiment* ptTempPrendre = joueurs[reponse].getConstructions()[repPrendre];
             Batiment* ptTempEchange = joueurActif.getConstructions()[repEchange];
             joueurActif.ajouterBatiment(ptTempPrendre);

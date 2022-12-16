@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <map>
+#include "InterfaceTerminal.h"
 #include "../headers/InterfaceTerminal.h"
 #include "../headers/enums.h"
 using namespace std;
@@ -16,27 +18,22 @@ class Controleur
     Controleur& operator=(const Controleur&)=delete;
 
     // Attributs
-    int nbJoueurs; 
-    vector<string> pseudos;
-    vector<bool> extensions = {0,0,0};
+    int nbJoueurs;
+    map<Extensions, bool> extensions;
     InterfaceTerminal interface;
-    vector<TypeJoueur> typeJoueurs;
 
-    
 public:
     static Controleur* getControleur();
     static void libererControleur();
-
     void nouvellePartie();
-    void demarrer();
-    void afficher(string s);
-    void afficher(int i);
-    string lire();
-    vector<bool> getExtensions(){return extensions;};
 
     // Fonctions de service
 
     int getNbJoueurs() const { return nbJoueurs; };
-    string getPseudo(int i) { return pseudos[i]; };
-    TypeJoueur getTypeJoueur(int i) { return typeJoueurs[i]; };
+    void demarrer();
+    void afficher(std::string f) const;
+    void afficher(int i) {interface.afficher(i);};
+    std::string lire_str();
+    int lire_int(int borneInf, int borneSupp);
+    map<Extensions, bool> getExtensions() const {return extensions;};
 };

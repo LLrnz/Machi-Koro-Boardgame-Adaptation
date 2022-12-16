@@ -73,7 +73,7 @@ void CarteVerte::activer(Joueur joueurProprietaire){
         }
         if (!monumentsVendables.empty()){
             Controleur::getControleur()->afficher("Choisisez le monument a detruire pour gagner 8 pieces \n");
-            int reponse = std::stoi(Controleur::getControleur()->lire());
+            int reponse = std::stoi(Controleur::getControleur()->lire_str());
             monumentsVendables[reponse]->detruire();
             gain = 8;
         }
@@ -91,7 +91,7 @@ void CarteVerte::activer(Joueur joueurProprietaire){
                 s << i << " : " << joueurProprietaire.getConstructions()[i]->getNom() << "\n";
         }
         Controleur::getControleur()->afficher("Votre choix : \n");
-        int choixIndiceBatiment = std::stoi(Controleur::getControleur()->lire());
+        int choixIndiceBatiment = std::stoi(Controleur::getControleur()->lire_str());
         Controleur::getControleur()->afficher("Choisisez un AUTRE joueur a qui gracieusement donner cette carte \n");
         for (size_t i =0; i< joueurs.size();i++){
             if (Jeu::getJeu().getIndiceJoueurActif()!=i){
@@ -100,7 +100,7 @@ void CarteVerte::activer(Joueur joueurProprietaire){
                 Controleur::getControleur()->afficher(s.str());
             }
         }
-        int joueurChoisi = std::stoi(Controleur::getControleur()->lire());
+        int joueurChoisi = std::stoi(Controleur::getControleur()->lire_str());
         if (joueurChoisi == Jeu::getJeu().getIndiceJoueurActif()){
             gain = 0;
             Controleur::getControleur()->afficher("Apprend a lire les instructons");

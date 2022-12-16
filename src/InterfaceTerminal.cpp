@@ -1,17 +1,39 @@
 #include "../headers/InterfaceTerminal.h"
-#include <string>
-#include <iostream>
 
-void InterfaceTerminal::afficher(std::string message) const {
-    std::cout << message;
+void InterfaceTerminal::afficher(std::string f) const{
+    std::cout << f;
 }
 
-void InterfaceTerminal::afficher(int i) const {
-    std::cout << i;
+std::string InterfaceTerminal::lire() const{
+    std::string res;
+    std::cin >> res;
+    return res;
 }
 
-std::string InterfaceTerminal::lire() const {
-    std::string reponse;
-    std::cin >> reponse;
-    return reponse;
+int InterfaceTerminal::lire_int(){
+    bool chiffre = false;
+    int res;
+    while (!chiffre){
+        std::string str = this->lire();
+
+       try {
+            res = std::stoi(str);
+            chiffre = true;
+       }catch (...) {
+            std::cout << "Merci d'entrer un chiffre.";
+       }
+    }
+    return res;
+}
+
+int InterfaceTerminal::lire_int(int x, int y){
+    bool bornesOk = false;
+    int res;
+    while(!bornesOk){
+        res = this->lire_int();
+        if(((res >= x) && (res <= y))){
+            bornesOk = true;
+        }
+    }
+    return res;
 }

@@ -6,9 +6,10 @@
 
 int main() {
 
-    Jeu& j = Jeu::getJeu();
 
-    j.afficherCartes();
+    Controleur::getControleur()->nouvellePartie();
+    Jeu::getJeu().afficherCartes();
     Controleur::getControleur()->afficher("a");
+    Controleur::getControleur()->demarrer();
     return 0;
 }

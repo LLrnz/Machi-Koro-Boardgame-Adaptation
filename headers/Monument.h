@@ -11,7 +11,6 @@ class Monument : public Carte
 public:
     Monument(std::string n,int p):Carte(0,n,p),construit(false){}
     bool getConstruit() const {return construit;}
+    void setConstruit() {construit = true;}
     void detruire() {construit=false;}
 };
-
-

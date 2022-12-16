@@ -1,22 +1,19 @@
 #pragma once
-
 #include <iostream>
 #include <vector>
-
-#include "enums.h"
-#include "headers/Monument.h"
-
-class Batiment;
-class Monument;
+#include "../headers/enums.h"
+#include "../headers/Batiment.h"
+#include "../headers/Monument.h"
+using namespace std;
 
 class Joueur
 {
     TypeJoueur type;
-    std::string pseudo;
+    string pseudo;
     int pieces;
     bool rejoueTour = false;
-    std::vector<Batiment*> constructions;
-    std::vector<Monument> monuments;
+    vector<Batiment*> batiments;
+    vector<Monument> monuments;
 
 public:
     Joueur(std::string psdo, TypeJoueur typ);
@@ -34,10 +31,10 @@ public:
     void gagnerPieces(int montant);
     int perdrePieces(int montant);
     void setRejoueTour(bool b){rejoueTour = b;};
-    std::vector<Monument> getMonuments()const{return monuments;};
-    std::vector<Batiment*> getConstructions() const {return constructions;};
+    std::vector<Monument> getMonuments()const{return monuments;}; // OK GET BATIMENT tout doux
+    std::vector<Batiment*> getConstructions() const {return batiments;};
     int getPieces() const {return pieces;};
     string getPseudo() const {return pseudo;};
-    void ajouterBatiment(Batiment * batiment){constructions.push_back(batiment);};
-    void enleverBatimentParIndice(int i){constructions.erase(constructions.begin()+i);};
+    void ajouterBatiment(Batiment * batiment){batiments.push_back(batiment);};
+    void enleverBatimentParIndice(int i){batiments.erase(batiments.begin()+i);};
 };

@@ -3,6 +3,7 @@
 #include "Batiment.h"
 #include <vector>
 #include <string>
+#include "../headers/Joueur.h"
 using namespace std;
 
 
