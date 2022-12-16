@@ -26,8 +26,9 @@ class Controleur
     //vector<TypeJoueur> typeJoueurs;
     //vector<string> pseudos; inutiles car utilisation de map joueurs
 
-    map<Extensions, bool> extensions;
-    map<std::string, TypeJoueur> joueurs;
+//  Inutile : maintenant passage par paramètre
+//    map<Extensions, bool> extensions;
+//    map<std::string, TypeJoueur> joueurs;
     InterfaceTerminal interface;
 
 
@@ -45,9 +46,10 @@ public:
 
     int getNbJoueurs() const { return nbJoueurs; };
 
-    map<std::string, TypeJoueur> getJoueurs(){
-        return joueurs;
-    }
+//  Inutile : maintenant passage par paramètre
+//    map<std::string, TypeJoueur> getJoueurs(){
+//        return joueurs;
+//    }
 
 //    //[DEPRECIEE] très laid il faut arrêter d'accéder aux pseudos comme ça
 //    string getPseudo(int i) {

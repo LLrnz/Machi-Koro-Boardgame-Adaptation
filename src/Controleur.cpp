@@ -34,6 +34,8 @@ int Controleur::lire_int(int borneInf, int borneSupp){
 
 void Controleur::nouvellePartie(){
     //Set up des parametres de la partie
+    map<Extensions, bool> extensions;
+    map<std::string, TypeJoueur> joueurs;
 
     //set up joueurs
     //nb joueurs
@@ -55,17 +57,17 @@ void Controleur::nouvellePartie(){
         std::string pseudo = this->lire_str();
 
         //insertion joueur dans la map
-        this->joueurs[pseudo] = type;
+        joueurs[pseudo] = type;
     }
 
     //set up extensions
     for( const auto e : {Extensions::harbour, Extensions::millionaire} ){
         this->afficher("Jouer avec l'extension ?");
         bool val = this->lire_int(0,1);
-        this->extensions.emplace(e, val);
+        extensions.emplace(e, val);
 
     }
-    Jeu::getJeu().genererPartie();
+    Jeu::getJeu().genererPartie(joueurs, extensions);
 
 
 }

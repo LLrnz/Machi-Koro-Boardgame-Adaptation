@@ -15,7 +15,7 @@
 
 using namespace std;
 
-void Jeu::initialiserCartes() {
+void Jeu::initialiserCartes(map<Extensions, bool> extensions) {
     QByteArray val;
     QFile file(":/cartes/cartes.json");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -147,8 +147,8 @@ void Jeu::initialiserCartes() {
 }
     
 Jeu::Jeu():marche(nullptr) {
-    initialiserCartes();
-    marche = new Marche(cartesEnJeu);
+    //initialiserCartes();
+
     this->controleur = Controleur::getControleur();
 }
 
@@ -181,8 +181,8 @@ void Jeu::libererJeu() {
 }
 
 
-void Jeu::initialiserJoueurs() {
-    for (const auto &j : controleur->getJoueurs()) {
+void Jeu::initialiserJoueurs(map<std::string, TypeJoueur> listeJoueurs) {
+    for (const auto &j : listeJoueurs) {
         std::string pseudo = j.first;
         TypeJoueur type = j.second;
         joueurs.push_back(Joueur(pseudo, type));
@@ -197,9 +197,10 @@ void Jeu::joueurSuivant() {
 
 };
 
-void Jeu::genererPartie() {
-	Jeu::getJeu().initialiserJoueurs();
-	Jeu::getJeu().initialiserCartes();
+void Jeu::genererPartie(map<std::string, TypeJoueur> listeJoueurs, map<Extensions, bool> extensions) {
+    this->initialiserJoueurs(listeJoueurs);
+    this->initialiserCartes(extensions);
+    marche = new Marche(cartesEnJeu);
 }
 
 void Jeu::boucleDeJeu() {
