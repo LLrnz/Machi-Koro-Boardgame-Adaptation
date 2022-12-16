@@ -6,7 +6,7 @@
 using namespace std;
 
 
-class CarteBleue : public Batiment 
+class CarteBleue : public Batiment
 {
 public:
     virtual void activer(Joueur joueurProprietaire);

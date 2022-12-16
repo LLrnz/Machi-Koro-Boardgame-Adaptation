@@ -1,49 +1,37 @@
 #include "../headers/CarteBleue.h"
-#include "../headers/Jeu.h"
 #include "../headers/Controleur.h"
+#include <sstream>
 
 CarteBleue::CarteBleue(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
-    :Batiment(id, nom, type, prix, gain, combinaisons, couleur) {
-
+    : Batiment(id, nom, type, prix, gain, combinaisons, couleur) {
 }
-void CarteBleue::activer(Joueur joueurProprietaire){
+void CarteBleue::activer(Joueur joueurProprietaire) {
     string name = this->getNom();
-    Joueur joueurActif = Jeu::getJeu().getJoueurActif();
-    Controleur* controleur = Controleur::getControleur();
-    if (name == "Champs de blé" || name == "Ferme" || name == "Forêt" || name == "Mine" || name == "Verger de Pommiers" || name == "Vignoble" || name == "Champ de fleurs"){
-        joueurProprietaire.gagnerPieces(this->getGain());
-        controleur->afficher(joueurProprietaire.getPseudo());
-        controleur->afficher("a gagne ");
-        controleur->afficher(this->getGain());
-        controleur->afficher(" pieces grace a son/sa ");
-        controleur->afficher(name);
-        controleur->afficher("\n");
+    Controleur *controleur = Controleur::getControleur();
 
+    // id : champ de blé = 1, ferme = 2, forêt = 3, mine = 4,
+    // verger de pommiers = 5, vignoble = 6, petit bateau de pêche = 7, chalutier = 8
+    if ((this->getId() == 7 || this->getId() == 8) && !joueurProprietaire.hasPort()) { // si c'est un petit bateau de pêche ou un chalutier et que le joueur actif n'a pas de port
+        return;
     }
-    if(name == "Petit bateau de pêche"){
-        if (joueurProprietaire.hasPort()){
-            joueurProprietaire.gagnerPieces(this->getGain());
-            controleur->afficher(joueurProprietaire.getPseudo());
-            controleur->afficher("a gagne ");
-            controleur->afficher(this->getGain());
-            controleur->afficher(" pieces grace a son/sa ");
-            controleur->afficher(name);
-            controleur->afficher("\n");
-        }
+
+    stringstream s;
+    s << "Le joueur " << joueurProprietaire.getPseudo() << " a active la carte bleue " << this->getNom() << endl;
+
+    int gain = this->getGain();
+
+    if (this->getId() == 8) { // si c'est un chalutier
+        int de1 = rand() % 6;
+        int de2 = rand() % 6;
+        int resultatJet = de1 + de2;
+
+        gain = resultatJet;
+
+        s << "Le résultat du jet de de lie au chalutier est " << resultatJet << endl;
+        s << joueurProprietaire.getPseudo() << "a donc gagne " << resultatJet << endl;
     }
-    if(name == "Chalutier"){
-        if (joueurProprietaire.hasPort()){
-            int de1 = rand() % 6;
-		    int de2 = rand() % 6;
-            int resultatJet = de1 + de2;
-            joueurProprietaire.gagnerPieces(resultatJet);
-            controleur->afficher("Le resultat du jet de de lie au chalutier est ");
-            controleur->afficher(resultatJet);
-            controleur->afficher("\n");
-            controleur->afficher(joueurProprietaire.getPseudo());
-            controleur->afficher("a donc gagne ");
-            controleur->afficher(resultatJet);
-            controleur->afficher("\n");
-        }
-    }
+
+    joueurProprietaire.gagnerPieces(gain);
+
+    controleur->afficher(s.str());
 }

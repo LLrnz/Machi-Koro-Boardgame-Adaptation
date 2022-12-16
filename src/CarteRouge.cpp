@@ -1,74 +1,44 @@
 #include "./../headers/CarteRouge.h"
 #include "../headers/Jeu.h"
 #include "../headers/Controleur.h"
+#include <sstream>
 
-CarteRouge::CarteRouge(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
-    : Batiment(id, nom, type, prix, gain, combinaisons, couleur) {
+CarteRouge::CarteRouge(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<> combinaisons, Couleur couleur, int nbMonuToActivate)
+    : Batiment(id, nom, type, prix, gain, combinaisons, couleur) nbMonuToActivate(nbMonuToActivate) {
 
 }
+
+int CarteRouge::getNbMonuToActivate() {
+    return nbMonuToActivate;
+}
+
 void CarteRouge::activer(Joueur joueurProprietaire){
     string name = this->getNom();
     Joueur joueurActif = Jeu::getJeu().getJoueurActif();
     Controleur* controleur = Controleur::getControleur();
-    
-    if (name == "Café" || name == "Restaurant" || name == "Pizzeria" || name == "Moonster burger"){
-        int payement = joueurActif.perdrePieces(this->getGain());
-        joueurProprietaire.gagnerPieces(payement);
-        controleur->afficher(joueurActif.getPseudo());
-        controleur->afficher("a paye ");
-        controleur->afficher(payement);
-        controleur->afficher(" pieces a ");
-        controleur->afficher(joueurProprietaire.getPseudo());
-        controleur->afficher("\n");
-    } 
-    if (name == "Bar a sushi"){
-        Joueur joueurActif = Jeu::getJeu().getJoueurActif();
-        if (joueurProprietaire.hasPort()){
-            int payement = joueurActif.perdrePieces(4);
-            joueurProprietaire.gagnerPieces(payement);
-            controleur->afficher(joueurActif.getPseudo());
-            controleur->afficher("a paye ");
-            controleur->afficher(payement);
-            controleur->afficher(" pieces a ");
-            controleur->afficher(joueurProprietaire.getPseudo());
-            controleur->afficher("\n");
+
+    // id : 1 = Café, 2 = Restaurant, 3 = Pizzeria, 4 = Moonster burdcger, 5 = Bar a sushi
+
+    if (this->getId() == 5 && !joueurProprietaire.hasPort()) {              // si c'est bar à sushi mais que le joueur n'a pas de port
+        return;                                                                 // on ne fait rien et on sort de la fonction
+    }
+    else if (nbMonuToActivate != 0 ) {                                      // si la carte a un nombre de monument requis
+        int compteur = 0;
+        for (size_t i = 0; i < size(joueurActif.getMonuments()); i++) {     // pour chaque monument du joueur actif
+            if (joueurActif.getMonuments()[i].getConstruit() == true)           // si le monument est construit
+                compteur += 1;                                                      // on incremente le compteur
+        }
+        if (compteur < this->getNbMonuToActivate()) {                       // si le joueur n'a pas assez de monument construit
+            return;                                                             // on ne fait rien et on sort de la fonction
         }
     }
-    if (name == "Restaurant 5 etoiles"){
-        int compteur = 0;
-        Joueur joueurActif = Jeu::getJeu().getJoueurActif();
-        for (int i = 0; i<size(joueurActif.getMonuments());i++)
-            if (joueurActif.getMonuments()[i].getConstruit() == true)
-                compteur += 1;
-        if (compteur >= 2){
-            int payement = joueurActif.perdrePieces(5);
-            joueurProprietaire.gagnerPieces(payement);   
-            controleur->afficher(joueurActif.getPseudo());
-            controleur->afficher("a paye ");
-            controleur->afficher(payement);
-            controleur->afficher(" pieces a ");
-            controleur->afficher(joueurProprietaire.getPseudo());
-            controleur->afficher("\n");
-        }  
-    }
-    if (name == "Club prive"){
-        int compteur = 0;
-        Joueur joueurActif = Jeu::getJeu().getJoueurActif();
-        for (int i = 0; i<size(joueurActif.getMonuments());i++)
-            if (joueurActif.getMonuments()[i].getConstruit() == true)
-                compteur += 1;
-        if (compteur >= 3){
-            int payement = joueurActif.getPieces();
-            joueurProprietaire.gagnerPieces(payement);
-            joueurActif.perdrePieces(payement);
-            controleur->afficher(joueurActif.getPseudo());
-            controleur->afficher("a paye ");
-            controleur->afficher(payement);
-            controleur->afficher(" pieces a ");
-            controleur->afficher(joueurProprietaire.getPseudo());
-            controleur->afficher("\n");
-        }              
-    }
 
+    int payement = joueurActif.perdrePieces(this->getGain());           // le joueur actif perd des pieces
+    joueurProprietaire.gagnerPieces(payement);                          // le joueur proprietaire gagne des pieces
+
+    // affichage
+    stringstream s;
+    s << joueurActif.getPseudo() << " a paye " << payement << " pieces a " << joueurProprietaire.getPseudo() << endl;
+    controleur->afficher(s.str());
 }
 
