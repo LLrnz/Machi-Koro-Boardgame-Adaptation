@@ -2,6 +2,7 @@
 #include "./../headers/enums.h"
 #include "../headers/Jeu.h"
 #include "../headers/Controleur.h"
+#include <cmath>
 
 CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, Source source)
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur), source(source) {
@@ -11,6 +12,7 @@ void CarteViolette::activer(Joueur joueurProprietaire){
     string name = this->getNom();
     Joueur joueurActif = Jeu::getJeu().getJoueurActif();
     Controleur* controleur = Controleur::getControleur();
+    vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
 
     if (name == "Stade"){
         vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
@@ -35,7 +37,6 @@ void CarteViolette::activer(Joueur joueurProprietaire){
         Jeu::getJeu().getJoueurActif().gagnerPieces(joueurs[std::stoi(reponse)].perdrePieces(5));
     }
     if (name == "Centre des Affaires"){
-        vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
         //Affichage et selection de la personne avec qui échange run batiment
         controleur->afficher("Avec qui voulez vous echanger un etablissement ? \n");
         controleur->afficher("-1 : Personne \n");
@@ -92,6 +93,19 @@ void CarteViolette::activer(Joueur joueurProprietaire){
         }
     }
     if (name == "Maison d'édition"){
-        
+        int compteur = 0;
+        for (size_t i =0; i<sizeof(joueurs);i++){
+            compteur = 0;
+            for (size_t j; j<sizeof(joueurs[i].getConstructions());j++)
+                if (joueurs[i].getConstructions()[j]->getType() == TypeBatiment::magasin || joueurs[i].getConstructions()[j]->getType() == TypeBatiment::restaurant)
+                    compteur+=1;
+            joueurActif.gagnerPieces(joueurs[i].perdrePieces(compteur));
+        }
+    }
+    if (name == "Centre des impots"){
+        for (size_t i =0; i<sizeof(joueurs);i++){
+            if (joueurs[i].getPieces()>=10)
+                joueurActif.gagnerPieces(joueurs[i].perdrePieces(floor(joueurs[i].getPieces()/2)));
+        }
     }
 }

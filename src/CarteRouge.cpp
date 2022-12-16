@@ -23,7 +23,7 @@ void CarteRouge::activer(Joueur joueurProprietaire){
     } 
     if (name == "Bar a sushi"){
         Joueur joueurActif = Jeu::getJeu().getJoueurActif();
-        if (joueurActif.hasPort()){
+        if (joueurProprietaire.hasPort()){
             int payement = joueurActif.perdrePieces(4);
             joueurProprietaire.gagnerPieces(payement);
             controleur->afficher(joueurActif.getPseudo());

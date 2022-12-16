@@ -188,18 +188,14 @@ void Jeu::genererPartie() {
 }
 
 void Jeu::boucleDeJeu() {
-	while (Jeu::getJeu().getPartieTerminee() == false) {
-		Jeu::getJeu().joueurSuivant();
-		Jeu::getJeu().tourDeJeu();
+	while (partieTerminee == false) {
+		jeu->joueurSuivant();
+		jeu->tourDeJeu();
 	}
 	
     Controleur::getControleur()->afficher("Le joueur ");
     Controleur::getControleur()->afficher(joueurActif);
     Controleur::getControleur()->afficher("a gagne la partie ! \n");
-	//std::ostream& f = std::cout;
-	//f << "Le joueur " << Jeu::getJeu().getJoueurActif() << "a gagne la partie ! \n";
-	//Controleur::getControleur().afficher(f);
-
 }
 
 void Jeu::tourDeJeu() {
@@ -209,8 +205,24 @@ void Jeu::tourDeJeu() {
 	jeu->activerCartesBleues(resultatJet);
 	jeu->activerCartesVertes(resultatJet);
 	jeu->activerCartesViolettes(resultatJet);
+    jeu->achat();
+    partieTerminee = jeu->verifierVictoire();
 }
 
+bool Jeu::verifierVictoire(){
+    vector<bool> extensions = Controleur::getControleur()->getExtensions();
+    if (extensions[1] == 1 || extensions[2] == 1){
+        int compteur = 0;
+        for (size_t i = 0; i<joueurs[joueurActif].getMonuments().size();i++)
+            if (joueurs[joueurActif].getMonuments()[i].getConstruit())
+                compteur += 1;
+        if (compteur >= 5)
+            partieTerminee = true;
+    }
+    else
+        if (joueurs[joueurActif].hasGare() && joueurs[joueurActif].hasCentreCommercial() && joueurs[joueurActif].hasParcAttractions() && joueurs[joueurActif].hasTourRadio())
+            partieTerminee = true;
+}
 
 int Jeu::jetDes(){
 	int resultatJet;

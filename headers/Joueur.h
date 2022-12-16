@@ -39,4 +39,6 @@ public:
     std::vector<Batiment*> getConstructions() const {return constructions;};
     int getPieces() const {return pieces;};
     string getPseudo() const {return pseudo;};
+    void ajouterBatiment(Batiment* b){constructions.push_back(b);};
+    void enleverBatiment(Batiment* b){constructions.push_back(b);};
 };

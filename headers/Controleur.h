@@ -18,7 +18,7 @@ class Controleur
     // Attributs
     int nbJoueurs; 
     vector<string> pseudos;
-    vector<bool> extensions;
+    vector<bool> extensions = {0,0,0};
     InterfaceTerminal interface;
     vector<TypeJoueur> typeJoueurs;
 
@@ -32,6 +32,7 @@ public:
     void afficher(string s);
     void afficher(int i);
     string lire();
+    vector<bool> getExtensions(){return extensions;};
 
     // Fonctions de service
 

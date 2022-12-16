@@ -39,7 +39,7 @@ public:
     static void libererJeu();
     void afficherCartes();
 
-
+    bool verifierVictoire();
     void genererPartie();
     void boucleDeJeu();
     void tourDeJeu();
