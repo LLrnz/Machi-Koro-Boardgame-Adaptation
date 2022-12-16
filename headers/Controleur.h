@@ -30,6 +30,7 @@ class Controleur
 //    map<Extensions, bool> extensions;
 //    map<std::string, TypeJoueur> joueurs;
     InterfaceTerminal interface;
+    vector<TypeJoueur> typeJoueurs;
 
 
 
