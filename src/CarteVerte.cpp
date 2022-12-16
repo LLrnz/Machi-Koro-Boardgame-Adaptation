@@ -3,105 +3,99 @@
 #include "../headers/Controleur.h"
 #include <sstream>
 
-CarteVerte::CarteVerte(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
-    : Batiment(id, nom, type, prix, gain, combinaisons, couleur) {
-
+CarteVerte::CarteVerte(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, TypeBatiment effectType)
+    : Batiment(id, nom, type, prix, gain, combinaisons, couleur), effectType(effectType)
+{
 }
 
-void CarteVerte::activer(){
+TypeBatiment CarteVerte::getEffectType()
+{
+    return effectType;
+}
+
+void CarteVerte::activer(Joueur joueurProprietaire){
     Joueur joueurActif = Jeu::getJeu().getJoueurActif();
     string nomCarte = getNom();
+    int idCarte = getId();
 
-    if (nomCarte == "Boulangerie" || nomCarte == "Superette"){
-        joueurActif.gagnerPieces(getGain());
-    }
-    else if (nomCarte == "Usine de fromage"){
-        int compteur = 0;
-        for (auto it = joueurActif.getBatiments().begin(); it != joueurActif.getBatiments().end(); it++){
-            if ((*it)->getType() == TypeBatiment::vache)
-                compteur += 1;
-            joueurActif.gagnerPieces(3*compteur);
-        }
-    }
-    else if (nomCarte == "Magasin de meubles"){
-        int compteur = 0;
-        for (auto it = joueurActif.getBatiments().begin(); it != joueurActif.getBatiments().end(); it++){
-            if ((*it)->getType() == TypeBatiment::ecrou)
-                compteur += 1;
-            joueurActif.gagnerPieces(3*compteur);
-        }
-    }
-    else if (nomCarte == "Marché de fruits et légumes"){
-        int compteur = 0;
-        for (auto it = joueurActif.getBatiments().begin(); it != joueurActif.getBatiments().end(); it++){
-            if ((*it)->getType() == TypeBatiment::ble)
-                compteur += 1;
-            joueurActif.gagnerPieces(2*compteur);
-        }
-    }
-    else if (nomCarte == "Fleuriste"){
-        int compteur = 0;
-        for (auto it = joueurActif.getBatiments().begin(); it != joueurActif.getBatiments().end(); it++){
-            if ((*it)->getNom() == "Champ de fleurs")
-                compteur += 1;
-            joueurActif.gagnerPieces(1*compteur);
-        }
-    }
-    else if (nomCarte == "Halle de marché"){
-        int compteur = 0;
-        for (auto it = joueurActif.getBatiments().begin(); it != joueurActif.getBatiments().end(); it++){
-            if ((*it)->getType() == TypeBatiment::restaurant)
-                compteur += 1;
-            joueurActif.gagnerPieces(2*compteur);
-        }
-    }
-    else if (nomCarte == "Epicerie"){
-        int compteur = 0;
-        Joueur joueurActif = Jeu::getJeu().getJoueurActif();
-        for (int i = 0; i<size(joueurActif.getMonuments());i++)
-            if (joueurActif.getMonuments()[i].getConstruit() == true)
-                compteur += 1;
-        if (compteur < 2)
-            joueurActif.gagnerPieces(5);
-    }
-    else if (nomCarte == "Entreprise de travaux publics"){
-        std::vector<string> monumentsConstruits;
-        for (auto i = joueurActif.getMonuments().begin(); i != joueurActif.getMonuments().end() ; i++)
-            if ((*i).getConstruit() == true)
-                monumentsConstruits.push_back((*i).getNom());
+    int gain = this->getGain();
+    int compteur = 0;
+    stringstream s; // il faut mettre en place la mise à jour du flux dans chaque partie du if
 
-        if (!monumentsConstruits.empty()){
-            Controleur::getControleur()->afficher("Vous devez retourner une de vos cartes monuments sur sa face travaux : \n");
-            stringstream s;
-            for (auto i = monumentsConstruits.begin(); i != monumentsConstruits.end() ; i++){
-                s << "-" << *i << ")\n";
-                Controleur::getControleur()->afficher(s.str());
+    // id : Boulangerie = 1, Superette = 2, Usine de fromage = 3, Magasin de meubles = 4, Marché de fruits et légumes = 5
+    // id: Fleuriste = 6, Halle de marché = 7, Epicerie = 8, Entreprise de travaux publics = 9
+    // id : Moonster soda = 10, Entreprise de déménagement = 11
+    if (this->getEffectType() != TypeBatiment::none){                                                       // si la carte a un effetType
+        if (idCarte == 10){                                                                                     // si c'est Moonster soda
+            for (auto i = Jeu::getJeu().getJoueurs().begin(); i != Jeu::getJeu().getJoueurs().end(); i++){          // pour chaque joueur
+                for (auto j = (*i).getConstructions().begin(); j != (*i).getConstructions().end(); j++){                // pour chaque batiment du joueur
+                    if ((*j)->getType() == getEffectType())                                                                 // si le batiment est du type de l'effet
+                        compteur++;
+                }
             }
-            Controleur::getControleur()->afficher("Quel batiment voulez vous mettre en travaux : ");
+            gain = compteur;
+        }
+        else {                                                                                             // si ce n'est pas Moonster soda
+            for (auto it = joueurActif.getConstructions().begin(); it != joueurActif.getConstructions().end(); it++){ // pour chaque batiment du joueur actif
+                if ((*it)->getType() == getEffectType()){                                                              // si le batiment est du type de l'effet
+                    compteur ++;
+                }
+                gain = this->getGain() * compteur;
+            }
+        }
+    }
+    else if (idCarte == 8){                                                                                // si c'est Epicerie
+        for (int i = 0; i < size(joueurActif.getMonuments()); i++){                                             // pour chaque monument du joueur actif
+            if (joueurActif.getMonuments()[i].getConstruit() == true){                                              // si le monument est construit
+                compteur += 1;
+            }
+        }
+        if (compteur >= 2){                                                                               // si le joueur a construit au moins 2 monuments
+            gain = 0;                                                                                           // il ne gagne rien
+        }
+    }
+    else if (idCarte == 6){                                                                                 // si c'est Fleuriste
+        for (auto it = joueurActif.getConstructions().begin(); it != joueurActif.getConstructions().end(); it++){   // pour chaque batiment du joueur actif
+            if ((*it)->getId() == 9)                                                            // si le batiment est un champ de fleurs (voir CarteBleue.cpp)
+                compteur += 1;
+            gain = compteur;
+        }
+    }
+    // ! Revoir cette partie
+    else if (idCarte == 9){                                                                            // si c'est Entreprise de travaux publics
+        std::vector<string> monumentsConstruits;                                              // vecteur qui contient les noms des monuments construits
+        for (auto i = joueurActif.getMonuments().begin(); i != joueurActif.getMonuments().end(); i++)       // pour chaque monument du joueur actif
+            if ((*i).getConstruit() == true)                                                         // si le monument est construit
+                monumentsConstruits.push_back((*i).getNom());                                  // on ajoute son nom au vecteur
+
+        if (!monumentsConstruits.empty())                                                          // si le vecteur n'est pas vide{
+            Controleur::getControleur()->afficher("Vous devez retourner une de vos cartes monuments sur sa face travaux : \n"); // on affiche les monuments construits
+            stringstream s;
+            for (auto i = monumentsConstruits.begin(); i != monumentsConstruits.end(); i++){        // pour chaque monument construit
+                s << "-" << *i << ")\n";
+                Controleur::getControleur()->afficher(s.str());                                     // on affiche le nom du monument
+            }
+            Controleur::getControleur()->afficher("Quel batiment voulez vous mettre en travaux : ");    // on demande à l'utilisateur de choisir un monument
+
+            // ! revoir pour utiliser les id plutôt que les noms
             string choix = Controleur::getControleur()->lire();
 
-            for (auto i = joueurActif.getMonuments().begin(); i != joueurActif.getMonuments().end() ; i++)
-                if ((*i).getNom() == choix)
+            for (auto i = joueurActif.getMonuments().begin(); i != joueurActif.getMonuments().end(); i++){
+                if ((*i).getNom() == choix) {
                     (*i).detruit();
-
-        }
-    }
-    else if (nomCarte == "Moonster soda"){
-        int compteur = 0;
-        for (auto i = Jeu::getJeu().getJoueurs().begin() ; i != Jeu::getJeu().getJoueurs().end() ; i++ ){
-            for (auto j = (*i).getBatiments().begin() ; j != (*i).getBatiments().end() ; j++){
-                if ((*j)->getType()==TypeBatiment::restaurant)
-                    compteur++;
+                }
             }
         }
-        joueurActif.gagnerPieces(compteur);
-    }
-    else if (nomCarte == "Entreprise de déménagement"){
+
+    // ! Finir ça
+    else if (idCarte == 11){                                                                        // si c'est Entreprise de déménagement
         stringstream s;
-        int n=0;
-        Controleur::getControleur()->afficher("Liste des cartes possibles à déménager : \n");
-        for (auto i = joueurActif.getBatiments().begin(); i != joueurActif.getBatiments().end() ; i++){
-            if ((*i)->getType()!=TypeBatiment::special){
+        int n = 0;
+        Controleur::getControleur()->afficher("Liste des cartes possibles à déménager : \n");     // on affiche les cartes possibles à déménager
+        for (auto i = joueurActif.getConstructions().begin(); i != joueurActif.getConstructions().end(); i++)   // pour chaque batiment du joueur actif
+        {
+            if ((*i)->getType() != TypeBatiment::special)                                         // si le batiment n'est pas spécial
+            {
                 s << "-" << (*i)->getNom() << " (" << n++ << ")\n";
                 Controleur::getControleur()->afficher(s.str());
             }
@@ -110,18 +104,22 @@ void CarteVerte::activer(){
         int choix = std::stoi(Controleur::getControleur()->lire());
         bool demenagement = false;
         n = 0;
-        for (auto i = joueurActif.getBatiments().begin(); demenagement && i != joueurActif.getBatiments().end() ; i++){
-            if ((*i)->getType()!=TypeBatiment::special){
-                if (n++==choix) {
-                    //Echange avec le joueur à choisir
+        for (auto i = joueurActif.getConstructions().begin(); demenagement && i != joueurActif.getConstructions().end(); i++)   // pour chaque batiment du joueur actif
+        {
+            if ((*i)->getType() != TypeBatiment::special){                                       // si le batiment n'est pas spécial
+                if (n++ == choix){
+                    // Echange avec le joueur à choisir
                     Controleur::getControleur()->afficher("Chez qui voulez vous déménager : \n");
-                    for (auto j = Jeu::getJeu().getJoueurs().begin() ; j != Jeu::getJeu().getJoueurs().end() ; j++){
+                    for (auto j = Jeu::getJeu().getJoueurs().begin(); j != Jeu::getJeu().getJoueurs().end(); j++){
 
                     }
                     demenagement = true;
-
                 }
             }
         }
     }
+
+    // affichage
+    Controleur::getControleur()->afficher(s.str());
+    joueurActif.gagnerPieces(gain);
 }
