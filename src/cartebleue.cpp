@@ -35,3 +35,7 @@ void CarteBleue::activer(Joueur joueurProprietaire) {
 
     controleur->afficher(s.str());
 }
+
+void CarteBleue::activer(Joueur joueurProprietaire){
+
+}

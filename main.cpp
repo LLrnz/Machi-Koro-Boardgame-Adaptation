@@ -9,6 +9,6 @@ int main() {
     Jeu& j = Jeu::getJeu();
 
     j.afficherCartes();
-
+    Controleur::getControleur()->afficher("a");
     return 0;
 }
