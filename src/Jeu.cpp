@@ -194,7 +194,7 @@ void Jeu::initialiserJoueurs(map<std::string, TypeJoueur> listeJoueurs) {
 }
 
 void Jeu::joueurSuivant() {
-    joueurActif = joueurActif++%joueurs.size();
+    joueurActif = ++joueurActif%joueurs.size();
     //if (joueurActif == joueurs.size()-1)
     //	joueurActif = 0;
     //else
@@ -220,7 +220,7 @@ void Jeu::boucleDeJeu() {
 }
 
 void Jeu::tourDeJeu() {
-    controleur->afficher("C'est a " + getJoueurActif().getPseudo() + "de jouer ! \n");
+    controleur->afficher("\n\nC'est a " + getJoueurActif().getPseudo() + " de jouer ! \n");
 	int resultatJet = jeu->lancerDes();
 	jeu->activerCartesRouges(resultatJet);
 	jeu->activerCartesBleues(resultatJet);
@@ -321,10 +321,14 @@ void Jeu::achat() {
     // on récupère le joueur actif :
     Joueur &joueur = getJoueurActif();
 
+    //On affiche les cartes et l'argent du joueur
+    for (auto i : joueur.getConstructions())
+         Controleur::getControleur()->afficher(i->getNom());
+
     // affiche la liste des batiments achetables sur le marché :
     vector<Batiment *> batimentsAchetables = marche->getCarteDispAchat();
     Controleur::getControleur()->afficher(
-                "\nListe des bâtiments achetables sur le marché :");
+                "\nListe des bâtiments achetables sur le marché :\n");
     int i = 0;
     for (Batiment *c : batimentsAchetables) {
         stringstream s;
@@ -337,7 +341,7 @@ void Jeu::achat() {
     // affiche la liste des monuments achetables par le joueur :
     i = 10; // i=10 correspond donc à monumentsAchetables[0]
     Controleur::getControleur()->afficher(
-                "\nListe des monuments non construits :");
+                "\nListe des monuments non construits :\n");
     vector<Monument *> monumentsAchetables;
     stringstream s;
     extracted(joueur, i, monumentsAchetables, s);
@@ -345,10 +349,12 @@ void Jeu::achat() {
 
     // on récupère le solde actuel du joueur :
     int soldeJoueur = joueur.getPieces();
+    Controleur::getControleur()->afficher("Vous avez ");
+    Controleur::getControleur()->afficher(soldeJoueur);
 
     // on demande au joueur quelle carte il souhaite acheter :
     Controleur::getControleur()->afficher(
-                "Saisir le numéro de la carte que vous souhaitez acheter, et -1 si "
+                "pièces, saisir le numéro de la carte que vous souhaitez acheter, et -1 si "
                 "vous n'achetez rien : ");
     bool achatEffectue = false;
     string rep;
