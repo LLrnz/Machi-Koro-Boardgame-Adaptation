@@ -171,10 +171,12 @@ void Jeu::afficherCartes() {
 
 Jeu* Jeu::jeu = nullptr;
 
-Jeu& Jeu::getJeu() {
+Jeu* Jeu::getJeu() {
     if (Jeu::jeu == nullptr){
-        Jeu::jeu = new Jeu;}
-	return *jeu;
+        Jeu::jeu = new Jeu;
+        return jeu;
+    }
+    return jeu;
 }
 
 void Jeu::libererJeu() {
@@ -192,10 +194,11 @@ void Jeu::initialiserJoueurs(map<std::string, TypeJoueur> listeJoueurs) {
 }
 
 void Jeu::joueurSuivant() {
-    if (joueurActif == joueurs.size()-1)
-		joueurActif = 0;
-	else
-		joueurActif += 1;
+    joueurActif = joueurActif++%joueurs.size();
+    //if (joueurActif == joueurs.size()-1)
+    //	joueurActif = 0;
+    //else
+    //	joueurActif += 1;
 
 };
 
@@ -416,8 +419,9 @@ void Jeu::achat() {
 };
 
 void Jeu::activerCartesRouges(int nbDes){
-    for (size_t i = joueurActif-1;i>joueurActif-sizeof(jeu->getJoueurs());i--)
-		joueurs[i].activerCartesRouges(nbDes);
+    for (int i = 0;i<joueurs.size();i++)
+        if (joueurActif!=i)
+            joueurs[i].activerCartesRouges(nbDes);
 }
 void Jeu::activerCartesBleues(int nbDes){
     for (size_t i = 0;i<sizeof(jeu->getJoueurs());i++)

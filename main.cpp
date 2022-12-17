@@ -8,7 +8,7 @@ int main() {
 
 
     Controleur::getControleur()->nouvellePartie();
-    Jeu::getJeu().afficherCartes();
+    Jeu::getJeu()->afficherCartes();
     Controleur::getControleur()->afficher("a");
     Controleur::getControleur()->demarrer();
     return 0;

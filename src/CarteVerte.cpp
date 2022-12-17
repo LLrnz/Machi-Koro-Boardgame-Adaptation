@@ -8,8 +8,8 @@ CarteVerte::CarteVerte(int id, std::string nom, TypeBatiment type, int prix, int
 
 
 void CarteVerte::activer(Joueur joueurProprietaire){
-    Joueur joueurActif = Jeu::getJeu().getJoueurActif();
-    vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
+    Joueur joueurActif = Jeu::getJeu()->getJoueurActif();
+    vector<Joueur> joueurs = Jeu::getJeu()->getJoueurs();
     string nomCarte = getNom();
     int idCarte = getId();
 
@@ -22,7 +22,7 @@ void CarteVerte::activer(Joueur joueurProprietaire){
     // id : Moonster soda = 10, Entreprise de déménagement = 11
     if (this->getEffectType() != TypeBatiment::none){                                                       // si la carte a un effetType
         if (idCarte == 10){                                                                                     // si c'est Moonster soda
-            for (auto i = Jeu::getJeu().getJoueurs().begin(); i != Jeu::getJeu().getJoueurs().end(); i++){          // pour chaque joueur
+            for (auto i = Jeu::getJeu()->getJoueurs().begin(); i != Jeu::getJeu()->getJoueurs().end(); i++){          // pour chaque joueur
                 for (auto j = (*i).getConstructions().begin(); j != (*i).getConstructions().end(); j++){                // pour chaque batiment du joueur
                     if ((*j)->getType() == getEffectType())                                                                 // si le batiment est du type de l'effet
                         compteur++;
@@ -94,14 +94,14 @@ void CarteVerte::activer(Joueur joueurProprietaire){
         int choixIndiceBatiment = std::stoi(Controleur::getControleur()->lire_str());
         Controleur::getControleur()->afficher("Choisisez un AUTRE joueur a qui gracieusement donner cette carte \n");
         for (size_t i =0; i< joueurs.size();i++){
-            if (Jeu::getJeu().getIndiceJoueurActif()!=i){
+            if (Jeu::getJeu()->getIndiceJoueurActif()!=i){
                 s.str("");
                 s << i << " : " << joueurs[i].getPseudo() << "\n";
                 Controleur::getControleur()->afficher(s.str());
             }
         }
         int joueurChoisi = std::stoi(Controleur::getControleur()->lire_str());
-        if (joueurChoisi == Jeu::getJeu().getIndiceJoueurActif()){
+        if (joueurChoisi == Jeu::getJeu()->getIndiceJoueurActif()){
             gain = 0;
             Controleur::getControleur()->afficher("Apprend a lire les instructons");
         }

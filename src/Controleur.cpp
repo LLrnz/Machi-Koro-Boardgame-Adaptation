@@ -66,11 +66,11 @@ void Controleur::nouvellePartie(){
         this->extensions.emplace(e, val);
 
     }
-    Jeu::getJeu().genererPartie(joueurs, extensions);
+    Jeu::getJeu()->genererPartie(joueurs, extensions);
 
 
 }
 
 void Controleur::demarrer(){
-    Jeu::getJeu().boucleDeJeu();
+    Jeu::getJeu()->boucleDeJeu();
 }

@@ -14,7 +14,7 @@ int CarteRouge::getNbMonuToActivate() {
 
 void CarteRouge::activer(Joueur joueurProprietaire){
     string name = this->getNom();
-    Joueur joueurActif = Jeu::getJeu().getJoueurActif();
+    Joueur joueurActif = Jeu::getJeu()->getJoueurActif();
     Controleur* controleur = Controleur::getControleur();
 
     // id : 1 = Café, 2 = Restaurant, 3 = Pizzeria, 4 = Moonster burdcger, 5 = Bar a sushi

@@ -56,8 +56,9 @@ void Joueur::activerCartesBleues(int nbDes){
         bool bonNombreAuDe = false;
         for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++)
             if (*it2 == nbDes) { bonNombreAuDe = true;}
-        if ((*it)->getCouleur()==Couleur::Bleu && bonNombreAuDe)
+        if ((*it)->getCouleur()==Couleur::Bleu && bonNombreAuDe){
             dynamic_cast<CarteBleue*>(*it)->activer(*this);
+        }
     }
 }
 
@@ -66,8 +67,9 @@ void Joueur::activerCartesVertes(int nbDes){
         bool bonNombreAuDe = false;
         for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++)
             if (*it2 == nbDes) { bonNombreAuDe = true;}
-        if ((*it)->getCouleur()==Couleur::Vert && bonNombreAuDe)
+        if ((*it)->getCouleur()==Couleur::Vert && bonNombreAuDe){
             dynamic_cast<CarteVerte*>(*it)->activer(*this);
+        }
     }
 }
 

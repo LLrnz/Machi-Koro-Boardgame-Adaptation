@@ -10,20 +10,20 @@ CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int pri
 }
 void CarteViolette::activer(Joueur joueurProprietaire){
     string name = this->getNom();
-    Joueur joueurActif = Jeu::getJeu().getJoueurActif();
+    Joueur joueurActif = Jeu::getJeu()->getJoueurActif();
     Controleur* controleur = Controleur::getControleur();
-    vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
+    vector<Joueur> joueurs = Jeu::getJeu()->getJoueurs();
 
     if (name == "Stade"){
-        vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
+        vector<Joueur> joueurs = Jeu::getJeu()->getJoueurs();
         for (size_t i =0; i<sizeof(joueurs);i++){
-            if (i != Jeu::getJeu().getIndiceJoueurActif()){
-                Jeu::getJeu().getJoueurActif().gagnerPieces(joueurs[i].perdrePieces(2));
+            if (i != Jeu::getJeu()->getIndiceJoueurActif()){
+                Jeu::getJeu()->getJoueurActif().gagnerPieces(joueurs[i].perdrePieces(2));
             }
         }
     }
     if (name == "Chaine TV"){
-        vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
+        vector<Joueur> joueurs = Jeu::getJeu()->getJoueurs();
         controleur->afficher("A qui voulez vous prendre 5 pieces ? \n");
         for (size_t i=0; i<sizeof(joueurs);i++){
             controleur->afficher(i);
@@ -34,7 +34,7 @@ void CarteViolette::activer(Joueur joueurProprietaire){
             controleur->afficher(" pieces \n ");
         }
         string reponse = controleur->lire_str();
-        Jeu::getJeu().getJoueurActif().gagnerPieces(joueurs[std::stoi(reponse)].perdrePieces(5));
+        Jeu::getJeu()->getJoueurActif().gagnerPieces(joueurs[std::stoi(reponse)].perdrePieces(5));
     }
     if (name == "Centre des Affaires"){
         //Affichage et selection de la personne avec qui échange run batiment
