@@ -3,86 +3,87 @@
 #include "../headers/Jeu.h"
 #include "../headers/Controleur.h"
 #include <cmath>
+#include <sstream>
 
 CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur){
 
 }
 void CarteViolette::activer(Joueur joueurProprietaire){
-    string name = this->getNom();
-    Joueur joueurActif = Jeu::getJeu()->getJoueurActif();
-    Controleur* controleur = Controleur::getControleur();
-    vector<Joueur> joueurs = Jeu::getJeu()->getJoueurs();
+    string          name        = this->getNom();
+    Joueur          joueurActif = Jeu::getJeu()->getJoueurActif();
+    Controleur*     controleur  = Controleur::getControleur();
+    vector<Joueur>  joueurs     = Jeu::getJeu()->getJoueurs();
 
-    if (name == "Stade"){
+    // id : Stade = 1, Chaine TV = 2, Centre des Affaires = 3
+    // id : Maison d'édition = 4, Centre des impots = 5
+
+    stringstream s;
+
+    s << "La carte violette " << name << " est activée \n";
+    controleur->afficher(s.str());
+
+    if (this->getId() == 1){    // si c'est le stade
         vector<Joueur> joueurs = Jeu::getJeu()->getJoueurs();
-        for (size_t i =0; i<sizeof(joueurs);i++){
+        for (size_t i = 0 ; i < sizeof(joueurs) ; i++){
             if (i != Jeu::getJeu()->getIndiceJoueurActif()){
-                Jeu::getJeu()->getJoueurActif().gagnerPieces(joueurs[i].perdrePieces(2));
+                Jeu::getJeu()->getJoueurActif().gagnerPieces(joueurs[i].perdrePieces(this->getGain()));
+                stringstream s;
+                s << "Vous avez pris " << this->getGain()" pieces a " << joueurs[i].getPseudo() << "\n";
+                controleur->afficher(s.str());
             }
         }
     }
-    if (name == "Chaine TV"){
+    if (this->getId() == 2){    // si c'est la chaine TV
         vector<Joueur> joueurs = Jeu::getJeu()->getJoueurs();
-        controleur->afficher("A qui voulez vous prendre 5 pieces ? \n");
-        for (size_t i=0; i<sizeof(joueurs);i++){
-            controleur->afficher(i);
-            controleur->afficher(" : ");
-            controleur->afficher(joueurs[i].getPseudo());
-            controleur->afficher(" qui possede ");
-            controleur->afficher(joueurs[i].getPieces());
-            controleur->afficher(" pieces \n ");
+        s << "A qui voulez vous prendre" << this->getGain() << "pieces ? \n";
+        controleur->afficher(s.str());
+        for (size_t i = 0; i < sizeof(joueurs) ; i++){
+            stringstream s;
+            s << i << " : " << joueurs[i].getPseudo() << " qui possede " << joueurs[i].getPieces() << " pieces \n";
+            controleur->afficher(s.str());
         }
         string reponse = controleur->lire_str();
         Jeu::getJeu()->getJoueurActif().gagnerPieces(joueurs[std::stoi(reponse)].perdrePieces(5));
     }
-    if (name == "Centre des Affaires"){
+    if (this->getId() == 3){    // si c'est le centre des affaires
         //Affichage et selection de la personne avec qui échange run batiment
-        controleur->afficher("Avec qui voulez vous echanger un etablissement ? \n");
-        controleur->afficher("-1 : Personne \n");
-        for (size_t i=0; i<sizeof(joueurs);i++){
-            controleur->afficher(i);
-            controleur->afficher(" : ");
-            controleur->afficher(joueurs[i].getPseudo());
+        stringstream s;
+        s << "Avec qui voulez vous echanger un etablissement ? \n";
+        s << "-1 : Personne \n";
+        controleur->afficher(s.str());
+        for (size_t i = 0; i<sizeof(joueurs);i++){
+            stringstream s;
+            s << i << " : " << joueurs[i].getPseudo() << " qui possede : ";;
             controleur->afficher(" qui possede : ");
             for (size_t j = 0; j<sizeof(joueurs[i].getConstructions());j++){
-                controleur->afficher(joueurs[i].getConstructions()[j]->getNom());
-                controleur->afficher(" ");
+                s << joueurs[i].getConstructions()[j]->getNom() << " ";
             }
-            controleur->afficher("\n");
+            controleur->afficher(s.str());
         }
         int reponse = std::stoi(controleur->lire_str());
-        bool confirmeEchange = false;
-        //Si il choisis -1, il n'effectue pas d'échange
-        if (reponse != -1)
-            confirmeEchange = true;
+        bool confirmeEchange = response == -1 ? false : true; //Si -1 alors pas d'échange
+
         //Séquence d'échange
         if (confirmeEchange){
             //Affichage et selection de la carte a prendre chez l'adversaire (ou vous même)
-            controleur->afficher("Choisisez la carte a prendre depuis chez ");
-            controleur->afficher(joueurs[reponse].getPseudo());
-            controleur->afficher("\n");
+            stringstream s;
+            s << "Choisisez la carte a prendre depuis chez " << joueurs[reponse].getPseudo() << "\n";
             for (size_t k = 0; k<sizeof(joueurs[reponse].getConstructions());k++){
                 if (joueurActif.getConstructions()[k]->getType()!=TypeBatiment::special){
-                    controleur->afficher(k);
-                    controleur->afficher(" : ");
-                    controleur->afficher(joueurs[reponse].getConstructions()[k]->getNom());
-                    controleur->afficher(" ");
+                    s << k << " : " << joueurs[reponse].getConstructions()[k]->getNom() << " ";
                 }
             }
+            controleur->afficher(s.str());
             int repPrendre = std::stoi(controleur->lire_str());
-            controleur->afficher("Choisisez la carte a echanger depuis chez vous");
-            controleur->afficher(joueurActif.getPseudo());
-            controleur->afficher("\n");
+            stringstream s;
+            s << "Choisisez la carte a echanger depuis chez vous" << joueurActif.getPseudo() << "\n";
             for (size_t m = 0; m<sizeof(joueurActif.getConstructions());m++){
                 if (joueurActif.getConstructions()[m]->getType()!=TypeBatiment::special){
-                    controleur->afficher(m);
-                    controleur->afficher(" : ");
-                    controleur->afficher(joueurActif.getConstructions()[m]->getNom());
-                    controleur->afficher(" ");
+                    s << m << " : " << joueurActif.getConstructions()[m]->getNom() << " ";
                 }
             }
-            controleur->afficher("\n");
+            controleur->afficher(s->str());
             int repEchange = std::stoi(controleur->lire_str());
             Batiment* ptTempPrendre = joueurs[reponse].getConstructions()[repPrendre];
             Batiment* ptTempEchange = joueurActif.getConstructions()[repEchange];
@@ -92,20 +93,29 @@ void CarteViolette::activer(Joueur joueurProprietaire){
             joueurs[reponse].enleverBatimentParIndice(repPrendre);
         }
     }
-    if (name == "Maison d'édition"){
+    if (this->getId() == 4){    // si c'est la maison d'édition
         int compteur = 0;
         for (size_t i =0; i<sizeof(joueurs);i++){
             compteur = 0;
-            for (size_t j; j<sizeof(joueurs[i].getConstructions());j++)
+            for (size_t j; j<sizeof(joueurs[i].getConstructions());j++) {
                 if (joueurs[i].getConstructions()[j]->getType() == TypeBatiment::magasin || joueurs[i].getConstructions()[j]->getType() == TypeBatiment::restaurant)
                     compteur+=1;
-            joueurActif.gagnerPieces(joueurs[i].perdrePieces(compteur));
+                joueurActif.gagnerPieces(joueurs[i].perdrePieces(compteur));
+                stringstream s;
+                s << "Vous avez pris " << compteur << " pieces a " << joueurs[i].getPseudo() << "\n";
+                controleur->afficher(s.str());
+            }
         }
     }
-    if (name == "Centre des impots"){
+    if (this->getId() == 5){    // si c'est le centre des impots
         for (size_t i =0; i<sizeof(joueurs);i++){
-            if (joueurs[i].getPieces()>=10)
-                joueurActif.gagnerPieces(joueurs[i].perdrePieces(floor(joueurs[i].getPieces()/2)));
+            if (joueurs[i].getPieces()>=10) {
+                int gain = floor(joueurs[i].getPieces()/2);
+                joueurActif.gagnerPieces(joueurs[i].perdrePieces(gain));
+                stringstream s;
+                s << "Vous avez pris " << gain << " pieces a " << joueurs[i].getPseudo() << "\n";
+                controleur->afficher(s.str());
+            }
         }
     }
 }

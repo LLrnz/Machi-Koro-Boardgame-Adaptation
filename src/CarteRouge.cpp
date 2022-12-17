@@ -18,7 +18,9 @@ void CarteRouge::activer(Joueur joueurProprietaire){
     Controleur* controleur = Controleur::getControleur();
 
     // id : 1 = Café, 2 = Restaurant, 3 = Pizzeria, 4 = Moonster burdcger, 5 = Bar a sushi
+    // id : 6 = Club privé, 7 = Restaurant gastronomique
 
+    int gain = this->getGain();
     if (this->getId() == 5 && !joueurProprietaire.hasPort()) {              // si c'est bar à sushi mais que le joueur n'a pas de port
         return;                                                                 // on ne fait rien et on sort de la fonction
     }
@@ -31,10 +33,11 @@ void CarteRouge::activer(Joueur joueurProprietaire){
         if (compteur < this->getNbMonuToActivate()) {                       // si le joueur n'a pas assez de monument construit
             return;                                                             // on ne fait rien et on sort de la fonction
         }
+        gain = this->getId() == 6 ? joueurActif.getPieces() : gain; // si c'est un club prive, le gain est le nombre de pieces du joueur actif
     }
 
-    int payement = joueurActif.perdrePieces(this->getGain());           // le joueur actif perd des pieces
-    joueurProprietaire.gagnerPieces(payement);                          // le joueur proprietaire gagne des pieces
+    joueurActif.perdrePieces(gain);           // le joueur actif perd des pieces
+    joueurProprietaire.gagnerPieces(gain);                          // le joueur proprietaire gagne des pieces
 
     // affichage
     stringstream s;

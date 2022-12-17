@@ -5,13 +5,24 @@
 CarteBleue::CarteBleue(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur) {
 }
-
 void CarteBleue::activer(Joueur joueurProprietaire) {
     string name = this->getNom();
     Controleur *controleur = Controleur::getControleur();
 
     // id : champ de blé = 1, ferme = 2, forêt = 3, mine = 4,
     // verger de pommiers = 5, vignoble = 6, petit bateau de pêche = 7, chalutier = 8
+    // champ de fleurs = 9
+    
+    if (this->getId() == 1) {                                      // si c'est un champ de blé
+        int compteur = 0;
+        for (size_t i = 0; i < size(joueurActif.getMonuments()); i++) {     // pour chaque monument du joueur actif
+            if (joueurActif.getMonuments()[i].getConstruit() == true)           // si le monument est construit
+                compteur += 1;                                                      // on incremente le compteur
+        }
+        if (compteur >= 2) {                            // si le joueur a 2 monuments construit ou plus
+            return;                                                             // on ne fait rien et on sort de la fonction
+        }
+    }
     if ((this->getId() == 7 || this->getId() == 8) && !joueurProprietaire.hasPort()) { // si c'est un petit bateau de pêche ou un chalutier et que le joueur actif n'a pas de port
         return;
     }
@@ -28,7 +39,7 @@ void CarteBleue::activer(Joueur joueurProprietaire) {
 
         gain = resultatJet;
 
-        s << "Le résultat du jet de de lie au chalutier est " << resultatJet << endl;
+        s << "Le résultat du jet au chalutier est " << resultatJet << endl;
         s << joueurProprietaire.getPseudo() << "a donc gagne " << resultatJet << endl;
     }
 
@@ -36,5 +47,3 @@ void CarteBleue::activer(Joueur joueurProprietaire) {
 
     controleur->afficher(s.str());
 }
-
-

@@ -1,252 +1,561 @@
 {
-    "cartes" : {
-        "bleu" : {
-            "champsDeBle" : {
-                "quantite" : 6,
-                "nom" : "Champs de blé",
-                "prix" : 1,
-                "type" : "ble",
-                "activation" : {
-                    "nb" : [1],
-                    "gain" : 1
+    "cartes": {
+        "bleu": {
+            "champsDeBle": {
+                "id": 1,
+                "nom": "Champs de blé",
+                "extension": [
+                        "base"
+                ],
+                "type": "ble",
+                "prix": 1,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        1
+                    ],
+                    "gain": 1
                 }
             },
-
-            "ferme" : {
-                "quantite" : 6,
-                "nom" : "Ferme",
-                "prix" : 1,
-                "type" : "vache",
-                "activation" : {
-                    "tour" : "tous",
-                    "nb" : [2],
-                    "gain" : 1,
-                    "source" : "banque" 
+            "ferme": {
+                "id": 2,
+                "nom": "Ferme",
+                "extension": [
+                    "base"
+                ],
+                "type": "vache",
+                "prix": 1,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        2
+                    ],
+                    "gain": 1
                 }
             },
-
-            "foret" : {
-                "quantite" : 6,
-                "nom" : "Forêt",
-                "prix" : 3,
-                "type" : "ecrou",
-                "activation" : {
-                    "tour" : "tous",
-                    "nb" : [5],
-                    "gain" : 1,
-                    "source" : "banque" 
+            "foret": {
+                "id": 3,
+                "nom": "Forêt",
+                "extension": [
+                    "base"
+                ],
+                "type": "ecrou",
+                "prix": 3,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        5
+                    ],
+                    "gain": 1
                 }
             },
-
-            "mine" : {
-                "quantite" : 6,
-                "nom" : "Mine",
-                "prix" : 6,
-                "type" : "ecrou",
-                "activation" : {
-                    "tour" : "tous",
-                    "nb" : [9],
-                    "gain" : 5,
-                    "source" : "banque" 
+            "mine": {
+                "id": 4,
+                "nom": "Mine",
+                "extension": [
+                    "base"
+                ],
+                "type": "ecrou",
+                "prix": 6,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        9
+                    ],
+                    "gain": 5
                 }
             },
-
-            "vergerPomme" : {
-                "quantite" : 6,
-                "nom" : "Verger de Pommiers",
-                "prix" : 3,
-                "type" : "ble",
-                "activation" : {
-                    "tour" : "tous",
-                    "nb" : [10],
-                    "gain" : 3,
-                    "source" : "banque" 
+            "vergerPomme": {
+                "id": 5,
+                "nom": "Verger de Pommiers",
+                "extension": [
+                    "base"
+                ],
+                "type": "ble",
+                "prix": 3,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        10
+                    ],
+                    "gain": 3
+                }
+            },
+            "vignoble": {
+                "id": 6,
+                "nom": "Vignoble",
+                "extension": "deluxe",
+                "type": "ble",
+                "prix": 3,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        7
+                    ],
+                    "gain": 3
+                }
+            },
+            "petit bateau de pêche": {
+                "id": 7,
+                "nom": "Petit bateau de pêche",
+                "extension": [
+                    "marina",
+                    "deluxe"
+                ],
+                "type": "bateau",
+                "prix": 2,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        8
+                    ],
+                    "gain": 3
+                }
+            },
+            "chalutier": {
+                "id": 8,
+                "nom": "Chalutier",
+                "extension": [
+                    "marina",
+                    "deluxe"
+                ],
+                "type": "bateau",
+                "prix": 4,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        12,
+                        13,
+                        14
+                    ],
+                    "gain": 0
+                }
+            },
+            "champ de fleurs": {
+                "id": 9,
+                "nom": "Champ de fleurs",
+                "extension": [
+                    "marina",
+                    "deluxe"
+                ],
+                "type": "ble",
+                "prix": 2,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        4
+                    ],
+                    "gain": 1
                 }
             }
         },
-
-        "verte" : {
-            "boulangerie" : {
-                "quantite" : 6,
-                "nom" : "Boulangerie",
-                "prix" : 1,
-                "type" : "magasin",
-                "activation" : {
-                    "tour" : "soi",
-                    "nb" : [2, 3],
-                    "gain" : 1,
-                    "source" : "banque" 
+        "verte": {
+            "boulangerie": {
+                "id": 1,
+                "nom": "Boulangerie",
+                "extension": [
+                    "base"
+                ],
+                "type": "magasin",
+                "prix": 1,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        2,
+                        3
+                    ],
+                    "gain": 1,
+                    "effectType": "none"
                 }
             },
-
-            "superette" : {
-                "quantite" : 6,
-                "nom" : "Supérette",
-                "prix" : 2,
-                "type" : "magasin",
-                "activation" : {
-                    "tour" : "soi",
-                    "nb" : [4],
-                    "gain" : 3,
-                    "source" : "banque" 
+            "superette": {
+                "id": 2,
+                "nom": "Supérette",
+                "extension": [
+                    "base"
+                ],
+                "type": "magasin",
+                "prix": 2,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        4
+                    ],
+                    "gain": 3,
+                    "effectType": "none"
                 }
             },
-
-            "usineFromage" : {
-                "quantite" : 6,
-                "nom" : "Usine de fromage",
-                "prix" : 3,
-                "type" : "usine",
-                "activation" : {
-                    "tour" : "soi",
-                    "nb" : [7],
-                    "gain" : "fonction" ,
-                    "fonction" : {
-                        "nb" : 3,
-                        "type" : "vache"
-                    },
-                    "source" : "banque" 
+            "usineFromage": {
+                "id": 3,
+                "nom": "Usine de fromage",
+                "extension": [
+                    "base"
+                ],
+                "type": "usine",
+                "prix": 3,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        7
+                    ],
+                    "gain": 3,
+                    "effectType": "vache"
                 }
             },
-
-            "magasinMeuble" : {
-                "quantite" : 6,
-                "nom" : "Magasin de meubles",
-                "prix" : 3,
-                "type" : "usine",
-                "activation" : {
-                    "tour" : "soi",
-                    "nb" : [8],
-                    "gain" : "fonction" ,
-                    "fonction" : {
-                        "nb" : 3,
-                        "type" : "ecrou"
-                    },
-                    "source" : "banque" 
+            "magasinMeuble": {
+                "id": 4,
+                "nom": "Magasin de meubles",
+                "extension": [
+                    "base"
+                ],
+                "type": "usine",
+                "prix": 3,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        8
+                    ],
+                    "gain": "3",
+                    "effectType": "ecrou"
                 }
             },
-
-            "marcherFL" : {
-                "quantite" : 6,
-                "nom" : "Marché de fruits et légumes",
-                "prix" : 2,
-                "type" : "fruit",
-                "activation" : {
-                    "tour" : "soi",
-                    "nb" : [11, 12],
-                    "gain" : "fonction" ,
-                    "fonction" : {
-                        "nb" : 2,
-                        "type" : "ble"
-                    },
-                    "source" : "banque" 
-                }
-            }
-        },
-
-        "rouge" : {
-            "cafe" : {
-                "quantite" : 6,
-                "nom" : "Café",
-                "prix" : 2,
-                "type" : "restaurant",
-                "activation" : {
-                    "tour" : "tous",
-                    "nb" : [3],
-                    "gain" : 1,
-                    "source" : "joueur_actif" 
+            "marcherFL": {
+                "id": 5,
+                "nom": "Marché de fruits et légumes",
+                "extension": [
+                    "base"
+                ],
+                "type": "fruit",
+                "prix": 2,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        11,
+                        12
+                    ],
+                    "gain": 2,
+                    "effectType": "ble"
                 }
             },
-
-            "restaurantFamiliale" : {
-                "quantite" : 6,
-                "nom" : "Restaurant Familiale",
-                "prix" : 3,
-                "type" : "restaurant",
-                "activation" : {
-                    "tour" : "tous",
-                    "nb" : [9, 10],
-                    "gain" : 2,
-                    "source" : "joueur_actif" 
-                }
-            }
-        },
-
-        "violet" : {
-            "stade" : {
-                "quantite" : 4,
-                "nom" : "Stade",
-                "prix" : 6,
-                "type" : "special",
-                "activation" : {
-                    "tour" : "soi",
-                    "nb" : [6],
-                    "gain" : 2,
-                    "source" : "tous_les_joueurs" 
+            "fleuriste": {
+                "id": 6,
+                "nom": "Fleuriste",
+                "extension": [
+                    "marina",
+                    "deluxe"
+                ],
+                "type": "magasin",
+                "prix": 1,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        6
+                    ],
+                    "gain": 1,
+                    "effectType": "none"
                 }
             },
-
-            "chaineTV" : {
-                "quantite" : 4,
-                "nom" : "Chaine TV",
-                "prix" : 7,
-                "type" : "special",
-                "activation" : {
-                    "tour" : "soi",
-                    "nb" : [6],
-                    "gain" : 2,
-                    "source" : "choix_joueur" 
-                }
-            },
-
-            "centreAffaires" : {
-                "quantite" : 4,
-                "nom" : "Centre des Affaires",
-                "prix" : 8,
-                "type" : "special",
-                "activation" : {
-                    "tour" : "soi",
-                    "nb" : [6],
-                    "gain" : "effet",
-                    "effet" : "echange",
-                    "source" : "choix_joueur"
+            "halle de marché": {
+                "id": 7,
+                "nom": "Halle de marché",
+                "extension": [
+                    "marina",
+                    "deluxe"
+                ],
+                "type": "usine",
+                "prix": 2,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        12,
+                        13
+                    ],
+                    "gain": 2,
+                    "effectType": "restaurant"
                 }
             }
         },
-
-        "jaune" : {
-            "gare" : {
-                "nom" : "Gare",
-                "prix" : 4,
-                "type" : "special",
-                "quand_achete" : "deuxDes"
+        "rouge": {
+            "cafe": {
+                "id": 1,
+                "nom": "Café",
+                "extension": [
+                    "base"
+                ],
+                "type": "restaurant",
+                "prix": 2,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        3
+                    ],
+                    "gain": 1,
+                    "nbMonuToActivate": 0
+                }
             },
-
-            "centreCommercial" : {
-                "nom" : "Centre Commercial",
-                "prix" : 10,
-                "type" : "special",
-                "quand_achete" : "doubleProduction"
+            "restaurantFamiliale": {
+                "id": 2,
+                "nom": "Restaurant Familiale",
+                "extension": [
+                    "base"
+                ],
+                "type": "restaurant",
+                "prix": 3,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        9,
+                        10
+                    ],
+                    "gain": 2,
+                    "nbMonuToActivate": 0
+                }
             },
-
-            "parcAttraction" : {
-                "nom" : "Parc d'Attraction",
-                "prix" : 16,
-                "type" : "special",
-                "quand_achete" : "rejouerDouble"
+            "pizzeria": {
+                "id": 3,
+                "nom": "Pizzeria",
+                "extension": [
+                    "marina",
+                    "deluxe"
+                ],
+                "type": "restaurant",
+                "prix": 1,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        7
+                    ],
+                    "gain": 1,
+                    "nbMonuToActivate": 0
+                }
             },
-
-            "tourRadio" : {
-                "nom" : "Tour Radio",
-                "prix" : 22,
-                "type" : "special",
-                "quand_achete" : "relancerDes"
+            "moonster burger": {
+                "id": 4,
+                "nom": "Moonster Burger",
+                "extension": [
+                    "marina",
+                    "deluxe"
+                ],
+                "type": "restaurant",
+                "prix": 1,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        8
+                    ],
+                    "gain": 1,
+                    "nbMonuToActivate": 0
+                }
+            },
+            "bar à sushi": {
+                "id": 5,
+                "nom": "Bar à sushi",
+                "extension": [
+                    "marina",
+                    "deluxe"
+                ],
+                "type": "restaurant",
+                "prix": 2,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        1
+                    ],
+                    "gain": 1,
+                    "nbMonuToActivate": 0
+                }
+            }, 
+            "club privé": {
+                "id": 6,
+                "nom": "Club privé",
+                "extension": [
+                    "deluxe"
+                ],
+                "type": "restaurant",
+                "prix": 4,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        12, 13, 14
+                    ],
+                    "gain": 0,
+                    "nbMonuToActivate": 3
+                }
+            },
+            "restaurant gastronomique": {
+                "id": 7,
+                "nom": "Restaurant gastronomique",
+                "extension": [
+                    "deluxe"
+                ],
+                "type": "restaurant",
+                "prix": 3,
+                "quantite": 6,
+                "activation": {
+                    "combinaisons": [
+                        5
+                    ],
+                    "gain": 5,
+                    "nbMonuToActivate": 2
+                }
+            }
+        },
+        "violet": {
+            "stade": {
+                "id": 1,
+                "nom": "Stade",
+                "type": "special",
+                "extension": [
+                    "base"
+                ],
+                "prix": 6,
+                "quantite": 4,
+                "activation": {
+                    "combinaisons": [
+                        6
+                    ],
+                    "gain": 2,
+                    "source": "tous_les_joueurs"
+                }
+            },
+            "chaineTV": {
+                "id": 2,
+                "nom": "Chaine TV",
+                "extension": [
+                    "base"
+                ],
+                "type": "special",
+                "prix": 7,
+                "quantite": 4,
+                "activation": {
+                    "combinaisons": [
+                        6
+                    ],
+                    "gain": 5,
+                    "source": "choix_joueur"
+                }
+            },
+            "centreAffaires": {
+                "id": 3,
+                "nom": "Centre des Affaires",
+                "extension": [
+                    "base"
+                ],
+                "type": "special",
+                "prix": 8,
+                "quantite": 4,
+                "activation": {
+                    "combinaisons": [
+                        6
+                    ],
+                    "gain": 0,
+                    "source": "choix_joueur"
+                }
+            },
+            "maison d'édition": {
+                "id": 4,
+                "nom": "Maison d'édition",
+                "extension": [
+                    "marina",
+                    "deluxe"
+                ],
+                "type": "special",
+                "prix": 5,
+                "quantite": 5,
+                "activation": {
+                    "combinaisons": [
+                        7
+                    ],
+                    "gain": 1,
+                    "source": "tous_les_joueurs"
+                }
+            },
+            "centre des impots": {
+                "id": 5,
+                "nom": "Centre des impots",
+                "extension": [
+                    "marina",
+                    "deluxe"
+                ],
+                "type": "special",
+                "prix": 4,
+                "quantite": 5,
+                "activation": {
+                    "combinaisons": [
+                        8,
+                        9
+                    ],
+                    "gain": 5,
+                    "source": "choix_joueur"
+                }
+            }
+        },
+        "jaune": {
+            "gare": {
+                "id": 1,
+                "nom": "Gare",
+                "type": "special",
+                "extension": [
+                    "base"
+                ],
+                "prix": 4,
+                "quand_achete": "deuxDes"
+            },
+            "centreCommercial": {
+                "id": 2,
+                "nom": "Centre Commercial",
+                "type": "special",
+                "extension": [
+                    "base"
+                ],
+                "prix": 10,
+                "quand_achete": "doubleProduction"
+            },
+            "parcAttraction": {
+                "id": 3,
+                "nom": "Parc d'Attraction",
+                "type": "special",
+                "extension": [
+                    "base"
+                ],
+                "prix": 16,
+                "quand_achete": "rejouerDouble"
+            },
+            "tourRadio": {
+                "id": 4,
+                "nom": "Tour Radio",
+                "type": "special",
+                "extension": [
+                    "base"
+                ],
+                "prix": 22,
+                "quand_achete": "relancerDes"
+            },
+            "port": {
+                "id": 5,
+                "nom": "Port",
+                "type": "special",
+                "extension": [
+                    "marina", "deluxe"
+                ],
+                "prix": 2,
+                "quand_achete": "ajouter2aPlusQue10"
+            },
+            "aéroport": {
+                "id": 6,
+                "nom": "Aéroport",
+                "type": "special",
+                "extension": [
+                    "marina", "deluxe"
+                ],
+                "prix": 30,
+                "quand_achete": "10piecesSiBuildRienPdtTour"
             }
         }
-    }, 
-
-    "enumType" : ["ble", "vache", "ecrou", "fruit", "magasin", "usine", "restaurant", "special"],
-    "enumSource" : ["banque", "joueur_actif", "tous_les_joueurs", "choix_joueur"]
-
-    
+    },
+    "enumExtension": [
+        "base",
+        "marina",
+        "deluxe"
+    ]
 }

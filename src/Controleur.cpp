@@ -60,7 +60,7 @@ void Controleur::nouvellePartie(){
     }
 
     //set up extensions
-    for( const auto e : {Extensions::harbour, Extensions::deluxe} ){
+    for( const auto e : {Extensions::marina, Extensions::deluxe} ){
         this->afficher("Jouer avec l'extension ?");
         bool val = this->lire_int(0,1);
         this->extensions.emplace(e, val);
