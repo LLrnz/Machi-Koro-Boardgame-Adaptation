@@ -38,6 +38,9 @@ class Jeu
     void activerCartesVertes(int nbDes);
     void activerCartesRouges(int nbDes);
     void activerCartesViolettes(int nbDes);
+    void extracted(Joueur &joueur, int &i,
+                   vector<Monument *> &monumentsAchetables,
+                   std::stringstream &s);
     void achat();
     bool verifierVictoire();   
 public:
@@ -53,7 +56,7 @@ public:
     void setJoueurActif(int i) { joueurActif = i; };
     bool getPartieTerminee() const { return partieTerminee; };
     int getIndiceJoueurActif() const { return joueurActif; };
-    Joueur getJoueurActif() const { return joueurs[joueurActif]; };
+    Joueur& getJoueurActif() { return joueurs[joueurActif]; };
     vector<Joueur> getJoueurs() const { return joueurs; };
 
 };

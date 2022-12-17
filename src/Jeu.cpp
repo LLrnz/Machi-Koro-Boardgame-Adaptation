@@ -148,7 +148,7 @@ void Jeu::initialiserCartes(map<Extensions, bool> extensions) {
     }
 }
     
-Jeu::Jeu():marche(nullptr) {
+Jeu::Jeu():joueurActif(0),marche(nullptr) {
     //initialiserCartes();
 
     this->controleur = Controleur::getControleur();
@@ -299,91 +299,116 @@ int Jeu::lancerDes(){
 	return resultatJet;
 }
 
-
-void Jeu::achat(){
-// 6e étape de la boucle de jeu. Propose au joueur la liste des cartes achetables 
-// du Marché, puis appelle la méthode acheter() du Marché.
-
-    // on récupère le joueur actif :
-    Joueur joueur = getJoueurActif();
-
-    // affiche la liste des batiments achetables sur le marché :
-    vector<Batiment*> batimentsAchetables = marche->getCarteDispAchat();
-    Controleur::getControleur()->afficher("\nListe des bâtiments achetables sur le marché :");
-    int i = 0;
-    for (Batiment* c : batimentsAchetables){
-        stringstream s;
-        s << "  " << i << " : " << c->getNom() << " (" << c->getPrix() << ")\n";
-        Controleur::getControleur()->afficher(s.str());
-        i++;
-    }
-    
-    // affiche la liste des monuments achetables par le joueur :
-    i = 10;  // i=10 correspond donc à monumentsAchetables[0]
-    Controleur::getControleur()->afficher("\nListe des monuments non construits :");
-    vector<Monument*> monumentsAchetables; 
-    stringstream s;
-    for (Monument m : joueur.getMonuments()){
-        if (!m.getConstruit()){
+void Jeu::extracted(Joueur &joueur, int &i,
+                    vector<Monument *> &monumentsAchetables,
+                    std::stringstream &s) {
+    for (Monument m : joueur.getMonuments()) {
+        if (!m.getConstruit()) {
             monumentsAchetables.push_back(&m);
-            s << "  " << i << " : " << m.getNom() << " (" << m.getPrix() << ")\n";
+            s << "  " << i << " : " << m.getNom() << " ("
+              << m.getPrix() << ")\n";
             i++;
         }
     }
+}
+void Jeu::achat() {
+    // 6e étape de la boucle de jeu. Propose au joueur la liste des cartes
+    // achetables du Marché, puis appelle la méthode acheter() du Marché.
+
+    // on récupère le joueur actif :
+    Joueur &joueur = getJoueurActif();
+
+    // affiche la liste des batiments achetables sur le marché :
+    vector<Batiment *> batimentsAchetables = marche->getCarteDispAchat();
+    Controleur::getControleur()->afficher(
+                "\nListe des bâtiments achetables sur le marché :");
+    int i = 0;
+    for (Batiment *c : batimentsAchetables) {
+        stringstream s;
+        s << "  " << i << " : " << c->getNom() << " (" << c->getPrix()
+          << ")\n";
+        Controleur::getControleur()->afficher(s.str());
+        i++;
+    }
+
+    // affiche la liste des monuments achetables par le joueur :
+    i = 10; // i=10 correspond donc à monumentsAchetables[0]
+    Controleur::getControleur()->afficher(
+                "\nListe des monuments non construits :");
+    vector<Monument *> monumentsAchetables;
+    stringstream s;
+    extracted(joueur, i, monumentsAchetables, s);
     Controleur::getControleur()->afficher(s.str());
 
     // on récupère le solde actuel du joueur :
     int soldeJoueur = joueur.getPieces();
 
     // on demande au joueur quelle carte il souhaite acheter :
-    Controleur::getControleur()->afficher("Saisir le numéro de la carte que vous souhaitez acheter, et -1 si vous n'achetez rien : ");
+    Controleur::getControleur()->afficher(
+                "Saisir le numéro de la carte que vous souhaitez acheter, et -1 si "
+                "vous n'achetez rien : ");
     bool achatEffectue = false;
     string rep;
-    while(!achatEffectue){
+    while (!achatEffectue) {
         rep = Controleur::getControleur()->lire_str();
         int num = stoi(rep);
 
         // s'il n'achète rien
-        if (num==-1) break; 
-        
+        if (num == -1)
+            break;
+
         // si la carte demandée est un batiement du marché :
-        if (num<10){
+        if (num < 10) {
             if (batimentsAchetables[num]->getPrix() > soldeJoueur)
-                Controleur::getControleur()->afficher("\nVous ne possédez pas assez d'argent pour acheter cette carte. Veuillez en choisir une autre, ou saisir 'R' pour terminer votre tour.\n");
-            else{
-                // si le joueur a assez d'argent pour acheter la carte :
+                Controleur::getControleur()->afficher(
+                            "\nVous ne possédez pas assez d'argent "
+                            "pour acheter cette carte. Veuillez en "
+                            "choisir une autre, ou saisir 'R' pour "
+                            "terminer votre tour.\n");
+            else {
+                // si le joueur a assez d'argent pour acheter la
+                // carte :
                 achatEffectue = true;
                 // on enlève la carte du marché
-                Batiment* c = marche->acheter(num);
+                Batiment *c = marche->acheter(num);
                 // on la donne au joueur
                 joueur.ajouterBatiment(c);
                 // et on actualise son solde
-                joueur.perdrePieces(batimentsAchetables[num]->getPrix());
-                Controleur::getControleur()->afficher("Achat effectué avec succès.\n");
+                joueur.perdrePieces(
+                            batimentsAchetables[num]->getPrix());
+                Controleur::getControleur()->afficher(
+                            "Achat effectué avec succès.\n");
             }
         }
         // si la carte demandée est un monument :
-        else if (num>=10){
-            num-=10;
+        else if (num >= 10) {
+            num -= 10;
             if (monumentsAchetables[num]->getPrix() > soldeJoueur)
-                Controleur::getControleur()->afficher("\nVous ne possédez pas assez d'argent pour acheter cette carte. Veuillez en choisir une autre, ou saisir 'R' pour terminer votre tour.\n");
-            else{
-                // si le joueur a assez d'argent pour acheter la carte :
+                Controleur::getControleur()->afficher(
+                            "\nVous ne possédez pas assez d'argent "
+                            "pour acheter cette carte. Veuillez en "
+                            "choisir une autre, ou saisir 'R' pour "
+                            "terminer votre tour.\n");
+            else {
+                // si le joueur a assez d'argent pour acheter la
+                // carte :
                 achatEffectue = true;
                 // on construit le monument du joueur
                 monumentsAchetables[num]->setConstruit();
                 // et on actualise son solde
-                joueur.perdrePieces(batimentsAchetables[num]->getPrix());
-                Controleur::getControleur()->afficher("Achat effectué avec succès.\n");
+                joueur.perdrePieces(
+                            batimentsAchetables[num]->getPrix());
+                Controleur::getControleur()->afficher(
+                            "Achat effectué avec succès.\n");
             }
         }
     }
 
     // Gestion du RSA :
-    if (!achatEffectue && soldeJoueur<2){
-        joueur.gagnerPieces(2-soldeJoueur);
+    if (!achatEffectue && soldeJoueur < 2) {
+        joueur.gagnerPieces(2 - soldeJoueur);
     }
-    if(!achatEffectue && joueur.hasAeroport())
+    if (!achatEffectue && joueur.hasAeroport())
         joueur.gagnerPieces(10);
 
     Controleur::getControleur()->afficher("Fin du tour");
