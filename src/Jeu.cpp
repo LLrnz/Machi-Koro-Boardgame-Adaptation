@@ -423,10 +423,15 @@ void Jeu::activerCartesRouges(int nbDes){
         if (joueurActif!=i)
             joueurs[i].activerCartesRouges(nbDes);
 }
-void Jeu::activerCartesBleues(int nbDes){
+/*void Jeu::activerCartesBleues(int nbDes){
     for (size_t i = 0;i<sizeof(jeu->getJoueurs());i++)
 		joueurs[i].activerCartesBleues(nbDes);
+}*/
+void Jeu::activerCartesBleues(int nbDes){
+    for (auto i : Jeu::getJoueurs())
+        i.activerCartesBleues(nbDes);
 }
+
 void Jeu::activerCartesVertes(int nbDes){
     joueurs[joueurActif].activerCartesVertes(nbDes);
 }

@@ -52,16 +52,14 @@ bool Joueur::hasAeroport() const{
 
 
 void Joueur::activerCartesBleues(int nbDes){
-    for (auto it = batiments.begin(); it != batiments.end(); it++){
+    for (auto &it : batiments){
         bool bonNombreAuDe = false;
-        for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++)
-            if (*it2 == nbDes) { bonNombreAuDe = true;}
-        if ((*it)->getCouleur()==Couleur::Bleu && bonNombreAuDe){
-            dynamic_cast<CarteBleue*>(*it)->activer(*this);
-        }
+        for (auto &it2 : it->getCombinaisons())
+            if (it2 == nbDes) { bonNombreAuDe = true;}
+        if (it->getCouleur()==Couleur::Bleu && bonNombreAuDe)
+             dynamic_cast<CarteBleue*> (it)->activer(*this);
     }
 }
-
 void Joueur::activerCartesVertes(int nbDes){
     for (auto it = batiments.begin(); it != batiments.end(); it++){
         bool bonNombreAuDe = false;
@@ -73,16 +71,17 @@ void Joueur::activerCartesVertes(int nbDes){
     }
 }
 
+
 void Joueur::activerCartesRouges(int nbDes){
-    for (auto it = batiments.begin(); it != batiments.end(); it++){
+    for (auto &it : batiments){
         bool bonNombreAuDe = false;
-        for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++)
-            if (*it2 == nbDes) { bonNombreAuDe = true;}
-        if ((*it)->getCouleur()==Couleur::Rouge && bonNombreAuDe){
-            dynamic_cast<CarteRouge*>(*it)->activer(*this);
-        }
+        for (auto &it2 : it->getCombinaisons())
+            if (it2 == nbDes) { bonNombreAuDe = true;}
+        if (it->getCouleur()==Couleur::Rouge && bonNombreAuDe)
+             dynamic_cast<CarteRouge*> (it)->activer(*this);
     }
 }
+
 
 void Joueur::activerCartesViolettes(int nbDes){
     for (auto it = batiments.begin(); it != batiments.end(); it++){
