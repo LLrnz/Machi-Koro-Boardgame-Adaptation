@@ -52,7 +52,7 @@ void Joueur::activerCartesBleues(int nbDes){
         for (auto &it2 : it->getCombinaisons())
             if (it2 == nbDes) { bonNombreAuDe = true;}
         if (it->getCouleur()==Couleur::Bleu && bonNombreAuDe)
-             it->activer(*this);
+             it->activer(this);
     }
 }
 
@@ -62,7 +62,7 @@ void Joueur::activerCartesVertes(int nbDes){
         for (auto &it2 : it->getCombinaisons() )
             if (it2 == nbDes) { bonNombreAuDe = true;}
         if (it->getCouleur()==Couleur::Vert && bonNombreAuDe)
-            it->activer(*this);
+            it->activer(this);
     }
 }
 
@@ -72,7 +72,7 @@ void Joueur::activerCartesRouges(int nbDes){
         for (auto &it2 : it->getCombinaisons())
             if (it2 == nbDes) { bonNombreAuDe = true;}
         if (it->getCouleur()==Couleur::Rouge && bonNombreAuDe){
-            it->activer(*this);
+            it->activer(this);
         }
     }
 }
@@ -83,7 +83,7 @@ void Joueur::activerCartesViolettes(int nbDes){
         for (auto &it2 : it->getCombinaisons())
             if (it2 == nbDes) { bonNombreAuDe = true;}
         if (it->getCouleur()==Couleur::Violet && bonNombreAuDe)
-            it->activer(*this);
+            it->activer(this);
     }
 }
 

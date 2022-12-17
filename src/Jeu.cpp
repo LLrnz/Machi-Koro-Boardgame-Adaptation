@@ -123,8 +123,14 @@ void Jeu::boucleDeJeu() {
  * @brief Jeu::tourDeJeu exprime un tour de jeu
  */
 void Jeu::tourDeJeu() {
-    Controleur::getControleur()->afficher("C'est a " + joueurActif->getPseudo() + "de jouer ! \n");
+    Controleur::getControleur()->afficher("C'est a " + joueurActif->getPseudo() + " de jouer ! \n");
+
+    Controleur::getControleur()->afficher(joueurActif->getConstructions());
+    Controleur::getControleur()->afficher("\n");
+
 	int resultatJet = jeu->lancerDes();
+    Controleur::getControleur()->afficher("Vous avez " + to_string(joueurActif->getPieces()) + " pièces ! \n");
+
 	jeu->activerCartesRouges(resultatJet);
 	jeu->activerCartesBleues(resultatJet);
 	jeu->activerCartesVertes(resultatJet);

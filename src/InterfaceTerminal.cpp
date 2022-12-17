@@ -103,6 +103,11 @@ Joueur* InterfaceTerminal::selection_joueur(vector<Joueur*> joueurs){
     return res;
 }
 
+/**
+ * @brief InterfaceTerminal::selection_batiment
+ * @param batiments
+ * @return
+ */
 Batiment* InterfaceTerminal::selection_batiment(vector<Batiment*> batiments){
     afficher(batiments);
     int choix = lire_int(0, batiments.size()-1);

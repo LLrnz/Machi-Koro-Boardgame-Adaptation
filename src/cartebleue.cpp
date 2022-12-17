@@ -6,18 +6,18 @@ CarteBleue::CarteBleue(int id, std::string nom, TypeBatiment type, int prix, int
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur) {
 }
 
-void CarteBleue::activer(Joueur joueurProprietaire) {
+void CarteBleue::activer(Joueur* joueurProprietaire) {
     string name = this->getNom();
     Controleur *controleur = Controleur::getControleur();
 
     // id : champ de blé = 1, ferme = 2, forêt = 3, mine = 4,
     // verger de pommiers = 5, vignoble = 6, petit bateau de pêche = 7, chalutier = 8
-    if ((this->getId() == 7 || this->getId() == 8) && !joueurProprietaire.hasPort()) { // si c'est un petit bateau de pêche ou un chalutier et que le joueur actif n'a pas de port
+    if ((this->getId() == 7 || this->getId() == 8) && !joueurProprietaire->hasPort()) { // si c'est un petit bateau de pêche ou un chalutier et que le joueur actif n'a pas de port
         return;
     }
 
     stringstream s;
-    s << "Le joueur " << joueurProprietaire.getPseudo() << " a active la carte bleue " << this->getNom() << endl;
+    s << "Le joueur " << joueurProprietaire->getPseudo() << " a active la carte bleue " << this->getNom() << endl;
 
     int gain = this->getGain();
 
@@ -29,10 +29,10 @@ void CarteBleue::activer(Joueur joueurProprietaire) {
         gain = resultatJet;
 
         s << "Le résultat du jet de de lie au chalutier est " << resultatJet << endl;
-        s << joueurProprietaire.getPseudo() << "a donc gagne " << resultatJet << endl;
+        s << joueurProprietaire->getPseudo() << "a donc gagne " << resultatJet << endl;
     }
 
-    joueurProprietaire.gagnerPieces(gain);
+    joueurProprietaire->gagnerPieces(gain);
 
     controleur->afficher(s.str());
 }

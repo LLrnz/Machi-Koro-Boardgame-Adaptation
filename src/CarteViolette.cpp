@@ -8,7 +8,7 @@ CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int pri
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur){
 
 }
-void CarteViolette::activer(Joueur joueurProprietaire){
+void CarteViolette::activer(Joueur* joueurProprietaire){
     string name = this->getNom();
     Joueur* joueurActif = Jeu::getJeu().getJoueurActif();
     Controleur* controleur = Controleur::getControleur();

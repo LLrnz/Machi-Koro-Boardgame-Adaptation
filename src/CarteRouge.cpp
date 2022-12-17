@@ -12,14 +12,14 @@ int CarteRouge::getNbMonuToActivate() {
     return nbMonuToActivate;
 }
 
-void CarteRouge::activer(Joueur joueurProprietaire){
+void CarteRouge::activer(Joueur* joueurProprietaire){
     string name = this->getNom();
     Joueur* joueurActif = Jeu::getJeu().getJoueurActif();
     Controleur* controleur = Controleur::getControleur();
 
     // id : 1 = Café, 2 = Restaurant, 3 = Pizzeria, 4 = Moonster burdcger, 5 = Bar a sushi
 
-    if (this->getId() == 5 && !joueurProprietaire.hasPort()) {              // si c'est bar à sushi mais que le joueur n'a pas de port
+    if (this->getId() == 5 && !joueurProprietaire->hasPort()) {              // si c'est bar à sushi mais que le joueur n'a pas de port
         return;                                                                 // on ne fait rien et on sort de la fonction
     }
     else if (nbMonuToActivate != 0 ) {                                      // si la carte a un nombre de monument requis
@@ -34,11 +34,11 @@ void CarteRouge::activer(Joueur joueurProprietaire){
     }
 
     int payement = joueurActif->perdrePieces(this->getGain());           // le joueur actif perd des pieces
-    joueurProprietaire.gagnerPieces(payement);                          // le joueur proprietaire gagne des pieces
+    joueurProprietaire->gagnerPieces(payement);                          // le joueur proprietaire gagne des pieces
 
     // affichage
     stringstream s;
-    s << joueurActif->getPseudo() << " a paye " << payement << " pieces a " << joueurProprietaire.getPseudo() << endl;
+    s << joueurActif->getPseudo() << " a paye " << payement << " pieces a " << joueurProprietaire->getPseudo() << endl;
     controleur->afficher(s.str());
 }
 
