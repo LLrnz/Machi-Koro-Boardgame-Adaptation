@@ -3,11 +3,12 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include "../headers/Joueur.h"
-#include "../headers/marche.h"
-#include "../headers/Controleur.h"
+#include "../headers/Marche.h"
+//#include "../headers/controleur.h"
+
 
 using namespace std;
+
 
 class Jeu
 {
@@ -20,12 +21,11 @@ class Jeu
 
     //Attribus
     vector<Batiment*> cartesEnJeu;
-
     std::vector<Joueur> joueurs;
-    int joueurActif;
+    Joueur* joueurActif;
     Marche* marche;
     bool partieTerminee = false;
-    Controleur* controleur; //accès rapide vers le singleton
+    int conditionVictoire;
 
     // Méthode pour l'initialisation du jeu
     void initialiserCartes(map<Extensions, bool> extensions);
@@ -52,10 +52,13 @@ public:
     void boucleDeJeu();
     void tourDeJeu();
     void joueurSuivant();
-    void setJoueurActif(int i) { joueurActif = i; };
+    //void setJoueurActif(int i) { joueurActif = i; };
     bool getPartieTerminee() const { return partieTerminee; };
-    int getIndiceJoueurActif() const { return joueurActif; };
-    Joueur& getJoueurActif() { return joueurs[joueurActif]; };
+    Joueur* getJoueurActif() const { return joueurActif; };
     vector<Joueur> getJoueurs() const { return joueurs; };
+    vector<Joueur*> getJoueursSansActifPtr();
+
+    int getNbJoueurs() const;
 
 };
+

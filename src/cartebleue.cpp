@@ -5,7 +5,8 @@
 CarteBleue::CarteBleue(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur) {
 }
-void CarteBleue::activer(Joueur joueurProprietaire) {
+
+void CarteBleue::activer(Joueur* joueurProprietaire) {
     string name = this->getNom();
     Controleur *controleur = Controleur::getControleur();
 
@@ -28,7 +29,7 @@ void CarteBleue::activer(Joueur joueurProprietaire) {
     }
 
     stringstream s;
-    s << "Le joueur " << joueurProprietaire.getPseudo() << " a active la carte bleue " << this->getNom() << endl;
+    s << "Le joueur " << joueurProprietaire->getPseudo() << " a active la carte bleue " << this->getNom() << endl;
 
     int gain = this->getGain();
 
@@ -39,11 +40,23 @@ void CarteBleue::activer(Joueur joueurProprietaire) {
 
         gain = resultatJet;
 
-        s << "Le résultat du jet au chalutier est " << resultatJet << endl;
-        s << joueurProprietaire.getPseudo() << "a donc gagne " << resultatJet << endl;
+        s << "Le résultat du jet de de lie au chalutier est " << resultatJet << endl;
+        s << joueurProprietaire->getPseudo() << "a donc gagne " << resultatJet << endl;
     }
 
-    joueurProprietaire.gagnerPieces(gain);
+    joueurProprietaire->gagnerPieces(gain);
 
     controleur->afficher(s.str());
 }
+
+std::string CarteBleue::to_string() const {
+    std::string res = "[" + this->getNom() + "] : produit <" + std::to_string(this->getGain()) + "> pièces sur (" ;
+    for(const auto &i : this->getCombinaisons()){
+        res += std::to_string(i);
+        res += ", ";
+    }
+    res += ") aux dés.";
+    return res;
+}
+
+

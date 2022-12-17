@@ -1,6 +1,5 @@
 #pragma once
 
-#include "enums.h"
 #include "Carte.h"
 #include <string>
 
@@ -13,4 +12,5 @@ public:
     bool getConstruit() const {return construit;}
     void setConstruit() {construit = true;}
     void detruire() {construit=false;}
+    std::string to_string() const;
 };
