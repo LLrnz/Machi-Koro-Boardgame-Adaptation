@@ -10,102 +10,105 @@ CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int pri
 }
 void CarteViolette::activer(Joueur joueurProprietaire){
     string name = this->getNom();
-    Joueur joueurActif = Jeu::getJeu().getJoueurActif();
+    Joueur* joueurActif = Jeu::getJeu().getJoueurActif();
     Controleur* controleur = Controleur::getControleur();
     vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
 
     if (name == "Stade"){
-        vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
-        for (size_t i =0; i<sizeof(joueurs);i++){
-            if (i != Jeu::getJeu().getIndiceJoueurActif()){
-                Jeu::getJeu().getJoueurActif().gagnerPieces(joueurs[i].perdrePieces(2));
+
+        for (auto &j : joueurs){
+            if (&j != joueurActif){
+                joueurActif->gagnerPieces(j.perdrePieces(2));
             }
         }
     }
     if (name == "Chaine TV"){
-        vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
         controleur->afficher("A qui voulez vous prendre 5 pieces ? \n");
-        for (size_t i=0; i<sizeof(joueurs);i++){
-            controleur->afficher(i);
-            controleur->afficher(" : ");
-            controleur->afficher(joueurs[i].getPseudo());
-            controleur->afficher(" qui possede ");
-            controleur->afficher(joueurs[i].getPieces());
-            controleur->afficher(" pieces \n ");
+
+        vector<Joueur*> choixJoueurs;
+        for(auto &j : joueurs){
+            if(&j != joueurActif)
+            choixJoueurs.push_back(&j);
         }
-        string reponse = controleur->lire_str();
-        Jeu::getJeu().getJoueurActif().gagnerPieces(joueurs[std::stoi(reponse)].perdrePieces(5));
+
+        Joueur* joueurChoisi = controleur->selection_joueur(choixJoueurs);
+        joueurActif->gagnerPieces(joueurChoisi->perdrePieces(5));
     }
     if (name == "Centre des Affaires"){
         //Affichage et selection de la personne avec qui échange run batiment
         controleur->afficher("Avec qui voulez vous echanger un etablissement ? \n");
         controleur->afficher("-1 : Personne \n");
-        for (size_t i=0; i<sizeof(joueurs);i++){
-            controleur->afficher(i);
-            controleur->afficher(" : ");
-            controleur->afficher(joueurs[i].getPseudo());
-            controleur->afficher(" qui possede : ");
-            for (size_t j = 0; j<sizeof(joueurs[i].getConstructions());j++){
-                controleur->afficher(joueurs[i].getConstructions()[j]->getNom());
-                controleur->afficher(" ");
-            }
-            controleur->afficher("\n");
-        }
-        int reponse = std::stoi(controleur->lire_str());
-        bool confirmeEchange = false;
+        Joueur* joueurVise = controleur->selection_joueur_batiment(Jeu::getJeu().getJoueursSansActifPtr());
+
+
         //Si il choisis -1, il n'effectue pas d'échange
-        if (reponse != -1)
-            confirmeEchange = true;
         //Séquence d'échange
-        if (confirmeEchange){
+        if (joueurVise != nullptr){
             //Affichage et selection de la carte a prendre chez l'adversaire (ou vous même)
             controleur->afficher("Choisisez la carte a prendre depuis chez ");
-            controleur->afficher(joueurs[reponse].getPseudo());
+            controleur->afficher(joueurVise->getPseudo());
             controleur->afficher("\n");
-            for (size_t k = 0; k<sizeof(joueurs[reponse].getConstructions());k++){
-                if (joueurActif.getConstructions()[k]->getType()!=TypeBatiment::special){
-                    controleur->afficher(k);
-                    controleur->afficher(" : ");
-                    controleur->afficher(joueurs[reponse].getConstructions()[k]->getNom());
-                    controleur->afficher(" ");
-                }
-            }
-            int repPrendre = std::stoi(controleur->lire_str());
+
+            Batiment* repPrendre = controleur->selection_batiment(joueurVise->getConstructions());
+
             controleur->afficher("Choisisez la carte a echanger depuis chez vous");
-            controleur->afficher(joueurActif.getPseudo());
+            controleur->afficher(joueurActif->getPseudo());
             controleur->afficher("\n");
-            for (size_t m = 0; m<sizeof(joueurActif.getConstructions());m++){
-                if (joueurActif.getConstructions()[m]->getType()!=TypeBatiment::special){
-                    controleur->afficher(m);
-                    controleur->afficher(" : ");
-                    controleur->afficher(joueurActif.getConstructions()[m]->getNom());
-                    controleur->afficher(" ");
-                }
-            }
-            controleur->afficher("\n");
-            int repEchange = std::stoi(controleur->lire_str());
-            Batiment* ptTempPrendre = joueurs[reponse].getConstructions()[repPrendre];
-            Batiment* ptTempEchange = joueurActif.getConstructions()[repEchange];
-            joueurActif.ajouterBatiment(ptTempPrendre);
-            joueurs[reponse].ajouterBatiment(ptTempEchange);
-            joueurActif.enleverBatimentParIndice(repEchange);
-            joueurs[reponse].enleverBatimentParIndice(repPrendre);
+
+            Batiment* repEchange = controleur->selection_batiment(joueurActif->getConstructions());
+
+
+            joueurActif->ajouterBatiment(repPrendre);
+            joueurVise->ajouterBatiment(repEchange);
+            joueurActif->enleverBatiment(repEchange);
+            joueurVise->enleverBatiment(repPrendre);
+        }else{
+            controleur->afficher("Echange annulé./n");
         }
     }
     if (name == "Maison d'édition"){
         int compteur = 0;
-        for (size_t i =0; i<sizeof(joueurs);i++){
+        for (auto &j : joueurs){
             compteur = 0;
-            for (size_t j; j<sizeof(joueurs[i].getConstructions());j++)
-                if (joueurs[i].getConstructions()[j]->getType() == TypeBatiment::magasin || joueurs[i].getConstructions()[j]->getType() == TypeBatiment::restaurant)
+            for (auto &b : j.getConstructions())
+                if (b->getType() == TypeBatiment::magasin || b->getType() == TypeBatiment::restaurant)
                     compteur+=1;
-            joueurActif.gagnerPieces(joueurs[i].perdrePieces(compteur));
+            joueurActif->gagnerPieces(j.perdrePieces(compteur));
         }
     }
     if (name == "Centre des impots"){
-        for (size_t i =0; i<sizeof(joueurs);i++){
-            if (joueurs[i].getPieces()>=10)
-                joueurActif.gagnerPieces(joueurs[i].perdrePieces(floor(joueurs[i].getPieces()/2)));
+        for (auto &j : joueurs){
+            if (j.getPieces()>=10)
+                joueurActif->gagnerPieces(j.perdrePieces(floor(j.getPieces()/2)));
         }
     }
+}
+
+std::string CarteViolette::to_string() const {
+    std::string res = "[" + this->getNom() + "] : produit <" + std::to_string(this->getGain()) + "> pièces sur (" ;
+    for(const auto &i : this->getCombinaisons()){
+        res += std::to_string(i);
+        res += ", ";
+    }
+    res += ") aux dés, ";
+
+    switch(getId()){
+        case 13: //stade
+            res += "Insérer effet";
+        break;
+
+
+        case 14: //chaineTV
+            res += "Insérer effet";
+        break;
+
+
+        case 15: //centreAffaires
+           res += "Insérer effet";
+        break;
+
+
+    }
+
+    return res;
 }

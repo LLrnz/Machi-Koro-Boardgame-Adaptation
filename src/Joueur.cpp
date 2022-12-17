@@ -1,11 +1,6 @@
 #include "../headers/Joueur.h"
-#include "../headers/Monument.h"
-#include "../headers/Batiment.h"
 #include "../headers/enums.h"
-#include "../headers/CarteRouge.h"
-#include "../headers/CarteVerte.h"
-#include "../headers/CarteViolette.h"
-#include "../headers/CarteBleue.h"
+#include<bits/stdc++.h>
 
 Joueur::Joueur(std::string psdo, TypeJoueur typ) : type(typ), pseudo(psdo), pieces(3), rejoueTour(false), batiments(){
     monuments = {Monument("Port",2), Monument("Gare",4), Monument("Centre commercial",10), Monument("Parc d'atractions",16), Monument("Tour radio",22), Monument("Aeroport",30)};
@@ -52,46 +47,68 @@ bool Joueur::hasAeroport() const{
 
 
 void Joueur::activerCartesBleues(int nbDes){
-    for (auto it = batiments.begin(); it != batiments.end(); it++){
+    for (auto &it : batiments){
         bool bonNombreAuDe = false;
-        for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++)
-            if (*it2 == nbDes) { bonNombreAuDe = true;}
-        if ((*it)->getCouleur()==Couleur::Bleu && bonNombreAuDe)
-            dynamic_cast<CarteBleue*>(*it)->activer(*this);
+        for (auto &it2 : it->getCombinaisons())
+            if (it2 == nbDes) { bonNombreAuDe = true;}
+        if (it->getCouleur()==Couleur::Bleu && bonNombreAuDe)
+             it->activer(*this);
     }
 }
 
 void Joueur::activerCartesVertes(int nbDes){
-    for (auto it = batiments.begin(); it != batiments.end(); it++){
+    for (auto &it : batiments){
         bool bonNombreAuDe = false;
-        for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++)
-            if (*it2 == nbDes) { bonNombreAuDe = true;}
-        if ((*it)->getCouleur()==Couleur::Vert && bonNombreAuDe)
-            dynamic_cast<CarteVerte*>(*it)->activer(*this);
+        for (auto &it2 : it->getCombinaisons() )
+            if (it2 == nbDes) { bonNombreAuDe = true;}
+        if (it->getCouleur()==Couleur::Vert && bonNombreAuDe)
+            it->activer(*this);
     }
 }
 
 void Joueur::activerCartesRouges(int nbDes){
-    for (auto it = batiments.begin(); it != batiments.end(); it++){
+    for (auto &it : batiments){
         bool bonNombreAuDe = false;
-        for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++)
-            if (*it2 == nbDes) { bonNombreAuDe = true;}
-        if ((*it)->getCouleur()==Couleur::Rouge && bonNombreAuDe){
-            dynamic_cast<CarteRouge*>(*it)->activer(*this);
+        for (auto &it2 : it->getCombinaisons())
+            if (it2 == nbDes) { bonNombreAuDe = true;}
+        if (it->getCouleur()==Couleur::Rouge && bonNombreAuDe){
+            it->activer(*this);
         }
     }
 }
 
 void Joueur::activerCartesViolettes(int nbDes){
-    for (auto it = batiments.begin(); it != batiments.end(); it++){
+    for (auto &it : batiments){
         bool bonNombreAuDe = false;
-        for (auto it2 = (*it)->getCombinaisons().begin(); it2 != (*it)->getCombinaisons().end(); it2++)
-            if (*it2 == nbDes) { bonNombreAuDe = true;}
-        if ((*it)->getCouleur()==Couleur::Violet && bonNombreAuDe)
-            dynamic_cast<CarteViolette*>(*it)->activer(*this);
+        for (auto &it2 : it->getCombinaisons())
+            if (it2 == nbDes) { bonNombreAuDe = true;}
+        if (it->getCouleur()==Couleur::Violet && bonNombreAuDe)
+            it->activer(*this);
     }
 }
 
 void Joueur::gagnerPieces(int montant) {
     pieces += montant;
 }
+
+int Joueur::getNbMonumentsConstruits(){
+    int res = 0;
+    for(const auto &m : monuments){
+        if(m.getConstruit()){
+            res++;
+        }
+    }
+    return res;
+}
+
+void Joueur::enleverBatiment(Batiment* batiment){
+    auto it = std::find(batiments.begin(), batiments.end(), batiment);
+    if (it != batiments.end()) {
+        batiments.erase(it);
+    }
+}
+
+std::string Joueur::to_string(){
+    return pseudo + "(" + std::to_string(pieces) + "pièces)";
+}
+

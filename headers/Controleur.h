@@ -2,9 +2,9 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include "InterfaceTerminal.h"
 #include "../headers/InterfaceTerminal.h"
-#include "../headers/enums.h"
+
+
 using namespace std;
 
 
@@ -36,4 +36,11 @@ public:
     std::string lire_str();
     int lire_int(int borneInf, int borneSupp);
     map<Extensions, bool> getExtensions() const {return extensions;};
+    Joueur* selection_joueur(vector<Joueur*> joueurs);
+    Batiment* selection_batiment(vector<Batiment*> batiments);
+    void afficher(vector<Joueur*> joueurs);
+    void afficher(vector<Batiment*> batiments);
+    Joueur* selection_joueur_batiment(vector<Joueur*> joueurs){
+        return interface.selection_joueur_batiment(joueurs);
+    };
 };

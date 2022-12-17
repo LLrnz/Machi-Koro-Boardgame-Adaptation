@@ -1,7 +1,9 @@
+#pragma once
 #include "../headers/Controleur.h"
-#include "../headers/Jeu.h"
 
-Controleur::Controleur() {}
+Controleur::Controleur():interface(InterfaceTerminal()) {
+}
+
 Controleur::~Controleur() {}
 
 Controleur* Controleur::controleur_ = nullptr;
@@ -66,6 +68,7 @@ void Controleur::nouvellePartie(){
         this->extensions.emplace(e, val);
 
     }
+    Jeu::getJeu();
     Jeu::getJeu().genererPartie(joueurs, extensions);
 
 
@@ -74,3 +77,19 @@ void Controleur::nouvellePartie(){
 void Controleur::demarrer(){
     Jeu::getJeu().boucleDeJeu();
 }
+
+Joueur* Controleur::selection_joueur(vector<Joueur*> joueurs){
+    return this->interface.selection_joueur(joueurs);
+}
+
+Batiment* Controleur::selection_batiment(vector<Batiment*> batiments){
+    return this->interface.selection_batiment(batiments);
+}
+
+void  Controleur::afficher(vector<Joueur*> joueurs){
+     this->interface.afficher(joueurs);
+}
+void  Controleur::afficher(vector<Batiment*> batiments){
+    this->interface.afficher(batiments);
+}
+

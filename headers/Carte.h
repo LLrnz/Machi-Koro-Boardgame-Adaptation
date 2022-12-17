@@ -13,8 +13,8 @@ class Carte
   public:
     // Carte();
     Carte(int i, string n, int p);
-    ~Carte();
-    std::ostream& toString() const;
+    ~Carte() = default;
+    std::string to_string() const;
     //accessors
     int getId() const;
     std::string getNom() const;

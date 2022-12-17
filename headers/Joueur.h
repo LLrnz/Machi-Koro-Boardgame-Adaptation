@@ -1,9 +1,11 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "../headers/enums.h"
-#include "../headers/Batiment.h"
+
 #include "../headers/Monument.h"
+#include "../headers/Batiment.h"
+
+
 using namespace std;
 
 class Joueur
@@ -36,5 +38,9 @@ public:
     int getPieces() const {return pieces;};
     string getPseudo() const {return pseudo;};
     void ajouterBatiment(Batiment * batiment){batiments.push_back(batiment);};
-    void enleverBatimentParIndice(int i){batiments.erase(batiments.begin()+i);};
+    void enleverBatiment(Batiment * batiment);
+    int getNbMonumentsConstruits();
+    std::string to_string();
+
+
 };

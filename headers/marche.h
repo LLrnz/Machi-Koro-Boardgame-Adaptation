@@ -1,8 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "Carte.h"
-#include "Batiment.h"
+#include "Joueur.h"
 using namespace std;
 
 class Marche

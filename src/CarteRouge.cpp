@@ -14,7 +14,7 @@ int CarteRouge::getNbMonuToActivate() {
 
 void CarteRouge::activer(Joueur joueurProprietaire){
     string name = this->getNom();
-    Joueur joueurActif = Jeu::getJeu().getJoueurActif();
+    Joueur* joueurActif = Jeu::getJeu().getJoueurActif();
     Controleur* controleur = Controleur::getControleur();
 
     // id : 1 = Café, 2 = Restaurant, 3 = Pizzeria, 4 = Moonster burdcger, 5 = Bar a sushi
@@ -24,8 +24,8 @@ void CarteRouge::activer(Joueur joueurProprietaire){
     }
     else if (nbMonuToActivate != 0 ) {                                      // si la carte a un nombre de monument requis
         int compteur = 0;
-        for (size_t i = 0; i < size(joueurActif.getMonuments()); i++) {     // pour chaque monument du joueur actif
-            if (joueurActif.getMonuments()[i].getConstruit() == true)           // si le monument est construit
+        for (size_t i = 0; i < size(joueurActif->getMonuments()); i++) {     // pour chaque monument du joueur actif
+            if (joueurActif->getMonuments()[i].getConstruit() == true)           // si le monument est construit
                 compteur += 1;                                                      // on incremente le compteur
         }
         if (compteur < this->getNbMonuToActivate()) {                       // si le joueur n'a pas assez de monument construit
@@ -33,12 +33,21 @@ void CarteRouge::activer(Joueur joueurProprietaire){
         }
     }
 
-    int payement = joueurActif.perdrePieces(this->getGain());           // le joueur actif perd des pieces
+    int payement = joueurActif->perdrePieces(this->getGain());           // le joueur actif perd des pieces
     joueurProprietaire.gagnerPieces(payement);                          // le joueur proprietaire gagne des pieces
 
     // affichage
     stringstream s;
-    s << joueurActif.getPseudo() << " a paye " << payement << " pieces a " << joueurProprietaire.getPseudo() << endl;
+    s << joueurActif->getPseudo() << " a paye " << payement << " pieces a " << joueurProprietaire.getPseudo() << endl;
     controleur->afficher(s.str());
 }
 
+std::string CarteRouge::to_string() const {
+    std::string res = "[" + this->getNom() + "] : vole <" + std::to_string(this->getGain()) + "> pièces au joueur actif s'il a au moins " + std::to_string(this->nbMonuToActivate) + " monuments construits. S'active sur (" ;
+    for(const auto &i : this->getCombinaisons()){
+        res += std::to_string(i);
+        res += ", ";
+    }
+    res += ") aux dés.";
+    return res;
+}

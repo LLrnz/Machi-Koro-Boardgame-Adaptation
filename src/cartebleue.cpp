@@ -37,4 +37,14 @@ void CarteBleue::activer(Joueur joueurProprietaire) {
     controleur->afficher(s.str());
 }
 
+std::string CarteBleue::to_string() const {
+    std::string res = "[" + this->getNom() + "] : produit <" + std::to_string(this->getGain()) + "> pièces sur (" ;
+    for(const auto &i : this->getCombinaisons()){
+        res += std::to_string(i);
+        res += ", ";
+    }
+    res += ") aux dés.";
+    return res;
+}
+
 

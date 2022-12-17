@@ -3,7 +3,7 @@
 #include "Batiment.h"
 #include <vector>
 #include <string>
-#include "../headers/Joueur.h"
+//#include "../headers/Joueur.h"
 using namespace std;
 
 
@@ -17,5 +17,6 @@ public:
                 int prix, int gain, std::vector<int> combinaisons,
                 Couleur couleur, int nbMonuToActivate);
     int getNbMonuToActivate();
+    std::string to_string() const;
 
 };
