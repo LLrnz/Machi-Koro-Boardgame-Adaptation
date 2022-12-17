@@ -1,7 +1,21 @@
 #pragma once
 #include <string>
 #include <QtCore>
+#include <algorithm>
 #include "../headers/enums.h"
+#include "../headers/Batiment.h"
+#include "../headers/CarteRouge.h"
+#include "../headers/CarteBleue.h"
+#include "../headers/CarteVerte.h"
+#include "../headers/CarteViolette.h"
+
+vector<Batiment*> chargerCartes(vector<Batiment*> cartes, QJsonObject lstCartes, map<Extensions, bool> extensions, Couleur couleur);
+Extensions determineExtension(std::string s);
+TypeBatiment determineType(std::string s);
+CarteRouge* chargerCarteRouge(QJsonObject objCarte);
+CarteBleue* chargerCarteBleue(QJsonObject objCarte);
+CarteVerte* chargerCarteVerte(QJsonObject objCarte);
+CarteViolette* chargerCarteViolette(QJsonObject objCarte);
 
 TypeBatiment determineType(std::string s) {
     return    s == "ble"        ?   TypeBatiment::ble 
@@ -38,7 +52,18 @@ Extensions determineExtension(std::string s) {
 
 // oui j'aime bien les ternaires, mais c'est pas obligatoire
 
-void chargerFichier(vector<Carte*> cartes, map<Extensions, bool> extensions) {
+vector<int> getCombinaisons(QList<QVariant> combi);
+
+vector<int> getCombinaisons(QList<QVariant> combi) {
+    std::vector<int> combis;
+    for (auto it = combi.begin(); it != combi.end() ; ++it){
+        combis.push_back(it->toInt());
+    }
+    return combis;
+}
+
+vector<Batiment*> chargerFichier(map<Extensions, bool> extensions) {
+    vector<Batiment*> cartes;
     QByteArray fichier;
     QFile file(":/cartes/cartes.json");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -51,96 +76,111 @@ void chargerFichier(vector<Carte*> cartes, map<Extensions, bool> extensions) {
     QJsonValue      data = objFichierCarte.value(QString("cartes"));
     QJsonObject     item = data.toObject();
     
-    chargerCartes(cartes, item.value("rouge").toObject(), extensions, Couleur::Rouge);
-    chargerCartes(cartes, item.value("bleue").toObject(), extensions, Couleur::Bleu);
-    chargerCartes(cartes, item.value("verte").toObject(), extensions, Couleur::Vert);
-    chargerCartes(cartes, item.value("violette").toObject(), extensions, Couleur::Violet);
+    cartes = chargerCartes(cartes, item.value("rouge").toObject(), extensions, Couleur::Rouge);
+    cartes = chargerCartes(cartes, item.value("bleue").toObject(), extensions, Couleur::Bleu);
+    cartes = chargerCartes(cartes, item.value("verte").toObject(), extensions, Couleur::Vert);
+    cartes = chargerCartes(cartes, item.value("violette").toObject(), extensions, Couleur::Violet);
+    return cartes;
 }
 
-void chargerCartes(vector<Carte*> cartes, QJsonObject lstCartes, map<Extensions, bool> extensions, Couleur couleur) {
+vector<Batiment*> chargerCartes(vector<Batiment*> cartes, QJsonObject lstCartes, map<Extensions, bool> extensions, Couleur couleur) {
     for(const QString& key : lstCartes.keys()) {
         QJsonObject objCarte = lstCartes.value(key).toObject();
 
         std::vector<Extensions> extensionsCarte;
-        for (const QString& extension : objCarte.value("extensions").toArray()) {
-            extensionsCarte.push_back(determineExtension(extension.toString().toStdString()));
+        for (auto extension : objCarte.value("extension").toArray()) {
+            Extensions ex = determineExtension(extension.toString().toStdString());
+            extensionsCarte.push_back(ex);
         }
-        // si dans extensionsCarte aucunes des exentions ne sont dans extensions, on passe à la carte suivante
-        if (std::find_first_of(extensionsCarte.begin(), extensionsCarte.end(), extensions.begin(), extensions.end()) == extensionsCarte.end()) {
+        // si dans extensionsCarte il n'y a pas d'extension qui sont true dans extensions, on passe à la carte suivante
+        if (std::find_if(extensionsCarte.begin(), extensionsCarte.end(), [&extensions](Extensions e) { return extensions[e]; }) == extensionsCarte.end()) {
             continue;
         }
 
-
         // on ajoute la carte à la liste des cartes
-        cartes.push_back(couleur == Couleur::Rouge  ?   chargerCarteRouge(objCarte) 
-                    : couleur == Couleur::Bleu      ?   chargerCarteBleue(objCarte) 
-                    : couleur == Couleur::Vert      ?   chargerCarteVerte(objCarte) 
-                    : chargerCarteViolette(objCarte));
+        if (couleur == Couleur::Rouge) {
+            for (int i = 0; i < objCarte.value("quantite").toInt(); i++){
+                cartes.push_back(chargerCarteRouge(objCarte));
+            }
+        }
+        else if (couleur == Couleur::Bleu) {
+            for (int i = 0; i < objCarte.value("quantite").toInt(); i++){
+                cartes.push_back(chargerCarteBleue(objCarte));
+            }        }
+        else if (couleur == Couleur::Vert) {
+            for (int i = 0; i < objCarte.value("quantite").toInt(); i++){
+                cartes.push_back(chargerCarteVerte(objCarte));
+            }        }
+        else {
+            for (int i = 0; i < objCarte.value("quantite").toInt(); i++){
+                cartes.push_back(chargerCarteViolette(objCarte));
+            }        }
     }
+    return cartes;
 }
 
 // fonction qui charge une carte Rouge
 CarteRouge* chargerCarteRouge(QJsonObject objCarte) {
-    QJsonValue activation = value.value("activation");
-    CarteRouge* carte new CarteRouge(
+    QJsonObject activation = objCarte.value("activation").toObject();
+    CarteRouge* carte = new CarteRouge(
         objCarte.value("id").toInt(),               // id
         objCarte.value("nom").toString().toStdString(),           // nom
-        determineType(objCarte.value("type")),      // type
+        determineType(objCarte.value("type").toString().toStdString()),      // type
         objCarte.value("prix").toInt(),             // prix
 
         activation.value("gain").toInt(),             // gain
-        activation.value("combinaisons").toArray().toVariantList().toStdVector(), // combinaisons
+        getCombinaisons(activation.value("combinaisons").toArray().toVariantList()), // combinaisons
         Couleur::Rouge,                        // couleur
         activation.value("nbMonuToActivate").toInt() // effet
-    )
+    );
     return carte;
 }
 
 // fonction qui charge une carte Bleue
 CarteBleue* chargerCarteBleue(QJsonObject objCarte) {
-    QJsonValue activation = value.value("activation");
-    CarteBleue* carte new CarteBleue(
+    QJsonObject activation = objCarte.value("activation").toObject();
+    CarteBleue* carte = new CarteBleue(
         objCarte.value("id").toInt(),               // id
         objCarte.value("nom").toString().toStdString(),           // nom
-        determineType(objCarte.value("type")),      // type
+        determineType(objCarte.value("type").toString().toStdString()),      // type
         objCarte.value("prix").toInt(),             // prix
 
         activation.value("gain").toInt(),             // gain
-        activation.value("combinaisons").toArray().toVariantList().toStdVector(), // combinaisons
-        Couleur::Bleu,                        // couleur
-    )
+        getCombinaisons(activation.value("combinaisons").toArray().toVariantList()), // combinaisons
+        Couleur::Bleu                        // couleur
+    );
     return carte;
 }
 
 // fonction qui charge une carte Verte
 CarteVerte* chargerCarteVerte(QJsonObject objCarte) {
-    QJsonValue activation = value.value("activation");
-    CarteVerte* carte new CarteVerte(
+    QJsonObject activation = objCarte.value("activation").toObject();
+    CarteVerte* carte = new CarteVerte(
         objCarte.value("id").toInt(),               // id
         objCarte.value("nom").toString().toStdString(),           // nom
-        determineType(objCarte.value("type")),      // type
+        determineType(objCarte.value("type").toString().toStdString()),      // type
         objCarte.value("prix").toInt(),             // prix
 
         activation.value("gain").toInt(),             // gain
-        activation.value("combinaisons").toArray().toVariantList().toStdVector(), // combinaisons
+        getCombinaisons(activation.value("combinaisons").toArray().toVariantList()), // combinaisons
         Couleur::Vert,                              // couleur
-        determineType(activation.value("effectType")) // type d'effet
-    )
+        determineType(activation.value("effectType").toString().toStdString()) // type d'effet
+    );
     return carte;
 }
 
 // fonction qui charge une carte Violette
 CarteViolette* chargerCarteViolette(QJsonObject objCarte) {
-    QJsonValue activation = value.value("activation");
-    CarteViolette* carte new CarteViolette(
+    QJsonObject activation = objCarte.value("activation").toObject();
+    CarteViolette* carte = new CarteViolette(
         objCarte.value("id").toInt(),               // id
         objCarte.value("nom").toString().toStdString(),           // nom
-        determineType(objCarte.value("type")),      // type
+        determineType(objCarte.value("type").toString().toStdString()),      // type
         objCarte.value("prix").toInt(),             // prix
 
         activation.value("gain").toInt(),             // gain
-        activation.value("combinaisons").toArray().toVariantList().toStdVector(), // combinaisons
-        Couleur::Violet,                        // couleur
-    )
+        getCombinaisons(activation.value("combinaisons").toArray().toVariantList()), // combinaisons
+        Couleur::Violet                        // couleur
+    );
     return carte;
 }

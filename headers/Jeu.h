@@ -43,7 +43,7 @@ class Jeu
     void achat();
     bool verifierVictoire();   
 public:
-    static Jeu* getJeu();
+    static Jeu& getJeu();
     static void libererJeu();
     void afficherCartes();
 

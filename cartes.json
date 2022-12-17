@@ -1,6 +1,6 @@
 {
     "cartes": {
-        "bleu": {
+        "bleue": {
             "champsDeBle": {
                 "id": 1,
                 "nom": "Champs de blé",
@@ -400,7 +400,7 @@
                 }
             }
         },
-        "violet": {
+        "violette": {
             "stade": {
                 "id": 1,
                 "nom": "Stade",

@@ -1,4 +1,3 @@
-#pragma once
 #include "../headers/Controleur.h"
 
 Controleur::Controleur():interface(InterfaceTerminal()) {
@@ -68,14 +67,14 @@ void Controleur::nouvellePartie(){
         this->extensions.emplace(e, val);
 
     }
-    Jeu::getJeu();
+    this->extensions.emplace(Extensions::base, true);
     Jeu::getJeu().genererPartie(joueurs, extensions);
 
 
 }
 
 void Controleur::demarrer(){
-    Jeu::getJeu()->boucleDeJeu();
+    Jeu::getJeu().boucleDeJeu();
 }
 
 Joueur* Controleur::selection_joueur(vector<Joueur*> joueurs){

@@ -11,7 +11,7 @@ SOURCES += \
         main.cpp \
         src\Batiment.cpp \
         src\Carte.cpp \
-        src\cartebleue.cpp \
+        src\CarteBleue.cpp \
         src\CarteRouge.cpp \
         src\CarteVerte.cpp \
         src\CarteViolette.cpp \

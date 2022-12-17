@@ -8,8 +8,8 @@ int main() {
 
 
     Controleur::getControleur()->nouvellePartie();
-    //Jeu::getJeu().afficherCartes();
-    Controleur::getControleur()->afficher("a");
+    Jeu::getJeu().afficherCartes();
+    Controleur::getControleur()->afficher("a\n");
     Controleur::getControleur()->demarrer();
     return 0;
 }

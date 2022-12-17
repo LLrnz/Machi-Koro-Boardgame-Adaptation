@@ -9,10 +9,13 @@ CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int pri
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur){
 
 }
+
+void CarteViolette::activer(Joueur* joueurProprietaire) {
+    Jeu& jeu = Jeu::getJeu();
     string          name        = this->getNom();
     Controleur*     controleur  = Controleur::getControleur();
-    vector<Joueur>  joueurs     = Jeu::getJeu()->getJoueurs();
-    Joueur*         joueurActif = Jeu::getJeu().getJoueurActif();
+    vector<Joueur>  joueurs     = jeu.getJoueurs();
+    Joueur*         joueurActif = jeu.getJoueurActif();
 
     // id : Stade = 1, Chaine TV = 2, Centre des Affaires = 3
     // id : Maison d'édition = 4, Centre des impots = 5
@@ -23,18 +26,14 @@ CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int pri
     controleur->afficher(s.str());
 
     if (this->getId() == 1){    // si c'est le stade
-        vector<Joueur> joueurs = Jeu::getJeu()->getJoueurs();
-        for (size_t i = 0 ; i < sizeof(joueurs) ; i++){
-            if (i != Jeu::getJeu()->getIndiceJoueurActif()){
-                Jeu::getJeu()->getJoueurActif().gagnerPieces(joueurs[i].perdrePieces(this->getGain()));
-                stringstream s;
-                s << "Vous avez pris " << this->getGain()" pieces a " << joueurs[i].getPseudo() << "\n";
-                controleur->afficher(s.str());
+        for (auto &j : joueurs){
+            if (&j != joueurActif){
+                joueurActif->gagnerPieces(j.perdrePieces(2));
             }
         }
     }
     if (this->getId() == 2){    // si c'est la chaine TV
-        vector<Joueur> joueurs = Jeu::getJeu()->getJoueurs();
+        vector<Joueur> joueurs = jeu.getJoueurs();
         s << "A qui voulez vous prendre" << this->getGain() << "pieces ? \n";
         controleur->afficher(s.str());
 
@@ -53,7 +52,7 @@ CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int pri
         s << "Avec qui voulez vous echanger un etablissement ? \n";
         s << "-1 : Personne \n";
         controleur->afficher(s.str());
-        Joueur* joueurVise = controleur->selection_joueur_batiment(Jeu::getJeu().getJoueursSansActifPtr());
+        Joueur* joueurVise = controleur->selection_joueur_batiment(jeu.getJoueursSansActifPtr());
         //Séquence d'échange
         if (joueurVise != nullptr){
             //Affichage et selection de la carte a prendre chez l'adversaire (ou vous même)
@@ -88,15 +87,17 @@ CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int pri
             joueurActif->gagnerPieces(j.perdrePieces(compteur));
         }
     }
-    if (name == "Centre des impots"){
-        for (auto &j : joueurs){
-            if (j.getPieces()>=10)
-                joueurActif->gagnerPieces(j.perdrePieces(floor(j.getPieces()/2)));
-                stringstream s;
-                s << "Vous avez pris " << gain << " pieces a " << j.getPseudo() << "\n";
-                controleur->afficher(s.str());
+    if (this->getId() == 5){    // si c'est le centre des impots
+            for (size_t i =0; i<sizeof(joueurs);i++){
+                if (joueurs[i].getPieces()>=10) {
+                    int gain = floor(joueurs[i].getPieces()/2);
+                    joueurActif->gagnerPieces(joueurs[i].perdrePieces(gain));
+                    stringstream s;
+                    s << "Vous avez pris " << gain << " pieces a " << joueurs[i].getPseudo() << "\n";
+                    controleur->afficher(s.str());
+                }
+            }
         }
-    }
 }
 
 std::string CarteViolette::to_string() const {

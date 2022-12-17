@@ -8,8 +8,9 @@ CarteVerte::CarteVerte(int id, std::string nom, TypeBatiment type, int prix, int
 
 
 void CarteVerte::activer(Joueur* joueurProprietaire){
-    Joueur* joueurActif = Jeu::getJeu().getJoueurActif();
-    vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
+    Jeu& jeu = Jeu::getJeu();
+    Joueur* joueurActif = jeu.getJoueurActif();
+    vector<Joueur> joueurs = jeu.getJoueurs();
     string nomCarte = getNom();
     int idCarte = getId();
 
@@ -24,7 +25,7 @@ void CarteVerte::activer(Joueur* joueurProprietaire){
 
     if (this->getEffectType() != TypeBatiment::none){                                                       // si la carte a un effetType
         if (idCarte == 10){                                                                                     // si c'est Moonster soda
-            for (auto i = Jeu::getJeu()->getJoueurs().begin(); i != Jeu::getJeu()->getJoueurs().end(); i++){          // pour chaque joueur
+            for (auto i = jeu.getJoueurs().begin(); i != jeu.getJoueurs().end(); i++){          // pour chaque joueur
                 for (auto j = (*i).getConstructions().begin(); j != (*i).getConstructions().end(); j++){                // pour chaque batiment du joueur
                     if ((*j)->getType() == getEffectType())                                                                 // si le batiment est du type de l'effet
                         compteur++;
@@ -103,7 +104,7 @@ void CarteVerte::activer(Joueur* joueurProprietaire){
                 Controleur::getControleur()->afficher("Choisisez un AUTRE joueur a qui gracieusement donner cette carte \n");
                 //On peut choisir tous les joueurs sauf le joueur actif
 
-                Joueur* joueurChoisi = Controleur::getControleur()->selection_joueur(Jeu::getJeu().getJoueursSansActifPtr());
+                Joueur* joueurChoisi = Controleur::getControleur()->selection_joueur(jeu.getJoueursSansActifPtr());
 
                 joueurChoisi->ajouterBatiment(batimentChoisi);
                 joueurProprietaire->enleverBatiment(batimentChoisi);
@@ -151,36 +152,5 @@ std::string CarteVerte::to_string() const {
         break;
 
     }
-    // ! Finir ça
-    else if (idCarte == 11){                                                                        // si c'est Entreprise de déménagement
-        stringstream s;
-        Controleur::getControleur()->afficher("Liste des cartes possibles à déménager : \n");     // on affiche les cartes possibles à déménager
-        for (size_t i = 0; i<joueurProprietaire.getConstructions().size();i++){  // pour chaque batiment du joueur actif
-            if (joueurProprietaire.getConstructions()[i]->getType()!=TypeBatiment::special)
-                s << i << " : " << joueurProprietaire.getConstructions()[i]->getNom() << "\n";
-        }
-        Controleur::getControleur()->afficher("Votre choix : \n");
-        int choixIndiceBatiment = std::stoi(Controleur::getControleur()->lire_str());
-        Controleur::getControleur()->afficher("Choisisez un AUTRE joueur a qui gracieusement donner cette carte \n");
-        for (size_t i =0; i< joueurs.size();i++){
-            if (Jeu::getJeu()->getIndiceJoueurActif()!=i){
-                s.str("");
-                s << i << " : " << joueurs[i].getPseudo() << "\n";
-                Controleur::getControleur()->afficher(s.str());
-            }
-        }
-        int joueurChoisi = std::stoi(Controleur::getControleur()->lire_str());
-        if (joueurChoisi == Jeu::getJeu()->getIndiceJoueurActif()){
-            gain = 0;
-            Controleur::getControleur()->afficher("Apprend a lire les instructons");
-        }
-        else {
-            Batiment* batimentDonne = joueurProprietaire.getConstructions()[choixIndiceBatiment];
-            joueurs[joueurChoisi].ajouterBatiment(batimentDonne);
-            joueurProprietaire.enleverBatimentParIndice(choixIndiceBatiment);
-            gain = 4;
-        }
-    }
-
     return res;
 }
