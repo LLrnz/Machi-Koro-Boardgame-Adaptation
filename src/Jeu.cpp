@@ -42,8 +42,6 @@ void Jeu::afficherCartes() {
     std::cout << "Il y a " << cartesEnJeu.size() << " cartes en jeu." << std::endl;
 }
 
-
-//Qu'est ce que c'es que ça ??? edit : ok lol j'ai compris d'où venait le bug
 Jeu* Jeu::jeu = nullptr;
 
 /**
@@ -124,7 +122,7 @@ void Jeu::boucleDeJeu() {
  * @brief Jeu::tourDeJeu exprime un tour de jeu
  */
 void Jeu::tourDeJeu() {
-    Controleur::getControleur()->afficher("C'est a " + joueurActif->getPseudo() + " de jouer ! \n");
+    Controleur::getControleur()->afficher("\nC'est a " + joueurActif->getPseudo() + " de jouer !\n");
 
     Controleur::getControleur()->afficher(joueurActif->getConstructions());
     Controleur::getControleur()->afficher("\n");
@@ -134,7 +132,7 @@ void Jeu::tourDeJeu() {
 	jeu->activerCartesBleues(resultatJet);
 	jeu->activerCartesVertes(resultatJet);
 	jeu->activerCartesViolettes(resultatJet);
-    Controleur::getControleur()->afficher("Vous avez " + to_string(joueurActif->getPieces()) + " pièces ! \n");
+    Controleur::getControleur()->afficher("Vous avez " + to_string(joueurActif->getPieces()) + " pièces. \n");
     jeu->achat();
     partieTerminee = jeu->verifierVictoire();
 }
@@ -224,46 +222,37 @@ void Jeu::achat(){
 // 6e étape de la boucle de jeu. Propose au joueur la liste des cartes achetables
 // du Marché, puis appelle la méthode acheter() du Marché.
 
-
-    // affiche la liste des batiments achetables sur le marché :
-    vector<Batiment*> batimentsAchetables = marche->getCarteDispAchat();
-    Controleur::getControleur()->afficher("\nListe des cartes achetables :\n");
-
+    // vecteur des cartes achetables par l'utilisateur (monuments et cartes du marché) :
     vector<Carte*> cartesAchetables;
 
-    for (auto &m : joueurActif->getMonuments()){
-        if (!m->getConstruit()){
+    for (auto &m : joueurActif->getMonuments())
+        if (!m->getConstruit())
             cartesAchetables.push_back(m);
-
-        }
-    }
-    for (auto &c : batimentsAchetables){
+        
+    for (auto &c : marche->getCarteDispAchat())
         cartesAchetables.push_back(c);
-    }
-
-    Carte* achat;
-    bool achatEffectue = false;
-    // on récupère le solde actuel du joueur :
+    
     int soldeJoueur = joueurActif->getPieces();
-
-
+    bool achatEffectue = false;
+    Carte* achat;
 
     while(!achatEffectue){
+        Controleur::getControleur()->afficher("\nListe des cartes achetables :\n");
         // on demande au joueur quelle carte il souhaite acheter :
         achat = Controleur::getControleur()->selection_carte(cartesAchetables);
 
         if(achat != nullptr){
-            Controleur::getControleur()->afficher("\nVous avez acheté : " + achat->to_string() + ".");
+            Controleur::getControleur()->afficher("\nVous avez choisi : " + achat->to_string() + ".\n");
             if(soldeJoueur >= achat->getPrix()){
                 achat->acheter();
                 joueurActif->perdrePieces(achat->getPrix());
                 Controleur::getControleur()->afficher("Achat effectué avec succès.\n");
                 achatEffectue = true;
             }else{
-                Controleur::getControleur()->afficher("\nVous ne possédez pas assez d'argent pour acheter cette carte. Veuillez en choisir une autre, ou saisir 'R' pour terminer votre tour.\n");
+                Controleur::getControleur()->afficher("\nVous ne possédez pas assez d'argent pour acheter cette carte. Veuillez en choisir une autre, ou saisir '-1' pour terminer votre tour.\n");
             }
         }else{
-            Controleur::getControleur()->afficher("\nVous n'avez rien acheté ce tour-ci.");
+            Controleur::getControleur()->afficher("\nVous n'avez rien acheté ce tour-ci.\n");
             achatEffectue = true;
         }
     }
@@ -274,7 +263,7 @@ void Jeu::achat(){
     else if(!achatEffectue && joueurActif->hasAeroport())
         joueurActif->gagnerPieces(10);
 
-    Controleur::getControleur()->afficher("Fin du tour\n");
+    Controleur::getControleur()->afficher("\nFin du tour\n");
     return;
 };
 
