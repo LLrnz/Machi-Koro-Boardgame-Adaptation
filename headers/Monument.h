@@ -12,7 +12,7 @@ public:
 
     virtual void acheter(); //Méthode virtual de carte
     virtual ~Monument();
-    virtual std::string to_string() const{};
+    virtual std::string to_string() const{return "";};
 
 
     bool getConstruit() const {return construit;}
