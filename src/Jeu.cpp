@@ -148,8 +148,8 @@ void Jeu::boucleDeJeu() {
         for(auto &j : joueurs){
             joueurActif = &j;
             jeu->tourDeJeu();
+            if (partieTerminee) break;
         }
-
 	}
 	
     Controleur::getControleur()->afficher("Le joueur ");
