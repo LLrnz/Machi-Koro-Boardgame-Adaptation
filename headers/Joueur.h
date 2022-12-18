@@ -15,10 +15,11 @@ class Joueur
     int pieces;
     bool rejoueTour = false;
     vector<Batiment*> batiments;
-    vector<Monument> monuments;
+    vector<Monument*> monuments;
 
 public:
     Joueur(std::string psdo, TypeJoueur typ);
+    ~Joueur();
     bool hasGare() const;
     bool hasCentreCommercial() const;
     bool hasParcAttractions() const;

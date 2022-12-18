@@ -10,8 +10,3 @@ void Monument::acheter(){
 }
 
 Monument::~Monument(){};
-
-
-std::string Monument::to_string() const{
-    return "Ceci est un monment";
-}

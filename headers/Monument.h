@@ -10,14 +10,12 @@ class Monument : public Carte
 public:
     Monument(std::string n,int p);
 
-    virtual void acheter();
+    virtual void acheter(); //Méthode virtual de carte
     virtual ~Monument();
-    std::string to_string() const;
+    virtual std::string to_string() const{};
 
 
     bool getConstruit() const {return construit;}
     void setConstruit() {construit = true;}
     void detruire() {construit=false;}
-
-
 };
