@@ -86,6 +86,8 @@ void Jeu::initialiserJoueurs(map<std::string, TypeJoueur> listeJoueurs) {
 void Jeu::genererPartie(map<std::string, TypeJoueur> listeJoueurs, map<Extensions, bool> extensions) {
     this->initialiserJoueurs(listeJoueurs);
     this->initialiserCartes(extensions);
+    this->donnerCarteDeBase();
+
     //this->afficherCartes();
     marche = new Marche(cartesEnJeu);
 
@@ -95,6 +97,32 @@ void Jeu::genererPartie(map<std::string, TypeJoueur> listeJoueurs, map<Extension
             this->conditionVictoire = 5;
         else
             this->conditionVictoire = 4;
+}
+
+void Jeu::donnerCarteDeBase(){
+    for(auto &j : this->joueurs){
+        Batiment* boulangerie = nullptr;
+        Batiment* champsdeble = nullptr;
+        bool champTrouve = false;
+        bool boulangeTrouve = false;
+
+        for(auto b = cartesEnJeu.begin(); b != cartesEnJeu.end(); ++b){
+            Batiment* tmp = *b;
+            if(tmp->getCouleur() == Couleur::Bleu && tmp->getId() == 1 && !champTrouve){
+                champsdeble = *b;
+                cartesEnJeu.erase(b);
+                champTrouve = true;
+            }
+            if(tmp->getCouleur() == Couleur::Vert && tmp->getId() == 1 && !boulangeTrouve){
+                boulangerie = *b;
+                cartesEnJeu.erase(b);
+                boulangeTrouve = false;
+            }
+        }
+
+        j.ajouterBatiment(boulangerie);
+        j.ajouterBatiment(champsdeble);
+    }
 }
 
 
@@ -242,10 +270,11 @@ void Jeu::achat(){
         cartesAchetables.push_back(c);
     
     int soldeJoueur = joueurActif->getPieces();
-    bool achatEffectue = false;
+    bool choixFait = false;
+    bool achatFait = true;
     Carte* achat;
 
-    while(!achatEffectue){
+    while(!choixFait){
         Controleur::getControleur()->afficher("\nListe des cartes achetables :\n");
         // on demande au joueur quelle carte il souhaite acheter :
         achat = Controleur::getControleur()->selection_carte(cartesAchetables);
@@ -256,20 +285,21 @@ void Jeu::achat(){
                 achat->acheter();
                 joueurActif->perdrePieces(achat->getPrix());
                 Controleur::getControleur()->afficher("Achat effectué avec succès.\n");
-                achatEffectue = true;
+                choixFait = true;
             }else{
                 Controleur::getControleur()->afficher("\nVous ne possédez pas assez d'argent pour acheter cette carte. Veuillez en choisir une autre, ou saisir '-1' pour terminer votre tour.\n");
             }
         }else{
             Controleur::getControleur()->afficher("\nVous n'avez rien acheté ce tour-ci.\n");
-            achatEffectue = true;
+            choixFait = true;
+            achatFait = false;
         }
     }
     // Gestion du RSA :
-    if (!achatEffectue && soldeJoueur<2){
+    if (!achatFait && soldeJoueur<2){
         joueurActif->gagnerPieces(2-soldeJoueur);
     }
-    else if(!achatEffectue && joueurActif->hasAeroport())
+    else if(!achatFait && joueurActif->hasAeroport())
         joueurActif->gagnerPieces(10);
 
     Controleur::getControleur()->afficher("\nFin du tour\n");

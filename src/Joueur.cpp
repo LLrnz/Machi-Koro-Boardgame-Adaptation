@@ -2,6 +2,7 @@
 #include "../headers/enums.h"
 #include "../headers/Controleur.h"
 #include "../headers/CartesMonuments.h"
+#include "headers/CarteBleue.h"
 #include<bits/stdc++.h>
 
 Joueur::Joueur(std::string psdo, TypeJoueur typ) : type(typ), pseudo(psdo), pieces(3), rejoueTour(false), batiments(){
@@ -10,6 +11,7 @@ Joueur::Joueur(std::string psdo, TypeJoueur typ) : type(typ), pseudo(psdo), piec
         monuments = {new Port("Port",2), new Gare("Gare",4), new CentreCommercial("Centre commercial",10), new ParcDattraction("Parc d'attractions",16), new TourRadio("Tour radio",22), new Aeroport("Aeroport",30)};
     else
         monuments = {new Gare("Gare",4), new CentreCommercial("Centre commercial",10), new ParcDattraction("Parc d'attractions",16), new TourRadio("Tour radio",22)};
+
 }
 
 bool Joueur::hasPort() const {
