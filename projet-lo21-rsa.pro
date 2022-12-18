@@ -8,6 +8,10 @@ CONFIG -= app_bundle
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src\cartesbleues.cpp \
+    src\cartesrouges.cpp \
+    src\cartesvertes.cpp \
+    src\cartesviolettes.cpp \
         main.cpp \
     src/Monument.cpp \
         src\Batiment.cpp \
@@ -34,6 +38,10 @@ DISTFILES += \
     cartes.json
 
 HEADERS += \
+    headers\cartesbleues.h \
+    headers\cartesrouges.h \
+    headers\cartesvertes.h \
+    headers\cartesviolettes.h \
     headers/CartesMonuments.h \
     headers/Monument.h \
     headers\Batiment.h \
