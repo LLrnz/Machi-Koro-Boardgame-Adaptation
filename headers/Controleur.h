@@ -48,4 +48,8 @@ public:
     Carte* selection_carte(vector<Carte*> cartes){
         return interface.selection_carte(cartes);
     }
+
+    Monument* selection_monument(vector<Monument*> monuments){
+        return interface.selection_monument(monuments);
+    }
 };

@@ -3,39 +3,27 @@
 #include "../headers/Jeu.h"
 #include "../headers/Controleur.h"
 #include <cmath>
-#include <sstream>
 
 CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur){
 
 }
+void CarteViolette::activer(Joueur* joueurProprietaire){
+    string name = this->getNom();
+    Joueur* joueurActif = Jeu::getJeu().getJoueurActif();
+    Controleur* controleur = Controleur::getControleur();
+    vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
 
-void CarteViolette::activer(Joueur* joueurProprietaire) {
-    Jeu& jeu = Jeu::getJeu();
-    string          name        = this->getNom();
-    Controleur*     controleur  = Controleur::getControleur();
-    vector<Joueur>  joueurs     = jeu.getJoueurs();
-    Joueur*         joueurActif = jeu.getJoueurActif();
+    if (name == "Stade"){
 
-    // id : Stade = 1, Chaine TV = 2, Centre des Affaires = 3
-    // id : Maison d'édition = 4, Centre des impots = 5
-
-    stringstream s;
-
-    s << "La carte violette " << name << " est activée \n";
-    controleur->afficher(s.str());
-
-    if (this->getId() == 1){    // si c'est le stade
         for (auto &j : joueurs){
             if (&j != joueurActif){
                 joueurActif->gagnerPieces(j.perdrePieces(2));
             }
         }
     }
-    if (this->getId() == 2){    // si c'est la chaine TV
-        vector<Joueur> joueurs = jeu.getJoueurs();
-        s << "A qui voulez vous prendre" << this->getGain() << "pieces ? \n";
-        controleur->afficher(s.str());
+    if (name == "Chaine TV"){
+        controleur->afficher("A qui voulez vous prendre 5 pieces ? \n");
 
         vector<Joueur*> choixJoueurs;
         for(auto &j : joueurs){
@@ -46,13 +34,14 @@ void CarteViolette::activer(Joueur* joueurProprietaire) {
         Joueur* joueurChoisi = controleur->selection_joueur(choixJoueurs);
         joueurActif->gagnerPieces(joueurChoisi->perdrePieces(5));
     }
-    if (this->getId() == 3){    // si c'est le centre des affaires
+    if (name == "Centre des Affaires"){
         //Affichage et selection de la personne avec qui échange run batiment
-        stringstream s;
-        s << "Avec qui voulez vous echanger un etablissement ? \n";
-        s << "-1 : Personne \n";
-        controleur->afficher(s.str());
-        Joueur* joueurVise = controleur->selection_joueur_batiment(jeu.getJoueursSansActifPtr());
+        controleur->afficher("Avec qui voulez vous echanger un etablissement ? \n");
+        controleur->afficher("-1 : Personne \n");
+        Joueur* joueurVise = controleur->selection_joueur_batiment(Jeu::getJeu().getJoueursSansActifPtr());
+
+
+        //Si il choisis -1, il n'effectue pas d'échange
         //Séquence d'échange
         if (joueurVise != nullptr){
             //Affichage et selection de la carte a prendre chez l'adversaire (ou vous même)
@@ -77,7 +66,7 @@ void CarteViolette::activer(Joueur* joueurProprietaire) {
             controleur->afficher("Echange annulé./n");
         }
     }
-    if (this->getId() == 4){    // si c'est la maison d'édition
+    if (name == "Maison d'édition"){
         int compteur = 0;
         for (auto &j : joueurs){
             compteur = 0;
@@ -87,17 +76,12 @@ void CarteViolette::activer(Joueur* joueurProprietaire) {
             joueurActif->gagnerPieces(j.perdrePieces(compteur));
         }
     }
-    if (this->getId() == 5){    // si c'est le centre des impots
-            for (size_t i =0; i<sizeof(joueurs);i++){
-                if (joueurs[i].getPieces()>=10) {
-                    int gain = floor(joueurs[i].getPieces()/2);
-                    joueurActif->gagnerPieces(joueurs[i].perdrePieces(gain));
-                    stringstream s;
-                    s << "Vous avez pris " << gain << " pieces a " << joueurs[i].getPseudo() << "\n";
-                    controleur->afficher(s.str());
-                }
-            }
+    if (name == "Centre des impots"){
+        for (auto &j : joueurs){
+            if (j.getPieces()>=10)
+                joueurActif->gagnerPieces(j.perdrePieces(floor(j.getPieces()/2)));
         }
+    }
 }
 
 std::string CarteViolette::to_string() const {
@@ -125,6 +109,5 @@ std::string CarteViolette::to_string() const {
 
 
     }
-
     return res;
 }

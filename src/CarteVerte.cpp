@@ -8,9 +8,8 @@ CarteVerte::CarteVerte(int id, std::string nom, TypeBatiment type, int prix, int
 
 
 void CarteVerte::activer(Joueur* joueurProprietaire){
-    Jeu& jeu = Jeu::getJeu();
-    Joueur* joueurActif = jeu.getJoueurActif();
-    vector<Joueur> joueurs = jeu.getJoueurs();
+    Joueur* joueurActif = Jeu::getJeu().getJoueurActif();
+    vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
     string nomCarte = getNom();
     int idCarte = getId();
 
@@ -22,12 +21,12 @@ void CarteVerte::activer(Joueur* joueurProprietaire){
     // id: Fleuriste = 6, Halle de marché = 7, Epicerie = 8, Entreprise de travaux publics = 9
     // id : Moonster soda = 10, Entreprise de déménagement = 11
 
-
+    //IMMONDE il faut faire de l'héritage !!
     if (this->getEffectType() != TypeBatiment::none){                                                       // si la carte a un effetType
         if (idCarte == 10){                                                                                     // si c'est Moonster soda
-            for (auto i = jeu.getJoueurs().begin(); i != jeu.getJoueurs().end(); i++){          // pour chaque joueur
-                for (auto j = (*i).getConstructions().begin(); j != (*i).getConstructions().end(); j++){                // pour chaque batiment du joueur
-                    if ((*j)->getType() == getEffectType())                                                                 // si le batiment est du type de l'effet
+            for (auto &i : Jeu::getJeu().getJoueurs()){          // pour chaque joueur
+                for (auto &j : i.getConstructions()){                // pour chaque batiment du joueur
+                    if (j->getType() == getEffectType())                                                                 // si le batiment est du type de l'effet
                         compteur++;
                 }
             }
@@ -64,28 +63,26 @@ void CarteVerte::activer(Joueur* joueurProprietaire){
 
 
             case 9: {//Entreprise de travaux publics
-                vector<Monument*> monumentsVendables;
-                int i = 0;
-                Controleur::getControleur()->afficher("Liste des monuments construits : \n");
-                for (Monument* &monu : joueurProprietaire->getMonuments()){
-                    if (monu->getConstruit()){
-                        monumentsVendables.push_back(monu);
-                        s.str("");
-                        s << "  " << i << " : " << monu->getNom() << ")\n";
-                        Controleur::getControleur()->afficher(s.str());
-                        i++;
+                    vector<Monument*> monumentsVendables;
+                    Controleur::getControleur()->afficher("Liste des monuments construits : \n");
+                    for (auto &monu : joueurProprietaire->getMonuments()){
+                        if (monu->getConstruit()){
+                            monumentsVendables.push_back(monu);
+                        }
+                    }
+
+
+                    if (!monumentsVendables.empty()){
+                        Controleur::getControleur()->afficher("Choisisez le monument a detruire pour gagner 8 pieces \n");
+                        Monument* reponse = Controleur::getControleur()->selection_monument(monumentsVendables);
+                        reponse->detruire();
+                        gain = 8;
+                    }
+                    else {
+                        Controleur::getControleur()->afficher("Vous n'avez aucun monument a vendre \n");
+                        gain = 0;
                     }
                 }
-                if (!monumentsVendables.empty()){
-                    Controleur::getControleur()->afficher("Choisisez le monument a detruire pour gagner 8 pieces \n");
-                    int reponse = std::stoi(Controleur::getControleur()->lire_str());
-                    monumentsVendables[reponse]->detruire();
-                    gain = 8;
-                }
-                else {
-                    Controleur::getControleur()->afficher("Vous n'avez aucun monument a vendre \n");
-                    gain = 0;
-                } }
             break;
 
 
@@ -104,7 +101,7 @@ void CarteVerte::activer(Joueur* joueurProprietaire){
                 Controleur::getControleur()->afficher("Choisisez un AUTRE joueur a qui gracieusement donner cette carte \n");
                 //On peut choisir tous les joueurs sauf le joueur actif
 
-                Joueur* joueurChoisi = Controleur::getControleur()->selection_joueur(jeu.getJoueursSansActifPtr());
+                Joueur* joueurChoisi = Controleur::getControleur()->selection_joueur(Jeu::getJeu().getJoueursSansActifPtr());
 
                 joueurChoisi->ajouterBatiment(batimentChoisi);
                 joueurProprietaire->enleverBatiment(batimentChoisi);
@@ -152,5 +149,6 @@ std::string CarteVerte::to_string() const {
         break;
 
     }
+
     return res;
 }

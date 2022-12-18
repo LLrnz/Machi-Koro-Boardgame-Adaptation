@@ -12,36 +12,40 @@ void CarteBleue::activer(Joueur* joueurProprietaire) {
 
     // id : champ de blé = 1, ferme = 2, forêt = 3, mine = 4,
     // verger de pommiers = 5, vignoble = 6, petit bateau de pêche = 7, chalutier = 8
-    if ((this->getId() == 7 || this->getId() == 8) && !joueurProprietaire->hasPort()) { // si c'est un petit bateau de pêche ou un chalutier et que le joueur actif n'a pas de port
-        return;
-    }
 
-    stringstream s;
-    s << "Le joueur " << joueurProprietaire->getPseudo() << " a active la carte bleue " << this->getNom() << endl;
+
+    controleur->afficher(joueurProprietaire->getPseudo() + " a active la carte bleue " + this->getNom() +"\n");
 
     int gain = this->getGain();
 
-    if (this->getId() == 8) { // si c'est un chalutier
-        int de1 = rand() % 6;
-        int de2 = rand() % 6;
-        int resultatJet = de1 + de2;
+    //À promptement déplacer dans une classe PetitBateauDePêche qui hérite de carte bleu
+    if (this->getId() == 8){
+        if(joueurProprietaire->hasPort()) { // si c'est un chalutier et que le joueur a un bateau de pêche
+            int de1 = rand() % 6;
+            int de2 = rand() % 6;
+            int resultatJet = de1 + de2;
 
-        gain = resultatJet;
+            gain = resultatJet;
 
-        s << "Le résultat du jet de de lie au chalutier est " << resultatJet << endl;
-        s << joueurProprietaire->getPseudo() << "a donc gagne " << resultatJet << endl;
+            controleur->afficher("Le résultat du jet de de lie au chalutier est " + std::to_string(resultatJet) + "\n");
+        }else{ //si le joueur n'a pas le port pour activer le petit bateau de pêche.
+            gain = 0;
+        }
     }
 
-    joueurProprietaire->gagnerPieces(gain);
+//    if ((this->getId() == 7 || this->getId() == 8) && !joueurProprietaire->hasPort()) { // si c'est un petit bateau de pêche ou un chalutier et que le joueur actif n'a pas de port
+//        return;
+//    }
 
-    controleur->afficher(s.str());
+    joueurProprietaire->gagnerPieces(gain);
+    controleur->afficher(joueurProprietaire->getPseudo() + " gagne " + std::to_string(gain) + "\n");
 }
 
 std::string CarteBleue::to_string() const {
-    std::string res = "[" + this->getNom() + "] : produit <" + std::to_string(this->getGain()) + "> pièces sur (" ;
+    std::string res = "[" + this->getNom() + "] ~" +std::to_string(this->getPrix()) + "p~ : produit <" + std::to_string(this->getGain()) + "> pièces sur (" ;
     for(const auto &i : this->getCombinaisons()){
         res += std::to_string(i);
-        res += ", ";
+        res += ",";
     }
     res += ") aux dés.";
     return res;

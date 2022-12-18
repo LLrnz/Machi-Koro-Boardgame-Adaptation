@@ -10,5 +10,5 @@ Batiment::~Batiment(){};
 
 void Batiment::acheter(){
     Jeu::getJeu().getJoueurActif()->ajouterBatiment(this);
-    Jeu::getJeu().getMarche()->retirerCarteAchetee(this);
+    Jeu::getJeu().getMarche()->acheter(this);
 };

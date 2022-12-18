@@ -60,8 +60,9 @@ void InterfaceTerminal::afficher(vector<Batiment*> batiments){
     int cpt = 0;
     for(const auto &b : batiments){
         afficher(std::to_string(cpt) + " : " + b->to_string() + "\n");
+        cpt++;
     }
-    cpt++;
+
 }
 
 void InterfaceTerminal::afficher(vector<Carte*> batiments){
@@ -149,6 +150,34 @@ Carte* InterfaceTerminal::selection_carte(vector<Carte*> cartes){
         while(!valide){
             try {
                 res = cartes.at(choix);
+                valide = true;
+            } catch (...) {
+               afficher("carte inexistante");
+            }
+        }
+    }
+
+    return res;
+}
+
+void InterfaceTerminal::afficher(vector<Monument*> monuments){
+    int cpt = 0;
+    for(auto &m : monuments){
+        afficher( std::to_string(cpt) + " : " + m->to_string() + "\n");
+        cpt++;
+    }
+}
+
+Monument* InterfaceTerminal::selection_monument(vector<Monument*> monuments){
+    afficher(monuments);
+    int choix = lire_int(-1, monuments.size()-1);
+    Monument* res = nullptr;
+    bool valide = false;
+
+    if(choix != -1){
+        while(!valide){
+            try {
+                res = monuments.at(choix);
                 valide = true;
             } catch (...) {
                afficher("carte inexistante");

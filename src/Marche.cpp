@@ -1,4 +1,4 @@
-#include "../headers/Marche.h"
+#include "../headers/marche.h"
 
 Batiment* Marche::piocherUneCarte() {
 // Renvoie un pointeur sur la carte du dessus de la pioche, 
@@ -68,6 +68,10 @@ Batiment* Marche::acheter(int achat){
     return c;
 };
 
+void Marche::acheter(Batiment* b){
+    retirerCarteAchetee(b);
+    distribuer();
+}
 
 Marche::Marche(vector<Batiment*> cartes):pioche(cartes) {
 // Constructeur de la classe Marché.  Initialise la pioche à partir d’un vecteur de cartes,

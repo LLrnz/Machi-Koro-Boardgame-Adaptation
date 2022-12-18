@@ -15,6 +15,7 @@ private:
     // Méthodes
     Batiment* piocherUneCarte();
     int getTailleMarche() const;
+    void retirerCarteAchetee(Batiment* b);
 
     
 public: 
@@ -24,5 +25,6 @@ public:
     void distribuer();
     vector<Batiment*> getCarteDispAchat() const;
     Batiment* acheter(int achat);
-    void retirerCarteAchetee(Batiment* c);
+
+    void acheter(Batiment*);
 }; 
