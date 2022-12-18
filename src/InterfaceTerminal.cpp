@@ -1,4 +1,7 @@
 #include "../headers/InterfaceTerminal.h"
+#include <QString>
+
+
 
 InterfaceTerminal::InterfaceTerminal(){
 
@@ -25,7 +28,7 @@ int InterfaceTerminal::lire_int(){
             res = std::stoi(str);
             chiffre = true;
        }catch (...) {
-            std::cout << "Merci d'entrer un chiffre.";
+           afficher("Merci d'entrer un chiffre.");
        }
     }
     return res;
@@ -39,26 +42,34 @@ int InterfaceTerminal::lire_int(int x, int y){
         if(((res >= x) && (res <= y))){
             bornesOk = true;
         }else{
-           std::cout << "Merci d'entrer un chiffre entre " << x << " et " << y << ".";
+           afficher("Merci d'entrer un chiffre entre " + std::to_string(x) + " et " +  std::to_string(y) + ".");
         }
     }
     return res;
 }
 
 void InterfaceTerminal::afficher(vector<Joueur*> joueurs){
-    int cpt = 1;
+    int cpt = 0;
     for(const auto &j : joueurs){
-        std::cout << cpt << " : " << j->getPseudo() << "(" << j->getPieces() << "pièces) \n";
+        afficher( std::to_string(cpt) + " : " + j->getPseudo() + "(" + std::to_string(j->getPieces()) + "pièces) \n");
     }
     cpt++;
 }
 
 void InterfaceTerminal::afficher(vector<Batiment*> batiments){
-    int cpt = 1;
+    int cpt = 0;
     for(const auto &b : batiments){
-        std::cout << cpt << " : " << b->to_string() << "\n";
+        afficher(std::to_string(cpt) + " : " + b->to_string() + "\n");
     }
     cpt++;
+}
+
+void InterfaceTerminal::afficher(vector<Carte*> batiments){
+    int cpt = 0;
+    for(auto &b : batiments){
+        afficher( std::to_string(cpt) + " : " + b->to_string() + "\n");
+        cpt++;
+    }
 }
 
 Joueur* InterfaceTerminal::selection_joueur_batiment(vector<Joueur*> joueurs){
@@ -76,7 +87,7 @@ Joueur* InterfaceTerminal::selection_joueur_batiment(vector<Joueur*> joueurs){
                 res = joueurs.at(choix);
                 valide = true;
             } catch (...) {
-                std::cout << "joueur inexistant";
+                afficher("joueur inexistant");
             }
         }
     }
@@ -95,7 +106,7 @@ Joueur* InterfaceTerminal::selection_joueur(vector<Joueur*> joueurs){
             res = joueurs.at(choix);
             valide = true;
         } catch (...) {
-            std::cout << "joueur inexistant";
+            afficher("joueur inexistant");
         }
     }
 
@@ -119,10 +130,31 @@ Batiment* InterfaceTerminal::selection_batiment(vector<Batiment*> batiments){
             res = batiments.at(choix);
             valide = true;
         } catch (...) {
-            std::cout << "Batiment inexistant";
+            afficher("Batiment inexistant");
         }
     }
 
+
+    return res;
+}
+
+
+Carte* InterfaceTerminal::selection_carte(vector<Carte*> cartes){
+    afficher(cartes);
+    int choix = lire_int(-1, cartes.size()-1);
+    Carte* res = nullptr;
+    bool valide = false;
+
+    if(choix != -1){
+        while(!valide){
+            try {
+                res = cartes.at(choix);
+                valide = true;
+            } catch (...) {
+               afficher("carte inexistante");
+            }
+        }
+    }
 
     return res;
 }

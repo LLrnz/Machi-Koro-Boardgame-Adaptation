@@ -9,6 +9,7 @@ CONFIG -= app_bundle
 
 SOURCES += \
         main.cpp \
+    src/Monument.cpp \
         src\Batiment.cpp \
         src\Carte.cpp \
         src\CarteBleue.cpp \
@@ -33,6 +34,7 @@ DISTFILES += \
     cartes.json
 
 HEADERS += \
+    headers/CartesMonuments.h \
     headers/Monument.h \
     headers\Batiment.h \
     headers\Carte.h \

@@ -23,5 +23,6 @@ public:
     virtual ~Batiment();
     virtual std::string to_string() const =0;
     virtual void activer(Joueur* joueurProprietaire) =0;
+    void acheter();
 
 };

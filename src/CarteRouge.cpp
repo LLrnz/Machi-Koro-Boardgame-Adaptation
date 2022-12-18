@@ -28,7 +28,7 @@ void CarteRouge::activer(Joueur* joueurProprietaire){
     else if (nbMonuToActivate != 0 ) {                                      // si la carte a un nombre de monument requis
         int compteur = 0;
         for (size_t i = 0; i < size(joueurActif->getMonuments()); i++) {     // pour chaque monument du joueur actif
-            if (joueurActif->getMonuments()[i].getConstruit() == true)           // si le monument est construit
+            if (joueurActif->getMonuments()[i]->getConstruit() == true)           // si le monument est construit
                 compteur += 1;                                                      // on incremente le compteur
         }
         if (compteur < this->getNbMonuToActivate()) {                       // si le joueur n'a pas assez de monument construit

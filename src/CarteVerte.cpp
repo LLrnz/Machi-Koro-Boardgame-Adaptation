@@ -67,11 +67,11 @@ void CarteVerte::activer(Joueur* joueurProprietaire){
                 vector<Monument*> monumentsVendables;
                 int i = 0;
                 Controleur::getControleur()->afficher("Liste des monuments construits : \n");
-                for (Monument &monu : joueurProprietaire->getMonuments()){
-                    if (monu.getConstruit()){
-                        monumentsVendables.push_back(&monu);
+                for (Monument* &monu : joueurProprietaire->getMonuments()){
+                    if (monu->getConstruit()){
+                        monumentsVendables.push_back(monu);
                         s.str("");
-                        s << "  " << i << " : " << monu.getNom() << ")\n";
+                        s << "  " << i << " : " << monu->getNom() << ")\n";
                         Controleur::getControleur()->afficher(s.str());
                         i++;
                     }

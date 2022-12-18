@@ -42,5 +42,10 @@ public:
     void afficher(vector<Batiment*> batiments);
     Joueur* selection_joueur_batiment(vector<Joueur*> joueurs){
         return interface.selection_joueur_batiment(joueurs);
+
     };
+
+    Carte* selection_carte(vector<Carte*> cartes){
+        return interface.selection_carte(cartes);
+    }
 };

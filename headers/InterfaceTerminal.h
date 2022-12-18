@@ -12,12 +12,13 @@ public:
     void afficher(int i) const {std::cout << i;};
     void afficher(vector<Joueur*> joueurs);
     void afficher(vector<Batiment*> batiments);
+    void afficher(vector<Carte*> cartes);
     std::string lire() const;
     int lire_int();
     int lire_int(int x, int y);
     Joueur* selection_joueur(vector<Joueur*> joueurs);
     Batiment* selection_batiment(vector<Batiment*> batiments);
-
+    Carte* selection_carte(vector<Carte*> cartes);
     Joueur* selection_joueur_batiment(vector<Joueur*> joueurs);
     void changerCouleur(char couleur_texte, char couleur_fond = '0');
 

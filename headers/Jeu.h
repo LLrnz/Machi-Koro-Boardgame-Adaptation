@@ -56,6 +56,7 @@ public:
     bool getPartieTerminee() const { return partieTerminee; };
     Joueur* getJoueurActif() const { return joueurActif; };
     vector<Joueur> getJoueurs() const { return joueurs; };
+    Marche* getMarche() const {return marche;};
     vector<Joueur*> getJoueursSansActifPtr();
 
     int getNbJoueurs() const;

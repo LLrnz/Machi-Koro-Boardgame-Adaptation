@@ -13,11 +13,11 @@ class Carte
   public:
     // Carte();
     Carte(int i, string n, int p);
-    ~Carte() = default;
-    std::string to_string() const;
+    virtual ~Carte();
+    virtual std::string to_string() const =0;
     //accessors
     int getId() const;
     std::string getNom() const;
-    TypeBatiment getType() const;
     int getPrix() const;
+    virtual void acheter() =0;
 };

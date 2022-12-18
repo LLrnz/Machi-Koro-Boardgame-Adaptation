@@ -60,6 +60,7 @@ void Joueur::activerCartesVertes(int nbDes){
         bool bonNombreAuDe = false;
         for (auto &it2 : it->getCombinaisons() )
             if (it2 == nbDes) { bonNombreAuDe = true;}
+
         if (it->getCouleur()==Couleur::Vert && bonNombreAuDe)
             it->activer(this);
     }
@@ -113,3 +114,11 @@ std::string Joueur::to_string(){
     return pseudo + "(" + std::to_string(pieces) + "pièces)";
 }
 
+vector<Monument*> Joueur::getMonuments() {
+    vector<Monument*> res;
+    for(auto &m : monuments){
+        Monument* m_ptr = &m;
+        res.push_back(m_ptr);
+    }
+    return res;
+}

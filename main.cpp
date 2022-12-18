@@ -9,7 +9,7 @@ int main() {
 
     Controleur::getControleur()->nouvellePartie();
     Jeu::getJeu().afficherCartes();
-    Controleur::getControleur()->afficher("a\n");
+    Controleur::getControleur()->afficher("\n");
     Controleur::getControleur()->demarrer();
     return 0;
 }

@@ -33,7 +33,7 @@ public:
     void gagnerPieces(int montant);
     int perdrePieces(int montant);
     void setRejoueTour(bool b){rejoueTour = b;};
-    std::vector<Monument> getMonuments()const{return monuments;}; // OK GET BATIMENT tout doux
+    std::vector<Monument*> getMonuments(); // OK GET BATIMENT tout doux
     std::vector<Batiment*> getConstructions() const {return batiments;};
     int getPieces() const {return pieces;};
     string getPseudo() const {return pseudo;};

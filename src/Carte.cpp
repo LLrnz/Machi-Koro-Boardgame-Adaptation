@@ -4,6 +4,7 @@ Carte::Carte(int i, std::string n, int p) : id(i),nom(n),prix(p) {
     
 }
 
+Carte::~Carte(){}
 
 //accessors
 int Carte::getId() const {
