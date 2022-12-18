@@ -1,30 +1,63 @@
 #include "../headers/Joueur.h"
 #include "../headers/enums.h"
+#include "../headers/Controleur.h"
+#include "../headers/CartesMonuments.h"
 #include<bits/stdc++.h>
 
 Joueur::Joueur(std::string psdo, TypeJoueur typ) : type(typ), pseudo(psdo), pieces(3), rejoueTour(false), batiments(){
-    monuments = {Monument("Port",2), Monument("Gare",4), Monument("Centre commercial",10), Monument("Parc d'atractions",16), Monument("Tour radio",22), Monument("Aeroport",30)};
+    auto extensions = Controleur::getControleur()->getExtensions();
+    if (extensions[Extensions::marina] || extensions[Extensions::deluxe])
+        monuments = {new Port("Port",2), new Gare("Gare",4), new CentreCommercial("Centre commercial",10), new ParcDattraction("Parc d'attractions",16), new TourRadio("Tour radio",22), new Aeroport("Aeroport",30)};
+    else
+        monuments = {new Gare("Gare",4), new CentreCommercial("Centre commercial",10), new ParcDattraction("Parc d'attractions",16), new TourRadio("Tour radio",22)};
 }
 
 bool Joueur::hasPort() const {
-    return monuments[0].getConstruit();
+    bool has = false;
+    for (const auto &i : monuments)
+        if (i->getNom()=="Port" && i->getConstruit())
+            has = true;
+    return has;
 }
 
 bool Joueur::hasGare() const {
-    return monuments[1].getConstruit();
+    bool has = false;
+    for (const auto &i : monuments)
+        if (i->getNom()=="Gare" && i->getConstruit())
+            has = true;
+    return has;
 }
 
 bool Joueur::hasCentreCommercial() const {
-    return monuments[2].getConstruit();
+    bool has = false;
+    for (const auto &i : monuments)
+        if (i->getNom()=="Centre commercial" && i->getConstruit())
+            has = true;
+    return has;
 }
 
 bool Joueur::hasParcAttractions() const{
-    return monuments[3].getConstruit();
+    bool has = false;
+    for (const auto &i : monuments)
+        if (i->getNom()=="Parc d'attractions" && i->getConstruit())
+            has = true;
+    return has;
 }
 
 bool Joueur::hasTourRadio() const {
-    return monuments[4].getConstruit();
-    return false;
+    bool has = false;
+    for (const auto &i : monuments)
+        if (i->getNom()=="Tour radio" && i->getConstruit())
+            has = true;
+    return has;
+}
+
+bool Joueur::hasAeroport() const{
+    bool has = false;
+    for (const auto &i : monuments)
+        if (i->getNom()=="Aeroport" && i->getConstruit())
+            has = true;
+    return has;
 }
 
 
@@ -41,9 +74,6 @@ int Joueur::perdrePieces(int nb){
     pieces -= nb; // sinon, on diminue son solde 
     return nb; // et on retourne ce qu'il a perdu
 };
-bool Joueur::hasAeroport() const{
-    return monuments[5].getConstruit();
-}
 
 
 void Joueur::activerCartesBleues(int nbDes){
@@ -96,7 +126,7 @@ void Joueur::gagnerPieces(int montant) {
 int Joueur::getNbMonumentsConstruits(){
     int res = 0;
     for(const auto &m : monuments){
-        if(m.getConstruit()){
+        if(m->getConstruit()){
             res++;
         }
     }
@@ -115,10 +145,16 @@ std::string Joueur::to_string(){
 }
 
 vector<Monument*> Joueur::getMonuments() {
-    vector<Monument*> res;
+    /*vector<Monument*> res;
     for(auto &m : monuments){
         Monument* m_ptr = &m;
         res.push_back(m_ptr);
     }
-    return res;
+    return res;*/
+    return monuments;
+}
+
+Joueur::~Joueur(){
+    /*for (auto i : monuments)
+       delete i;*/
 }

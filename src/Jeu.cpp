@@ -163,8 +163,8 @@ int Jeu::jetDes(){
 
         //le joueur lance 2 dés
         if (reponse == 2){
-			int de1 = rand() % 6;
-			int de2 = rand() % 6;   
+            int de1 = (rand() % 6)+1;
+            int de2 = (rand() % 6)+1;
 			resultatJet = de1 + de2;
 
             if ((de1 == de2) && joueurActif->hasParcAttractions()){
@@ -176,11 +176,11 @@ int Jeu::jetDes(){
 		}
         //le joueur lance 1 dé
 		else
-			resultatJet = (rand() % 6);
+            resultatJet = (rand() % 6)+1;
 	}
     //le joueur n'a pas le choix de lancer 1 dé
 	else
-		resultatJet = (rand() % 6);
+        resultatJet = (rand() % 6)+1;
 
     //Avec le port, le joueur peut moduler son jet
     if ((resultatJet >= 10) && (joueurActif->hasPort())){
