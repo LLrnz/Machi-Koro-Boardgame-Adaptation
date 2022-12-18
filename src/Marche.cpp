@@ -1,4 +1,6 @@
 #include "../headers/marche.h"
+#include <algorithm> // pour le shuffle
+#include <random>    // pour le shuffle
 
 Batiment* Marche::piocherUneCarte() {
 // Renvoie un pointeur sur la carte du dessus de la pioche, 
@@ -12,7 +14,6 @@ Batiment* Marche::piocherUneCarte() {
 // méthode indiquant si une string str est présente dans un vecteur de strings v
 bool isInVector(vector<string> v, string str){
     for(const string& s : v)
-    // remarque : on pourrait aussi comparer directement les cartes deux à deux en surchargeant l'opérateur ==
         if(s==str)
             return true;
     return false;
@@ -31,7 +32,6 @@ vector<Batiment*> Marche::getCarteDispAchat() const {
     }
     return ptCartes;
 };
-
 
 int Marche::getTailleMarche() const {
 // Renvoie le nombre de cartes *différentes* dans le vecteur enJeu.
@@ -73,8 +73,16 @@ void Marche::acheter(Batiment* b){
     distribuer();
 }
 
+template<typename T>
+void shuffle(vector<T> &vec){
+    random_device rd;
+    mt19937 g(rd());
+    shuffle(vec.begin(), vec.end(), g);
+}
+
 Marche::Marche(vector<Batiment*> cartes):pioche(cartes) {
 // Constructeur de la classe Marché.  Initialise la pioche à partir d’un vecteur de cartes,
 // et appelle la méthode distribuer() pour répartir les cartes dans le vecteur enJeu.
+    shuffle(pioche);
     distribuer();
 };
