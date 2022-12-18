@@ -111,6 +111,7 @@ void CarteVerte::activer(Joueur* joueurProprietaire){
         }
 
     }
+    Controleur::getControleur()->afficher(this->getNom() + " vous a rapporter " + std::to_string(gain) + " pièces.\n");
     joueurActif->gagnerPieces(gain);
 }
 

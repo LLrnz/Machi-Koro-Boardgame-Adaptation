@@ -42,6 +42,7 @@ class Jeu
                    std::stringstream &s);
     void achat();
     bool verifierVictoire();   
+    void donnerCarteDeBase();
 public:
     static Jeu& getJeu();
     static void libererJeu();
