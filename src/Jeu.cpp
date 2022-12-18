@@ -154,7 +154,7 @@ void Jeu::boucleDeJeu() {
 	
     Controleur::getControleur()->afficher("Le joueur ");
     Controleur::getControleur()->afficher(joueurActif->getPseudo());
-    Controleur::getControleur()->afficher("a gagne la partie ! \n");
+    Controleur::getControleur()->afficher("a gagné la partie ! \n");
 }
 
 /**
@@ -202,8 +202,8 @@ int aleat(int min, int max){
 int Jeu::jetDes(){
 	int resultatJet;
     if (joueurActif->hasGare() == true){
-        Controleur::getControleur()->afficher("1 : Lancer un de \n");
-        Controleur::getControleur()->afficher("2 : Lancer deux des \n");
+        Controleur::getControleur()->afficher("1 : Lancer un dé \n");
+        Controleur::getControleur()->afficher("2 : Lancer deux dés \n");
         int reponse = Controleur::getControleur()->lire_int(1,2);
 
         //le joueur lance 2 dés
@@ -213,7 +213,7 @@ int Jeu::jetDes(){
 			resultatJet = de1 + de2;
 
             if ((de1 == de2) && joueurActif->hasParcAttractions()){
-                Controleur::getControleur()->afficher("Le resultat est un double, vous rejouez un tour apres celui ci ! \n");
+                Controleur::getControleur()->afficher("Le resultat est un double, vous rejouez un tour après celui ci ! \n");
                 joueurActif->setRejoueTour(true);
 			}
 			else
@@ -229,8 +229,8 @@ int Jeu::jetDes(){
 
     //Avec le port, le joueur peut moduler son jet
     if ((resultatJet >= 10) && (joueurActif->hasPort())){
-        Controleur::getControleur()->afficher("Le resultat est superieur a 10 ! \n");
-        Controleur::getControleur()->afficher("Le resultat du jet est ");
+        Controleur::getControleur()->afficher("Le résultat est superieur à 10 ! \n");
+        Controleur::getControleur()->afficher("Le résultat du jet est ");
         Controleur::getControleur()->afficher(to_string(resultatJet));
         Controleur::getControleur()->afficher("Vous pouvez ajouter de 0 à 2 à votre jet. Combien ajouter ? \n");
         int rep = Controleur::getControleur()->lire_int(0, 2);
@@ -238,7 +238,7 @@ int Jeu::jetDes(){
 	}
 
 
-    Controleur::getControleur()->afficher("Le resultat du jet est ");
+    Controleur::getControleur()->afficher("Le résultat du jet est ");
     Controleur::getControleur()->afficher(to_string(resultatJet));
     Controleur::getControleur()->afficher("\n");
 	return resultatJet;
@@ -251,8 +251,8 @@ int Jeu::jetDes(){
 int Jeu::lancerDes(){
 	int resultatJet = jetDes();
     if (joueurActif->hasTourRadio()){
-        Controleur::getControleur()->afficher("0 : Ne pas relancer les des \n");
-        Controleur::getControleur()->afficher("1 : Relancer les des \n");
+        Controleur::getControleur()->afficher("0 : Ne pas relancer les dés \n");
+        Controleur::getControleur()->afficher("1 : Relancer les dés \n");
         int reponse = Controleur::getControleur()->lire_int(0, 1);
         if (reponse)
 			resultatJet = jetDes();

@@ -14,7 +14,7 @@ void CarteBleue::activer(Joueur* joueurProprietaire) {
     // verger de pommiers = 5, vignoble = 6, petit bateau de pêche = 7, chalutier = 8
 
 
-    controleur->afficher(joueurProprietaire->getPseudo() + " a active la carte bleue " + this->getNom() +"\n");
+    controleur->afficher(joueurProprietaire->getPseudo() + " a activé la carte bleue " + this->getNom() +"\n");
 
     int gain = this->getGain();
 
@@ -28,7 +28,7 @@ void CarteBleue::activer(Joueur* joueurProprietaire) {
 
             gain = resultatJet;
 
-            controleur->afficher("Le résultat du jet de de lie au chalutier est " + std::to_string(resultatJet) + "\n");
+            controleur->afficher("Le résultat du jet de dé lié au chalutier est " + std::to_string(resultatJet) + "\n");
         }else{ //si le joueur n'a pas le port pour activer le petit bateau de pêche.
             gain = 0;
         }

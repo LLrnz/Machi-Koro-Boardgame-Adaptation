@@ -42,7 +42,7 @@ void CarteRouge::activer(Joueur* joueurProprietaire){
 
     // affichage
     stringstream s;
-    s << joueurActif->getPseudo() << " a paye " << gain << " pieces a " << joueurProprietaire->getPseudo() << endl;
+    s << joueurActif->getPseudo() << " a payé " << gain << " pièces à " << joueurProprietaire->getPseudo() << endl;
     controleur->afficher(s.str());
 }
 

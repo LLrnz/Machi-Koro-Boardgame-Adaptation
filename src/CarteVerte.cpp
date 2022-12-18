@@ -73,13 +73,13 @@ void CarteVerte::activer(Joueur* joueurProprietaire){
 
 
                     if (!monumentsVendables.empty()){
-                        Controleur::getControleur()->afficher("Choisisez le monument a detruire pour gagner 8 pieces \n");
+                        Controleur::getControleur()->afficher("Choisisez le monument à detruire pour gagner 8 pièces \n");
                         Monument* reponse = Controleur::getControleur()->selection_monument(monumentsVendables);
                         reponse->detruire();
                         gain = 8;
                     }
                     else {
-                        Controleur::getControleur()->afficher("Vous n'avez aucun monument a vendre \n");
+                        Controleur::getControleur()->afficher("Vous n'avez aucun monument à vendre \n");
                         gain = 0;
                     }
                 }
@@ -98,7 +98,7 @@ void CarteVerte::activer(Joueur* joueurProprietaire){
                 Controleur::getControleur()->afficher("Votre choix : \n");
                 Batiment* batimentChoisi = Controleur::getControleur()->selection_batiment(choixBatiments);
 
-                Controleur::getControleur()->afficher("Choisisez un AUTRE joueur a qui gracieusement donner cette carte \n");
+                Controleur::getControleur()->afficher("Choisisez un AUTRE joueur à qui gracieusement donner cette carte \n");
                 //On peut choisir tous les joueurs sauf le joueur actif
 
                 Joueur* joueurChoisi = Controleur::getControleur()->selection_joueur(Jeu::getJeu().getJoueursSansActifPtr());
@@ -111,7 +111,7 @@ void CarteVerte::activer(Joueur* joueurProprietaire){
         }
 
     }
-    Controleur::getControleur()->afficher(this->getNom() + " vous a rapporter " + std::to_string(gain) + " pièces.\n");
+    Controleur::getControleur()->afficher(this->getNom() + " vous a rapporté " + std::to_string(gain) + " pièces.\n");
     joueurActif->gagnerPieces(gain);
 }
 
