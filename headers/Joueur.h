@@ -43,5 +43,17 @@ public:
     int getNbMonumentsConstruits();
     std::string to_string();
 
+    bool operator!=(Joueur& j){
+        bool res = false;
+        if (j.pseudo != this->pseudo){
+            res = true;
+        }else if(j.batiments != this->batiments){
+            res = true;
+        }else if(j.pieces != this->pieces){
+            res = true;
+        }
+        return res;
+    }
+
 
 };

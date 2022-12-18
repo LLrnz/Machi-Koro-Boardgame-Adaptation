@@ -57,16 +57,16 @@ void Marche::retirerCarteAchetee(Batiment* c){
     }
 };
 
-Batiment* Marche::acheter(int achat){
-// Renvoie un pointeur sur la carte que le joueur actif a décidé d’acheter,
-// et appelle les méthodes retirerCarteAchetee() puis distribuer().
-// L’argument int permet de savoir lequel des 9 bâtiments du vecteur getCarteDispAchat() choisir.
-    vector<Batiment*> liste = getCarteDispAchat();
-    Batiment* c = liste[achat];
-    retirerCarteAchetee(c);
-    distribuer();
-    return c;
-};
+//Batiment* Marche::acheter(int achat){
+//// Renvoie un pointeur sur la carte que le joueur actif a décidé d’acheter,
+//// et appelle les méthodes retirerCarteAchetee() puis distribuer().
+//// L’argument int permet de savoir lequel des 9 bâtiments du vecteur getCarteDispAchat() choisir.
+//    vector<Batiment*> liste = getCarteDispAchat();
+//    Batiment* c = liste[achat];
+//    retirerCarteAchetee(c);
+//    distribuer();
+//    return c;
+//};
 
 void Marche::acheter(Batiment* b){
     retirerCarteAchetee(b);

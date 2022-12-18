@@ -12,11 +12,10 @@ void CarteViolette::activer(Joueur* joueurProprietaire){
     string name = this->getNom();
     Joueur* joueurActif = Jeu::getJeu().getJoueurActif();
     Controleur* controleur = Controleur::getControleur();
-    vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
 
     if (name == "Stade"){
 
-        for (auto &j : joueurs){
+        for (auto &j : Jeu::getJeu().getJoueurs()){
             if (&j != joueurActif){
                 joueurActif->gagnerPieces(j.perdrePieces(2));
             }
@@ -25,14 +24,9 @@ void CarteViolette::activer(Joueur* joueurProprietaire){
     if (name == "Chaine TV"){
         controleur->afficher("A qui voulez vous prendre 5 pieces ? \n");
 
-        vector<Joueur*> choixJoueurs;
-        for(auto &j : joueurs){
-            if(&j != joueurActif)
-            choixJoueurs.push_back(&j);
-        }
-
-        Joueur* joueurChoisi = controleur->selection_joueur(choixJoueurs);
-        joueurActif->gagnerPieces(joueurChoisi->perdrePieces(5));
+        Joueur* joueurChoisi = controleur->selection_joueur(Jeu::getJeu().getJoueursSansActifPtr());
+        int vol = joueurChoisi->perdrePieces(5);
+        joueurActif->gagnerPieces(vol);
     }
     if (name == "Centre des Affaires"){
         //Affichage et selection de la personne avec qui échange run batiment
@@ -68,7 +62,7 @@ void CarteViolette::activer(Joueur* joueurProprietaire){
     }
     if (name == "Maison d'édition"){
         int compteur = 0;
-        for (auto &j : joueurs){
+        for (auto &j : Jeu::getJeu().getJoueurs()){
             compteur = 0;
             for (auto &b : j.getConstructions())
                 if (b->getType() == TypeBatiment::magasin || b->getType() == TypeBatiment::restaurant)
@@ -77,7 +71,7 @@ void CarteViolette::activer(Joueur* joueurProprietaire){
         }
     }
     if (name == "Centre des impots"){
-        for (auto &j : joueurs){
+        for (auto &j : Jeu::getJeu().getJoueurs()){
             if (j.getPieces()>=10)
                 joueurActif->gagnerPieces(j.perdrePieces(floor(j.getPieces()/2)));
         }

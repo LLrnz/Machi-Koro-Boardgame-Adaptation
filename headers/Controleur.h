@@ -23,13 +23,15 @@ class Controleur
     InterfaceTerminal interface;
 
 public:
-    static Controleur* getControleur();
+
     static void libererControleur();
-    void nouvellePartie();
 
-    // Fonctions de service
-
+    //assesseurs
+    static Controleur* getControleur();
     int getNbJoueurs() const { return nbJoueurs; };
+
+
+    void nouvellePartie();
     void demarrer();
     void afficher(std::string f) const;
     void afficher(int i) {interface.afficher(i);};

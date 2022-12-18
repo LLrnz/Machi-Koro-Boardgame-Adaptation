@@ -52,9 +52,10 @@ void InterfaceTerminal::afficher(vector<Joueur*> joueurs){
     int cpt = 0;
     for(const auto &j : joueurs){
         afficher( std::to_string(cpt) + " : " + j->getPseudo() + "(" + std::to_string(j->getPieces()) + "pièces) \n");
+        cpt++;
     }
-    cpt++;
-}
+    }
+
 
 void InterfaceTerminal::afficher(vector<Batiment*> batiments){
     int cpt = 0;

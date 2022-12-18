@@ -24,7 +24,7 @@ public:
     
     void distribuer();
     vector<Batiment*> getCarteDispAchat() const;
-    Batiment* acheter(int achat);
+    //Batiment* acheter(int achat);
 
     void acheter(Batiment*);
 }; 
