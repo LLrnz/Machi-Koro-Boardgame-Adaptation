@@ -14,20 +14,21 @@ void CarteBleue::activer(Joueur* joueurProprietaire) {
     // verger de pommiers = 5, vignoble = 6, petit bateau de pêche = 7, chalutier = 8
 
 
-    controleur->afficher(joueurProprietaire->getPseudo() + " a active la carte bleue " + this->getNom() +"\n");
+    controleur->afficher(joueurProprietaire->getPseudo() + " a activé la carte bleue " + this->getNom() +"\n");
 
     int gain = this->getGain();
+
 
     //À promptement déplacer dans une classe PetitBateauDePêche qui hérite de carte bleu
     if (this->getId() == 8){
         if(joueurProprietaire->hasPort()) { // si c'est un chalutier et que le joueur a un bateau de pêche
-            int de1 = rand() % 6;
-            int de2 = rand() % 6;
+            int de1 = (rand()%6)+1;
+            int de2 = (rand()%6)+1;
             int resultatJet = de1 + de2;
 
             gain = resultatJet;
 
-            controleur->afficher("Le résultat du jet de de lie au chalutier est " + std::to_string(resultatJet) + "\n");
+            controleur->afficher("Le résultat du jet de dé lié au chalutier est " + std::to_string(resultatJet) + "\n");
         }else{ //si le joueur n'a pas le port pour activer le petit bateau de pêche.
             gain = 0;
         }
@@ -42,7 +43,7 @@ void CarteBleue::activer(Joueur* joueurProprietaire) {
 }
 
 std::string CarteBleue::to_string() const {
-    std::string res = "[" + this->getNom() + "] ~" +std::to_string(this->getPrix()) + "p~ : produit <" + std::to_string(this->getGain()) + "> pièces sur (" ;
+    std::string res = "[" + this->getNom() + "] \e[0;93m" +std::to_string(this->getPrix()) + "p\e[0m : produit <" + std::to_string(this->getGain()) + "> pièces sur (" ;
     for(const auto &i : this->getCombinaisons()){
         res += std::to_string(i);
         res += ",";

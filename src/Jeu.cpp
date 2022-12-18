@@ -5,8 +5,17 @@
 #include <iostream>
 #include <cstdlib>
 #include <sstream>
-#include <random> // pour le lancé de dés
+
+// pour le lancé de dés
+#include <random>
 #include <algorithm>
+
+// pour mettre des couleurs simplement dans le terminal (ANSI escape strings)
+#define NC "\e[0m" // no color
+#define RED "\e[0;91m" // light red
+#define GRN "\e[0;92m" // light green
+#define YLW "\e[0;93m" // light yellow
+#define CYN "\e[0;96m" // light cyan
 
 using namespace std;
 
@@ -145,24 +154,23 @@ void Jeu::boucleDeJeu() {
 	
     Controleur::getControleur()->afficher("Le joueur ");
     Controleur::getControleur()->afficher(joueurActif->getPseudo());
-    Controleur::getControleur()->afficher("a gagne la partie ! \n");
+    Controleur::getControleur()->afficher("a gagné la partie ! \n");
 }
 
 /**
  * @brief Jeu::tourDeJeu exprime un tour de jeu
  */
 void Jeu::tourDeJeu() {
-    Controleur::getControleur()->afficher("\nC'est a " + joueurActif->getPseudo() + " de jouer !\n");
-
+    Controleur::getControleur()->afficher(CYN "\nC'est à " + joueurActif->getPseudo() + " de jouer !\n" NC);
+    Controleur::getControleur()->afficher("Vous possédez actuellement les cartes suivantes : \n");
     Controleur::getControleur()->afficher(joueurActif->getConstructions());
-    Controleur::getControleur()->afficher("\n");
 
 	int resultatJet = jeu->lancerDes();
 	jeu->activerCartesRouges(resultatJet);
 	jeu->activerCartesBleues(resultatJet);
 	jeu->activerCartesVertes(resultatJet);
 	jeu->activerCartesViolettes(resultatJet);
-    Controleur::getControleur()->afficher("Vous avez " + to_string(joueurActif->getPieces()) + " pièces. \n");
+    Controleur::getControleur()->afficher(YLW "Vous avez " + to_string(joueurActif->getPieces()) + " pièces. \n" NC);
     jeu->achat();
     partieTerminee = jeu->verifierVictoire();
 }
@@ -194,8 +202,8 @@ int aleat(int min, int max){
 int Jeu::jetDes(){
 	int resultatJet;
     if (joueurActif->hasGare() == true){
-        Controleur::getControleur()->afficher("1 : Lancer un de \n");
-        Controleur::getControleur()->afficher("2 : Lancer deux des \n");
+        Controleur::getControleur()->afficher("1 : Lancer un dé \n");
+        Controleur::getControleur()->afficher("2 : Lancer deux dés \n");
         int reponse = Controleur::getControleur()->lire_int(1,2);
 
         //le joueur lance 2 dés
@@ -205,7 +213,7 @@ int Jeu::jetDes(){
 			resultatJet = de1 + de2;
 
             if ((de1 == de2) && joueurActif->hasParcAttractions()){
-                Controleur::getControleur()->afficher("Le resultat est un double, vous rejouez un tour apres celui ci ! \n");
+                Controleur::getControleur()->afficher("Le resultat est un double, vous rejouez un tour après celui ci ! \n");
                 joueurActif->setRejoueTour(true);
 			}
 			else
@@ -221,8 +229,8 @@ int Jeu::jetDes(){
 
     //Avec le port, le joueur peut moduler son jet
     if ((resultatJet >= 10) && (joueurActif->hasPort())){
-        Controleur::getControleur()->afficher("Le resultat est superieur a 10 ! \n");
-        Controleur::getControleur()->afficher("Le resultat du jet est ");
+        Controleur::getControleur()->afficher("Le résultat est superieur à 10 ! \n");
+        Controleur::getControleur()->afficher("Le résultat du jet est ");
         Controleur::getControleur()->afficher(to_string(resultatJet));
         Controleur::getControleur()->afficher("Vous pouvez ajouter de 0 à 2 à votre jet. Combien ajouter ? \n");
         int rep = Controleur::getControleur()->lire_int(0, 2);
@@ -230,7 +238,7 @@ int Jeu::jetDes(){
 	}
 
 
-    Controleur::getControleur()->afficher("Le resultat du jet est ");
+    Controleur::getControleur()->afficher("Le résultat du jet est ");
     Controleur::getControleur()->afficher(to_string(resultatJet));
     Controleur::getControleur()->afficher("\n");
 	return resultatJet;
@@ -243,8 +251,8 @@ int Jeu::jetDes(){
 int Jeu::lancerDes(){
 	int resultatJet = jetDes();
     if (joueurActif->hasTourRadio()){
-        Controleur::getControleur()->afficher("0 : Ne pas relancer les des \n");
-        Controleur::getControleur()->afficher("1 : Relancer les des \n");
+        Controleur::getControleur()->afficher("0 : Ne pas relancer les dés \n");
+        Controleur::getControleur()->afficher("1 : Relancer les dés \n");
         int reponse = Controleur::getControleur()->lire_int(0, 1);
         if (reponse)
 			resultatJet = jetDes();

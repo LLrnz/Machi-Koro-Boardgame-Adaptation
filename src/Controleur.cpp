@@ -39,21 +39,21 @@ void Controleur::nouvellePartie(){
 
     //set up joueurs
     //nb joueurs
-    this->afficher("Bonjour, combien de joueurs ?");
+    this->afficher("Bonjour, combien de joueurs ? ");
     this->nbJoueurs = this->lire_int(1, 4);
 
     //pseudos joueurs
     for(int i = 0; i < this->nbJoueurs; i++){
 
         //Selection type joueur
-        this->afficher("Joueur "+ to_string(i) + " humain (0) ou IA (1) ?");
+        this->afficher("Joueur "+ to_string(i) + " humain (0) ou IA (1) ? ");
         TypeJoueur type = TypeJoueur::humain;
         if(this->lire_int(0,1)){
             type = TypeJoueur::IA;
         }
 
         //Selection pseudo
-        this->afficher("Pseudo joueur "+ to_string(i) +" :");
+        this->afficher("Pseudo joueur "+ to_string(i) +" : ");
         std::string pseudo = this->lire_str();
 
         //insertion joueur dans la map
@@ -61,8 +61,11 @@ void Controleur::nouvellePartie(){
     }
 
     //set up extensions
-    for( const auto e : {Extensions::marina, Extensions::deluxe} ){
-        this->afficher("Jouer avec l'extension ? ");
+
+    auto ext = {Extensions::marina, Extensions::deluxe};
+    string enumExt[] {"harbour", "deluxe"};
+    for( const auto e : ext ){
+        this->afficher("Jouer avec l'extension " + enumExt[static_cast<int>(e)-1] + " ? ");
         bool val = this->lire_int(0,1);
         this->extensions.emplace(e, val);
 
