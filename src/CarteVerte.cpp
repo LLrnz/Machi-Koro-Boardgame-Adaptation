@@ -116,7 +116,7 @@ void CarteVerte::activer(Joueur* joueurProprietaire){
 
 
 std::string CarteVerte::to_string() const {
-    std::string res = "[" + this->getNom() + "] : produit <" + std::to_string(this->getGain()) + "> pièces sur (" ;
+    std::string res = "[" + this->getNom() + "] ~" +std::to_string(this->getPrix()) + "p~ : produit <" + std::to_string(this->getGain()) + "> pièces sur (" ;
     for(const auto &i : this->getCombinaisons()){
         res += std::to_string(i);
         res += ", ";
