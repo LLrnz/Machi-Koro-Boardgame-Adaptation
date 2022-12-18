@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+using namespace std;
+
 //Inutiles ? enum class Effet { deuxDes, doubleProduction, rejouerDouble, relancerDes };
 enum class TypeJoueur { humain, IA };
 enum class TypeBatiment { ble, vache, ecrou, fruit, magasin, usine, restaurant, special, none};

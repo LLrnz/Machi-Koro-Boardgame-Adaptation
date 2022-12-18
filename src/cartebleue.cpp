@@ -18,11 +18,12 @@ void CarteBleue::activer(Joueur* joueurProprietaire) {
 
     int gain = this->getGain();
 
+
     //À promptement déplacer dans une classe PetitBateauDePêche qui hérite de carte bleu
     if (this->getId() == 8){
         if(joueurProprietaire->hasPort()) { // si c'est un chalutier et que le joueur a un bateau de pêche
-            int de1 = rand() % 6;
-            int de2 = rand() % 6;
+            int de1 = (rand()%6)+1;
+            int de2 = (rand()%6)+1;
             int resultatJet = de1 + de2;
 
             gain = resultatJet;
@@ -42,7 +43,7 @@ void CarteBleue::activer(Joueur* joueurProprietaire) {
 }
 
 std::string CarteBleue::to_string() const {
-    std::string res = "[" + this->getNom() + "] ~" +std::to_string(this->getPrix()) + "p~ : produit <" + std::to_string(this->getGain()) + "> pièces sur (" ;
+    std::string res = "[" + this->getNom() + "] \e[0;93m" +std::to_string(this->getPrix()) + "p\e[0m : produit <" + std::to_string(this->getGain()) + "> pièces sur (" ;
     for(const auto &i : this->getCombinaisons()){
         res += std::to_string(i);
         res += ",";

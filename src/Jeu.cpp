@@ -5,8 +5,17 @@
 #include <iostream>
 #include <cstdlib>
 #include <sstream>
-#include <random> // pour le lancé de dés
+
+// pour le lancé de dés
+#include <random>
 #include <algorithm>
+
+// pour mettre des couleurs simplement dans le terminal (ANSI escape strings)
+#define NC "\e[0m" // no color
+#define RED "\e[0;91m" // light red
+#define GRN "\e[0;92m" // light green
+#define YLW "\e[0;93m" // light yellow
+#define CYN "\e[0;96m" // light cyan
 
 using namespace std;
 
@@ -124,17 +133,16 @@ void Jeu::boucleDeJeu() {
  * @brief Jeu::tourDeJeu exprime un tour de jeu
  */
 void Jeu::tourDeJeu() {
-    Controleur::getControleur()->afficher("\nC'est a " + joueurActif->getPseudo() + " de jouer !\n");
-
+    Controleur::getControleur()->afficher(CYN "\nC'est à " + joueurActif->getPseudo() + " de jouer !\n" NC);
+    Controleur::getControleur()->afficher("Vous possédez actuellement les cartes suivantes : \n");
     Controleur::getControleur()->afficher(joueurActif->getConstructions());
-    Controleur::getControleur()->afficher("\n");
 
 	int resultatJet = jeu->lancerDes();
 	jeu->activerCartesRouges(resultatJet);
 	jeu->activerCartesBleues(resultatJet);
 	jeu->activerCartesVertes(resultatJet);
 	jeu->activerCartesViolettes(resultatJet);
-    Controleur::getControleur()->afficher("Vous avez " + to_string(joueurActif->getPieces()) + " pièces. \n");
+    Controleur::getControleur()->afficher(YLW "Vous avez " + to_string(joueurActif->getPieces()) + " pièces. \n" NC);
     jeu->achat();
     partieTerminee = jeu->verifierVictoire();
 }

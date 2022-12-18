@@ -61,8 +61,11 @@ void Controleur::nouvellePartie(){
     }
 
     //set up extensions
-    for( const auto e : {Extensions::marina, Extensions::deluxe} ){
-        this->afficher("Jouer avec l'extension ? ");
+
+    auto ext = {Extensions::marina, Extensions::deluxe};
+    string enumExt[] {"harbour", "deluxe"};
+    for( const auto e : ext ){
+        this->afficher("Jouer avec l'extension " + enumExt[static_cast<int>(e)-1] + " ? ");
         bool val = this->lire_int(0,1);
         this->extensions.emplace(e, val);
 
