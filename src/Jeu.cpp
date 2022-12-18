@@ -5,9 +5,11 @@
 #include <iostream>
 #include <cstdlib>
 #include <sstream>
-
+#include <random> // pour le lancé de dés
+#include <algorithm>
 
 using namespace std;
+
 /**
  * Constructeur de jeu
  * @brief Jeu::Jeu
@@ -150,6 +152,13 @@ bool Jeu::verifierVictoire(){
     return res;
 }
 
+int aleat(int min, int max){
+    random_device rd;
+    mt19937 g(rd());
+    uniform_int_distribution<int> d(min, max);
+    return d(g);
+}
+
 /**
  * @brief Execute le jet de dés en fonctions des modificateurs de lancés que le joueur possède
  * @return le nombre aux lancé de dés du joueur
@@ -163,8 +172,8 @@ int Jeu::jetDes(){
 
         //le joueur lance 2 dés
         if (reponse == 2){
-            int de1 = (rand() % 6)+1;
-            int de2 = (rand() % 6)+1;
+            int de1 = aleat(1,6);
+            int de2 = aleat(1,6);
 			resultatJet = de1 + de2;
 
             if ((de1 == de2) && joueurActif->hasParcAttractions()){
@@ -176,11 +185,11 @@ int Jeu::jetDes(){
 		}
         //le joueur lance 1 dé
 		else
-            resultatJet = (rand() % 6)+1;
+            resultatJet = aleat(1,6);
 	}
     //le joueur n'a pas le choix de lancer 1 dé
 	else
-        resultatJet = (rand() % 6)+1;
+        resultatJet = aleat(1,6);
 
     //Avec le port, le joueur peut moduler son jet
     if ((resultatJet >= 10) && (joueurActif->hasPort())){
