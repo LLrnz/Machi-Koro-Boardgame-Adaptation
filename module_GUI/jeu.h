@@ -15,6 +15,9 @@ public:
     explicit Jeu(QWidget *parent = nullptr);
     ~Jeu();
 
+private slots:
+    void on_actionQuitter_2_triggered();
+
 private:
     Ui::Jeu *ui;
 };

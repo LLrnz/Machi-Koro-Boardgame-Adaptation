@@ -12,3 +12,9 @@ Jeu::~Jeu()
 {
     delete ui;
 }
+
+void Jeu::on_actionQuitter_2_triggered()
+{
+    this->close();
+}
+

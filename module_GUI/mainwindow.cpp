@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "nouvellepartie.h"
+#include "dialognouvellepartie.h"
+#include "jeu.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,10 +22,13 @@ void MainWindow::on_pushButton_3_pressed()
 
 void MainWindow::on_pb_nouvellePartie_pressed()
 {
-    NouvellePartie* np = new NouvellePartie();
-    //this->hide();
-    np->show();
+    DialogNouvellePartie* np = new DialogNouvellePartie();
+
+    np->exec();
     delete np;
+    this->close();
+    Jeu* j = new Jeu();
+    j->show();
 }
 
 

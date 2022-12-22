@@ -21,15 +21,12 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        nouvellepartie.h
-        nouvellepartie.cpp
-        nouvellepartie.ui
-        nouveaujoueur.h
-        nouveaujoueur.cpp
-        nouveaujoueur.ui
         jeu.h
         jeu.cpp
         jeu.ui
+        dialognouveaujoueur.h dialognouveaujoueur.cpp dialognouveaujoueur.ui
+        dialognouvellepartie.h dialognouvellepartie.cpp dialognouvellepartie.ui
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

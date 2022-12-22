@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1146</width>
-    <height>600</height>
+    <height>614</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -269,9 +269,10 @@
     <property name="title">
      <string>Partie</string>
     </property>
-    <addaction name="actionSauvegarder"/>
     <addaction name="actionQuitter"/>
+    <addaction name="actionSauvegarder"/>
     <addaction name="actionSauver_et_Quitter"/>
+    <addaction name="actionQuitter_2"/>
    </widget>
    <addaction name="menuPatie"/>
   </widget>
@@ -289,6 +290,11 @@
   <action name="actionSauver_et_Quitter">
    <property name="text">
     <string>Sauver et Quitter</string>
+   </property>
+  </action>
+  <action name="actionQuitter_2">
+   <property name="text">
+    <string>Quitter</string>
    </property>
   </action>
  </widget>
