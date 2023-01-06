@@ -1,4 +1,4 @@
-#include "dialognouveaujoueur.h"
+#include "../../gui/headers/dialognouveaujoueur.h"
 #include "ui_dialognouveaujoueur.h"
 
 DialogNouveauJoueur::DialogNouveauJoueur(QWidget *parent) :

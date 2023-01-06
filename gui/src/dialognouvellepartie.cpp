@@ -1,5 +1,6 @@
-#include "dialognouvellepartie.h"
+#include "../../gui/headers/dialognouvellepartie.h"
 #include "ui_dialognouvellepartie.h"
+
 
 DialogNouvellePartie::DialogNouvellePartie(QWidget *parent) :
     QDialog(parent),

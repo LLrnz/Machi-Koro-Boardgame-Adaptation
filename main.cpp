@@ -1,18 +1,13 @@
-#include <QtCore>
-#include <iostream>
-#include "headers/Controleur.h"
+#include "gui/headers/windowjeu.h"
+#include "gui/headers/mainwindow.h"
 
-// utile pour CP_UTF8 plus bas
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
+#include <QApplication>
 
-int main() {
-
-    SetConsoleOutputCP(CP_UTF8); // permet l'affichage des accents dans la console
-    
-    Controleur::getControleur()->nouvellePartie();
-    Jeu::getJeu().afficherCartes();
-    Controleur::getControleur()->afficher("\n");
-    Controleur::getControleur()->demarrer();
-    return 0;
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    a.setQuitOnLastWindowClosed(true);
+    MainWindow w;
+    w.show();
+    return a.exec();
 }

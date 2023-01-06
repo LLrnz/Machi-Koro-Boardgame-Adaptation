@@ -1,6 +1,6 @@
 #pragma once
 
-#include "headers/Jeu.h"
+#include "../headers/Jeu.h"
 
 
 class InterfaceTerminal

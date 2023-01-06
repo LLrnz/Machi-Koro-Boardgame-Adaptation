@@ -2,7 +2,7 @@
 #include "../headers/enums.h"
 #include "../headers/Controleur.h"
 #include "../headers/CartesMonuments.h"
-#include "headers/CarteBleue.h"
+#include "../headers/CarteBleue.h"
 #include<bits/stdc++.h>
 
 Joueur::Joueur(std::string psdo, TypeJoueur typ) : type(typ), pseudo(psdo), pieces(3), rejoueTour(false), batiments(){
