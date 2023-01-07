@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1146</width>
-    <height>614</height>
+    <height>629</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -128,6 +128,9 @@ color : rgb(0,0,0)</string>
            <property name="alignment">
             <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
            </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item row="1" column="1">
@@ -176,7 +179,17 @@ color : rgb(0,0,0)</string>
        <item row="0" column="0">
         <layout class="QGridLayout" name="gridLayout_11">
          <item row="0" column="0">
-          <widget class="QListWidget" name="listMarche"/>
+          <widget class="QListWidget" name="listMarche">
+           <property name="minimumSize">
+            <size>
+             <width>584</width>
+             <height>305</height>
+            </size>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -206,7 +219,7 @@ color : rgb(0,0,0)</string>
        <item row="7" column="1">
         <widget class="QLabel" name="tPrix">
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -227,14 +240,14 @@ color : rgb(0,0,0)</string>
        <item row="2" column="1">
         <widget class="QLabel" name="tCombinaisons">
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item row="1" column="0" colspan="2">
         <widget class="QLabel" name="tnomCarte">
          <property name="text">
-          <string>TextLabel</string>
+          <string>Acune carte sélectionnée</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -258,20 +271,23 @@ color : rgb(0,0,0)</string>
        <item row="8" column="1">
         <widget class="QLabel" name="tGain">
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item row="11" column="0" colspan="2">
-        <widget class="QLabel" name="lEffet_2">
+        <widget class="QLabel" name="tEffet">
          <property name="styleSheet">
           <string notr="true">background-color : rgb(255,255,255); color : rgb(0,0,0)</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -323,5 +339,38 @@ color : rgb(0,0,0)</string>
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>listMarche</sender>
+   <signal>itemClicked(QListWidgetItem*)</signal>
+   <receiver>bgCarte</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>482</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>836</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listMarche</sender>
+   <signal>itemClicked(QListWidgetItem*)</signal>
+   <receiver>tnomCarte</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>680</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>932</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

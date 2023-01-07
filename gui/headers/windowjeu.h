@@ -26,6 +26,8 @@ private slots:
     void on_listMarche_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
 
+    void on_listMarche_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::WindowJeu *ui;
 };
