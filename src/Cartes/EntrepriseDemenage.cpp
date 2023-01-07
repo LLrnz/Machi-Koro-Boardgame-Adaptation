@@ -27,4 +27,5 @@ void EntrepriseDemenage::activer(Joueur *joueurProprietaire)
     joueurChoisi->ajouterBatiment(batimentChoisi);
     joueurProprietaire->enleverBatiment(batimentChoisi);
     this->setGain(4);
+    CarteVerte::activer(joueurProprietaire);
 }

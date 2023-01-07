@@ -25,28 +25,5 @@ std::string CarteVerte::to_string() const
     }
     res += ") aux dés, ";
 
-    switch (getId())
-    {
-    case 10: // Moonster soda
-        res += "gagnez le gain pour chaque carte restaurant construite.";
-        break;
-
-    case 8: // Epicerie
-        res += "gagnez le gain si vous avez moins de 2 monuments construits";
-        break;
-
-    case 6: // Fleuriste
-        res += "pour chaque carte Jardin de fleur construite.";
-        break;
-
-    case 9: // Entreprise de travaux publics
-        res += "Détruisez un monument pour gagner 8 pièces.";
-        break;
-
-    case 11: // Entreprise de déménagement
-        res += "vous gagnez les pièces en donnant un de vos batiments non spécial à un autre joueur.";
-        break;
-    }
-
     return res;
 }

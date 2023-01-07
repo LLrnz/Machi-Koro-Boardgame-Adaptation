@@ -28,6 +28,7 @@ void EntrepriseTravauxPub::activer(Joueur *joueurProprietaire)
     else
     {
         Controleur::getControleur()->afficher("Vous n'avez aucun monument à vendre \n");
-        this->setGain(8);
+        this->setGain(0);
     }
+    CarteVerte::activer(joueurProprietaire);
 }
