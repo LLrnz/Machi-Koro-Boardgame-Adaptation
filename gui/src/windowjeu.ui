@@ -176,7 +176,7 @@ color : rgb(0,0,0)</string>
        <item row="0" column="0">
         <layout class="QGridLayout" name="gridLayout_11">
          <item row="0" column="0">
-          <widget class="QTableWidget" name="tableMarche"/>
+          <widget class="QListWidget" name="listMarche"/>
          </item>
         </layout>
        </item>
@@ -188,18 +188,18 @@ color : rgb(0,0,0)</string>
       <property name="title">
        <string>Carte Selectionnée</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout_18">
-       <item row="8" column="1">
-        <widget class="QLabel" name="tGain">
+      <layout class="QGridLayout" name="gridLayout_18" rowminimumheight="0,0,0,0,0,0,0,0,0,0,0,100,0,0">
+       <item row="13" column="0" colspan="2">
+        <widget class="QPushButton" name="pbPasser">
          <property name="text">
-          <string>TextLabel</string>
+          <string>Ne rien acheter à ce tour</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="0">
-        <widget class="QLabel" name="lGain">
+       <item row="7" column="0">
+        <widget class="QLabel" name="lPrix">
          <property name="text">
-          <string>Gain</string>
+          <string>Prix</string>
          </property>
         </widget>
        </item>
@@ -210,17 +210,10 @@ color : rgb(0,0,0)</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="lCombinaison">
+       <item row="8" column="0">
+        <widget class="QLabel" name="lGain">
          <property name="text">
-          <string>Combinaisons </string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="lPrix">
-         <property name="text">
-          <string>Prix</string>
+          <string>Gain</string>
          </property>
         </widget>
        </item>
@@ -238,23 +231,6 @@ color : rgb(0,0,0)</string>
          </property>
         </widget>
        </item>
-       <item row="10" column="0" colspan="2">
-        <widget class="QTextBrowser" name="tbEffet"/>
-       </item>
-       <item row="12" column="0" colspan="2">
-        <widget class="QPushButton" name="pushButton_4">
-         <property name="text">
-          <string>Acheter</string>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="0" colspan="2">
-        <widget class="QPushButton" name="pushButton_5">
-         <property name="text">
-          <string>Ne rien acheter à ce tour</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0" colspan="2">
         <widget class="QLabel" name="tnomCarte">
          <property name="text">
@@ -262,6 +238,40 @@ color : rgb(0,0,0)</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0" colspan="2">
+        <widget class="QPushButton" name="pbAcheter">
+         <property name="text">
+          <string>Acheter</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="lCombinaison">
+         <property name="text">
+          <string>Combinaisons </string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLabel" name="tGain">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0" colspan="2">
+        <widget class="QLabel" name="lEffet_2">
+         <property name="styleSheet">
+          <string notr="true">background-color : rgb(255,255,255); color : rgb(0,0,0)</string>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
          </property>
         </widget>
        </item>

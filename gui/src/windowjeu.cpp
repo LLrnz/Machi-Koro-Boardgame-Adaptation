@@ -9,6 +9,11 @@ WindowJeu::WindowJeu(QWidget *parent) :
     ui(new Ui::WindowJeu)
 {
     ui->setupUi(this);
+    ui->pb1de->setEnabled(false);
+    ui->pb2de->setEnabled(false);
+    ui->pbRelancer->setEnabled(false);
+    ui->pbAcheter->setEnabled(false);
+
 
 
 }
@@ -18,6 +23,7 @@ QLabel* WindowJeu::getConsole()
 WindowJeu::~WindowJeu()
 {
     delete ui;
+
 }
 
 void WindowJeu::on_actionQuitter_2_triggered()
@@ -26,4 +32,12 @@ void WindowJeu::on_actionQuitter_2_triggered()
 }
 
 
+void WindowJeu::rafraichirMarcher(){
+
+}
+
+void WindowJeu::on_listMarche_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+
+}
 

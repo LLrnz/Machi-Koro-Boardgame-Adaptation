@@ -1,6 +1,7 @@
 #ifndef WINDOWJEU_H
 #define WINDOWJEU_H
 
+#include "qlistwidget.h"
 #include <QMainWindow>
 #include <QLabel>
 
@@ -16,9 +17,13 @@ public:
     explicit WindowJeu(QWidget *parent = nullptr);
     ~WindowJeu();
     QLabel* getConsole();
+    void rafraichirMarcher();
 
 private slots:
     void on_actionQuitter_2_triggered();
+
+
+    void on_listMarche_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
 
 private:
