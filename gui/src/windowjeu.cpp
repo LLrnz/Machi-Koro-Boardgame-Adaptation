@@ -14,8 +14,6 @@ WindowJeu::WindowJeu(QWidget *parent) :
     ui->pbRelancer->setEnabled(false);
     ui->pbAcheter->setEnabled(false);
 
-
-
 }
 QLabel* WindowJeu::getConsole()
 {return this->ui->texteConsole;}
