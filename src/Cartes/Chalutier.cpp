@@ -25,7 +25,7 @@ void Chalutier::activer(Joueur *joueurProprietaire)
         int de2 = (rand() % 6) + 1;
         int resultatJet = de1 + de2;
 
-        this->gain = resultatJet;
+        this->setGain(resultatJet);
         CarteBleue::activer(joueurProprietaire);
     }
 }
