@@ -1,9 +1,22 @@
 #include "../headers/Controleur.h"
+#include "../../gui/headers/dialognouvellepartie.h"
+#include "../../gui/headers/windowjeu.h"
+#include "../../gui/headers/mainwindow.h"
+#include <QApplication>
 
-Controleur::Controleur():interface(InterfaceTerminal()) {
+Controleur::Controleur() {
 }
 
 Controleur::~Controleur() {}
+
+int Controleur::menuPrincipal(int argc, char *argv[]){
+    QApplication a(argc, argv);
+    a.setQuitOnLastWindowClosed(true);
+    MainWindow w;
+    w.show();
+    return a.exec();
+}
+
 
 Controleur* Controleur::controleur_ = nullptr;
 Controleur* Controleur::getControleur() {
@@ -34,50 +47,70 @@ int Controleur::lire_int(int borneInf, int borneSupp){
 
 
 void Controleur::nouvellePartie(){
-    //Set up des parametres de la partie
-    map<std::string, TypeJoueur> joueurs;
+    DialogNouvellePartie* np = new DialogNouvellePartie();
 
-    //set up joueurs
-    //nb joueurs
-    this->afficher("Bonjour, combien de joueurs ? ");
-    this->nbJoueurs = this->lire_int(1, 4);
+    np->exec();
+    delete np;
 
-    //pseudos joueurs
-    for(int i = 0; i < this->nbJoueurs; i++){
+    //Vérifier que les joueurs ont bien été initialisés
+    //si oui ;
+    WindowJeu *j = new WindowJeu();
+    QLabel *l = j->getConsole();
+    this->interface.setLabel(l);
+    j->show();
+    this->afficher("La partie peut commencer !");
+    //Jeu::getJeu().boucleDeJeu();
 
-        //Selection type joueur
-        this->afficher("Joueur "+ to_string(i) + " humain (0) ou IA (1) ? ");
-        TypeJoueur type = TypeJoueur::humain;
-        if(this->lire_int(0,1)){
-            type = TypeJoueur::IA;
-        }
+    //sinon :
+    //réouvrir la boite de dialogue
 
-        //Selection pseudo
-        this->afficher("Pseudo joueur "+ to_string(i) +" : ");
-        std::string pseudo = this->lire_str();
 
-        //insertion joueur dans la map
-        joueurs[pseudo] = type;
-    }
 
-    //set up extensions
 
-    auto ext = {Extensions::marina, Extensions::deluxe};
-    string enumExt[] {"harbour", "deluxe"};
-    for( const auto e : ext ){
-        this->afficher("Jouer avec l'extension " + enumExt[static_cast<int>(e)-1] + " ? ");
-        bool val = this->lire_int(0,1);
-        this->extensions.emplace(e, val);
+//    //Set up des parametres de la partie
+//    map<std::string, TypeJoueur> joueurs;
 
-    }
-    this->extensions.emplace(Extensions::base, true);
-    Jeu::getJeu().genererPartie(joueurs, extensions);
+//    //set up joueurs
+//    //nb joueurs
+//    this->afficher("Bonjour, combien de joueurs ? ");
+//    this->nbJoueurs = this->lire_int(1, 4);
+
+//    //pseudos joueurs
+//    for(int i = 0; i < this->nbJoueurs; i++){
+
+//        //Selection type joueur
+//        this->afficher("Joueur "+ to_string(i) + " humain (0) ou IA (1) ? ");
+//        TypeJoueur type = TypeJoueur::humain;
+//        if(this->lire_int(0,1)){
+//            type = TypeJoueur::IA;
+//        }
+
+//        //Selection pseudo
+//        this->afficher("Pseudo joueur "+ to_string(i) +" : ");
+//        std::string pseudo = this->lire_str();
+
+//        //insertion joueur dans la map
+//        joueurs[pseudo] = type;
+//    }
+
+//    //set up extensions
+
+//    auto ext = {Extensions::marina, Extensions::deluxe};
+//    string enumExt[] {"harbour", "deluxe"};
+//    for( const auto e : ext ){
+//        this->afficher("Jouer avec l'extension " + enumExt[static_cast<int>(e)-1] + " ? ");
+//        bool val = this->lire_int(0,1);
+//        this->extensions.emplace(e, val);
+
+//    }
+//    this->extensions.emplace(Extensions::base, true);
+//    Jeu::getJeu().genererPartie(joueurs, extensions);
 
 
 }
 
 void Controleur::demarrer(){
-    Jeu::getJeu().boucleDeJeu();
+//    Jeu::getJeu().boucleDeJeu();
 }
 
 Joueur* Controleur::selection_joueur(vector<Joueur*> joueurs){
@@ -89,7 +122,7 @@ Batiment* Controleur::selection_batiment(vector<Batiment*> batiments){
 }
 
 void  Controleur::afficher(vector<Joueur*> joueurs){
-     this->interface.afficher(joueurs);
+    this->interface.afficher(joueurs);
 }
 void  Controleur::afficher(vector<Batiment*> batiments){
     this->interface.afficher(batiments);

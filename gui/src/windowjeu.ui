@@ -114,7 +114,21 @@
           </widget>
          </item>
          <item row="0" column="0" colspan="3">
-          <widget class="QTextBrowser" name="textConole"/>
+          <widget class="QLabel" name="texteConsole">
+           <property name="styleSheet">
+            <string notr="true">background-color : rgb(255, 255, 255);
+color : rgb(0,0,0)</string>
+           </property>
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::RichText</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+           </property>
+          </widget>
          </item>
          <item row="1" column="1">
           <widget class="QPushButton" name="pb2de">

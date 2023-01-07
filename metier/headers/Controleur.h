@@ -30,7 +30,7 @@ public:
     static Controleur* getControleur();
     int getNbJoueurs() const { return nbJoueurs; };
 
-
+    int menuPrincipal(int argc, char *argv[]);
     void nouvellePartie();
     void demarrer();
     void afficher(std::string f) const;

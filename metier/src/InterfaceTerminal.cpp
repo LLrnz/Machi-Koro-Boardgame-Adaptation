@@ -1,15 +1,27 @@
 #include "../headers/InterfaceTerminal.h"
 #include <QString>
+#include "../../gui/headers/windowjeu.h"
 
 
+//InterfaceTerminal::InterfaceTerminal(WindowJeu &ui):
+//ostream(ui.getConsole())
+//{
 
-InterfaceTerminal::InterfaceTerminal(){
+//}
 
+InterfaceTerminal::InterfaceTerminal():
+ostream(nullptr)
+{
+
+}
+
+void InterfaceTerminal::setLabel(QLabel *l){
+    this->ostream = l;
 }
 
 
 void InterfaceTerminal::afficher(std::string f) const{
-    std::cout << f;
+    ostream->setText(QString::fromStdString(f));
 }
 
 std::string InterfaceTerminal::lire() const{
