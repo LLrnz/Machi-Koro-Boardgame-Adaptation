@@ -5,10 +5,29 @@
 #include <cmath>
 #include "../../metier/headers/IA_drunken.h"
 
+
+/**
+ * Constructeur de la classe CarteViolette
+ * @brief CarteViolette::CarteViolette
+ * @param id : id de la carte
+ * @param nom : nom de la carte (ex: "Stade")
+ * @param type : type de la carte (ex: TypeBatiment::CarteViolette)
+ * @param prix : prix de la carte
+ * @param gain : gain de la carte
+ * @param combinaisons : combinaisons de la carte
+ * @param couleur : couleur de la carte (ex: Couleur::Violet)
+ * @param description : description de la carte
+ * @return CarteViolette
+*/
 CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, std::string description)
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur, description)
 {
 }
+/**
+ * méthode activer de carte violetteù
+ * @brief CarteViolette::activer
+ * @param joueurProprietaire : joueur qui a sa carte activé
+*/
 void CarteViolette::activer(Joueur *joueurProprietaire)
 {
     string name = this->getNom();
