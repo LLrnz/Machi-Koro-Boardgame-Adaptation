@@ -38,6 +38,8 @@ set(PROJECT_SOURCES
         metier/headers/enums.h
         metier/headers/InterfaceTerminal.h
         cartes.json
+        metier/headers/IA.h
+        metier/src/IA.cpp
 )
 
 

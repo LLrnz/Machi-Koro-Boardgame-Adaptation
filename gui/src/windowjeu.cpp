@@ -309,15 +309,22 @@ void WindowJeu::debutDeTour(){
     this->rafraichirJoueurs();
     Jeu::getJeu().setDeLance(false);
     Controleur::getControleur()->afficher("\nC'est à " + Jeu::getJeu().getJoueurActif()->getPseudo() + " de jouer !\n");
-    if(Jeu::getJeu().getJoueurActif()->hasGare()){
-        ui->pb2de->setEnabled(true);
-    }
-    ui->pb1de->setEnabled(true);
-    this->mettreAJourJoueurSelec(Jeu::getJeu().getJoueurActif());
-    Jeu::getJeu().setDesRelances(false);
 
-    ui->pbAcheter->setEnabled(false);
-    ui->pbPasser->setEnabled(false);
+    if(!Jeu::getJeu().getJoueurActif()->isIA()){
+        if(Jeu::getJeu().getJoueurActif()->hasGare()){
+            ui->pb2de->setEnabled(true);
+        }
+        ui->pb1de->setEnabled(true);
+        this->mettreAJourJoueurSelec(Jeu::getJeu().getJoueurActif());
+        Jeu::getJeu().setDesRelances(false);
+
+        ui->pbAcheter->setEnabled(false);
+        ui->pbPasser->setEnabled(false);
+    }else{
+        Jeu::getJeu().jouerTourIA();
+        this->finDeTour();
+    }
+
 
 }
 

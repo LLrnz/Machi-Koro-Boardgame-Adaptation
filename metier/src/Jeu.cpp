@@ -314,4 +314,6 @@ void Jeu::setDesRelances(bool val){
     this->deRelances = val;
 }
 
+void Jeu::jouerTourIA(){
 
+}

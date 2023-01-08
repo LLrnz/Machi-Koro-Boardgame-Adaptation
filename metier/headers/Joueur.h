@@ -55,5 +55,13 @@ public:
         return res;
     }
 
+    bool isIA(){
+        bool res = false;
+        if (this->type == TypeJoueur::IA){
+            res = true;
+        }
+            return res;
+    }
+
 
 };

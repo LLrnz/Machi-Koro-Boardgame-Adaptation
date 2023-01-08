@@ -69,6 +69,7 @@ public:
     void activerCartes(int resultatJet);
     bool getDeLance(){return this->deLance;};
     void setDeLance(bool val){this->deLance = val;};
+    void jouerTourIA();
 
 };
 
