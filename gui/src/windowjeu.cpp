@@ -56,7 +56,9 @@ WindowJeu::~WindowJeu()
     delete ui;
 
 }
-
+/*!
+ * \brief Ferme la fenêtre
+ */
 void WindowJeu::on_actionQuitter_2_triggered()
 {
     this->close();

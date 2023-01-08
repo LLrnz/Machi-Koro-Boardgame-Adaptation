@@ -122,6 +122,9 @@ void Jeu::genererPartie(map<std::string, TypeJoueur> listeJoueurs, map<Extension
     joueurActif = joueurs.begin();
 }
 
+/*!
+ * \brief Donne aux joueurs les deux cartes avec lesquels ils doivent débuter (boulangerie et champs de blé)
+ */
 void Jeu::donnerCarteDeBase(){
     for(auto &j : this->joueurs){
         Batiment* boulangerie = nullptr;
@@ -149,27 +152,6 @@ void Jeu::donnerCarteDeBase(){
 }
 
 
-/**
- * @brief Jeu::boucleDeJeu
- */
-void Jeu::boucleDeJeu() {
-
-
-    //Tant que la parti n'es pas terminée, commencer une manche
-	while (partieTerminee == false) {
-
-        //Jouer le tour de chaque joueur
-        for(auto &j : joueurs){
-            //joueurActif= &j;
-            //jeu->tourDeJeu();
-        }
-
-	}
-	
-    Controleur::getControleur()->afficher("Le joueur ");
-    Controleur::getControleur()->afficher((*joueurActif)->getPseudo());
-    Controleur::getControleur()->afficher("a gagné la partie ! \n");
-}
 
 /**
  * @brief Jeu::tourDeJeu exprime un tour de jeu
@@ -184,6 +166,9 @@ bool Jeu::finDeTour() {
     return partieTerminee;
 }
 
+/*!
+ * \brief Pass au joueur suivant
+ */
 void Jeu::joueurSuivant(){
     joueurActif++;
     if(joueurActif == joueurs.end()){
@@ -191,6 +176,10 @@ void Jeu::joueurSuivant(){
     }
 }
 
+/*!
+ * \brief active les cartes des joeurs
+ * \param resultatJet : le résultat aux dés
+ */
 void Jeu::activerCartes(int resultatJet){
     jeu->activerCartesRouges(resultatJet);
     jeu->activerCartesBleues(resultatJet);

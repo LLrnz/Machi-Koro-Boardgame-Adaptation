@@ -2,6 +2,10 @@
 #include <algorithm> // pour le shuffle
 #include <random>    // pour le shuffle
 
+/*!
+ * \brief Pioche une carte
+ * \return le pointeur sur la carte piochée
+ */
 Batiment* Marche::piocherUneCarte() {
 // Renvoie un pointeur sur la carte du dessus de la pioche, 
 // et supprime le pointeur en question de la pioche.
@@ -11,7 +15,13 @@ Batiment* Marche::piocherUneCarte() {
     return c;
 };
 
-// méthode indiquant si une string str est présente dans un vecteur de strings v
+//
+/*!
+ * \brief méthode indiquant si une string str est présente dans un vecteur de strings v
+ * \param v
+ * \param str
+ * \return
+ */
 bool isInVector(vector<string> v, string str){
     for(const string& s : v)
         if(s==str)
@@ -19,6 +29,10 @@ bool isInVector(vector<string> v, string str){
     return false;
 }
 
+/*!
+ * \brief Marche::getCarteDispAchat
+ * \return la liste des cartes achetables
+ */
 vector<Batiment*> Marche::getCarteDispAchat() const {
 // Renvoie un vecteur d’exactement 9 éléments qui sont les 9 bâtiments 
 // disponibles à l’achat (on ne prend donc pas en compte la multiplicité) :
@@ -33,12 +47,19 @@ vector<Batiment*> Marche::getCarteDispAchat() const {
     return ptCartes;
 };
 
+/*!
+ * \brief Marche::getTailleMarche
+ * \return le nombre de cartes du marché
+ */
 int Marche::getTailleMarche() const {
 // Renvoie le nombre de cartes *différentes* dans le vecteur enJeu.
     vector<Batiment*> res = getCarteDispAchat();
     return res.size();
 };
 
+/*!
+ * \brief pioche jusqu'à ce qu'il y ait 9 cartes différentes
+ */
 void Marche::distribuer(){
 // Exécute la méthode piocheUneCarte(), et ajoute les cartes au marché,
 // jusqu’à ce que getTailleMarche() soit égal à 9.
@@ -47,6 +68,10 @@ void Marche::distribuer(){
     }
 };
 
+/*!
+ * \brief Marche::retirerCarteAchetee
+ * \param c : pointeur sur la carte à retirer
+ */
 void Marche::retirerCarteAchetee(Batiment* c){
 // Supprime la carte achetée (par le joueur actif) du vecteur enJeu.
     for (auto it = enJeu.begin(); it != enJeu.end(); ++it){
@@ -68,18 +93,30 @@ void Marche::retirerCarteAchetee(Batiment* c){
 //    return c;
 //};
 
+/*!
+ * \brief acheter une carte : retirer une carte puis reremplir le marcher
+ * \param b : pointeur sur carte à acheter
+ */
 void Marche::acheter(Batiment* b){
     retirerCarteAchetee(b);
     distribuer();
 }
 
 template<typename T>
+/*!
+ * \brief shuffle mélange la pioche
+ * \param vec
+ */
 void shuffle(vector<T> &vec){
     random_device rd;
     mt19937 g(rd());
     shuffle(vec.begin(), vec.end(), g);
 }
 
+/*!
+ * \brief constructeur du marcher
+ * \param cartes en jeu
+ */
 Marche::Marche(vector<Batiment*> cartes):pioche(cartes) {
 // Constructeur de la classe Marché.  Initialise la pioche à partir d’un vecteur de cartes,
 // et appelle la méthode distribuer() pour répartir les cartes dans le vecteur enJeu.
