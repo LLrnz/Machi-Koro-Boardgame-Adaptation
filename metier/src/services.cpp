@@ -2,12 +2,12 @@
 #include <string>
 #include <QtCore>
 #include <algorithm>
-#include "../headers/enums.h"
-#include "../headers/Batiment.h"
-#include "headers/cartesbleues.h"
-#include "headers/cartesrouges.h"
-#include "headers/cartesvertes.h"
-#include "headers/cartesviolettes.h"
+#include "metier/headers/enums.h"
+#include "metier/headers/Batiment.h"
+#include "metier/headers/cartesbleues.h"
+#include "metier/headers/cartesrouges.h"
+#include "metier/headers/cartesvertes.h"
+#include "metier/headers/cartesviolettes.h"
 
 vector<Batiment *> chargerCartes(vector<Batiment *> cartes, QJsonObject lstCartes, map<Extensions, bool> extensions, Couleur couleur);
 Extensions determineExtension(std::string s);

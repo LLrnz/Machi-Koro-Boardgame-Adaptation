@@ -1,6 +1,6 @@
-#include "headers/cartesbleues.h"
-#include "headers/Controleur.h"
-#include "headers/Joueur.h"
+#include "metier/headers/cartesbleues.h"
+#include "metier/headers/Controleur.h"
+#include "metier/headers/Joueur.h"
 #include <sstream>
 
 CarteBleue::CarteBleue(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, std::string description)

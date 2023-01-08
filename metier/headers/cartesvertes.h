@@ -3,7 +3,7 @@
 #include "Batiment.h"
 #include <vector>
 #include <string>
-#include "headers/enums.h"
+#include "enums.h"
 using namespace std;
 
 class CarteVerte : public Batiment

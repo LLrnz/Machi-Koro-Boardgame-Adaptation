@@ -4,7 +4,7 @@
 #include "enums.h"
 #include <vector>
 #include <string>
-#include "../headers/Joueur.h"
+#include "Joueur.h"
 
 using namespace std;
 

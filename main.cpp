@@ -1,6 +1,6 @@
 #include <QtCore>
 #include <iostream>
-#include "headers/Controleur.h"
+#include "metier/headers/Controleur.h"
 
 // utile pour CP_UTF8 plus bas
 #define WIN32_LEAN_AND_MEAN

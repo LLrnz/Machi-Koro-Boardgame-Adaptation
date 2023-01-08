@@ -9,19 +9,19 @@ CONFIG -= app_bundle
 
 SOURCES += \
     main.cpp \
-        src\Batiment.cpp \
-        src\Carte.cpp \
-        src\cartesbleues.cpp \
-        src\cartesrouges.cpp \
-        src\cartesvertes.cpp \
-        src\cartesviolettes.cpp \
-        src\Controleur.cpp \
-        src\InterfaceTerminal.cpp \
-        src\Jeu.cpp \
-        src\Joueur.cpp \
-        src\Marche.cpp \
-        src\Monument.cpp \
-        src\services.cpp \
+        metier\src\Batiment.cpp \
+        metier\src\Carte.cpp \
+        metier\src\cartesbleues.cpp \
+        metier\src\cartesrouges.cpp \
+        metier\src\cartesvertes.cpp \
+        metier\src\cartesviolettes.cpp \
+        metier\src\Controleur.cpp \
+        metier\src\InterfaceTerminal.cpp \
+        metier\src\Jeu.cpp \
+        metier\src\Joueur.cpp \
+        metier\src\Marche.cpp \
+        metier\src\Monument.cpp \
+        metier\src\services.cpp \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -34,20 +34,20 @@ DISTFILES += \
     cartes.json
 
 HEADERS += \
-    headers\Batiment.h \
-    headers\Carte.h \
-    headers\cartesbleues.h \
-    headers\CartesMonuments.h \
-    headers\cartesrouges.h \
-    headers\cartesvertes.h \
-    headers\cartesviolettes.h \
-    headers\Controleur.h \
-    headers\enums.h \
-    headers\InterfaceTerminal.h \
-    headers\Jeu.h \
-    headers\Joueur.h \
-    headers\marche.h \
-    headers\Monument.h \
+    metier\headers\Batiment.h \
+    metier\headers\Carte.h \
+    metier\headers\cartesbleues.h \
+    metier\headers\CartesMonuments.h \
+    metier\headers\cartesrouges.h \
+    metier\headers\cartesvertes.h \
+    metier\headers\cartesviolettes.h \
+    metier\headers\Controleur.h \
+    metier\headers\enums.h \
+    metier\headers\InterfaceTerminal.h \
+    metier\headers\Jeu.h \
+    metier\headers\Joueur.h \
+    metier\headers\marche.h \
+    metier\headers\Monument.h \
 
 
 RESOURCES += \
