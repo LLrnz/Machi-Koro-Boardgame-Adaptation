@@ -87,8 +87,14 @@
           <widget class="QListWidget" name="listMarche">
            <property name="minimumSize">
             <size>
-             <width>584</width>
+             <width>450</width>
              <height>305</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>450</width>
+             <height>16777215</height>
             </size>
            </property>
            <property name="wordWrap">
