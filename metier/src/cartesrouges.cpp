@@ -29,7 +29,7 @@ void CarteRouge::activer(Joueur *joueurProprietaire)
 
 std::string CarteRouge::to_string() const
 {
-    std::string res = "[" + this->getNom() + "] \e[0;93m" + std::to_string(this->getPrix()) + "p\e[0m : vole <" + std::to_string(this->getGain()) + "> pièces au joueur actif s'il a au moins " + std::to_string(this->nbMonuToActivate) + " monuments construits. S'active sur (";
+    std::string res = "[" + this->getNom() + "] " + std::to_string(this->getPrix()) + " : vole <" + std::to_string(this->getGain()) + "> pièces au joueur actif s'il a au moins " + std::to_string(this->nbMonuToActivate) + " monuments construits. S'active sur (";
     for (const auto &i : this->getCombinaisons())
     {
         res += std::to_string(i);

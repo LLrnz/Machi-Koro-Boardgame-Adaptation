@@ -10,12 +10,6 @@
 #include <random>
 #include <algorithm>
 
-// pour mettre des couleurs simplement dans le terminal (ANSI escape strings)
-#define NC "\e[0m" // no color
-#define RED "\e[0;91m" // light red
-#define GRN "\e[0;92m" // light green
-#define YLW "\e[0;93m" // light yellow
-#define CYN "\e[0;96m" // light cyan
 
 using namespace std;
 
