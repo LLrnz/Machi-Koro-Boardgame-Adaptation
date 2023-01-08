@@ -328,6 +328,7 @@ void WindowJeu::on_pb1de_clicked()
         this->proposerRelancer(1, nb);
     }
     ui->pb1de->setEnabled(false);
+    ui->pb2de->setEnabled(false);
     ui->pbPasser->setEnabled(true);
     this->activerCartes(nb);
     Jeu::getJeu().setDeLance(true);
