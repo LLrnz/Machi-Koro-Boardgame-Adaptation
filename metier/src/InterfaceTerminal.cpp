@@ -3,16 +3,16 @@
 #include "../../gui/headers/windowjeu.h"
 
 
-InterfaceTerminal::InterfaceTerminal(QLabel *l)
+InterfaceTerminal::InterfaceTerminal(QTextBrowser *l)
 {
     ostream = l;
 }
 
 
 
-void InterfaceTerminal::afficher(std::string f) const{
-    message.toStdString().append(f);
-    ostream->setText(QString::fromStdString(f));
+void InterfaceTerminal::afficher( std::string f) {
+
+    ostream->append(QString::fromStdString(f));
 }
 
 std::string InterfaceTerminal::lire() const{

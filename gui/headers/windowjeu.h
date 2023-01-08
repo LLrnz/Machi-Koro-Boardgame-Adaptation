@@ -7,6 +7,7 @@
 #include "../../metier/headers/Monument.h"
 #include "../../metier/headers/Batiment.h"
 #include "../../metier/headers/Carte.h"
+#include "qtextbrowser.h"
 
 namespace Ui {
 class WindowJeu;
@@ -19,14 +20,11 @@ class WindowJeu : public QMainWindow
     Carte* carteAffiche;
 
     //JEU DE TEST
-    Joueur* actif;
-    std::vector<Joueur*> joueurs;
-    std::vector<Batiment*> batiments;
 
 public:
     explicit WindowJeu(QWidget *parent = nullptr);
     ~WindowJeu();
-    QLabel* getConsole();
+    QTextBrowser* getConsole();
     void rafraichirMarcher();
     void rafraichirJoueurs();
     void init();
@@ -63,6 +61,7 @@ private slots:
     void on_listJoueurActif_itemClicked(QListWidgetItem *item);
 
     void on_pbPasser_clicked();
+    void afficherJoueur(QListWidgetItem* item);
     void finDeTour();
 
 private:

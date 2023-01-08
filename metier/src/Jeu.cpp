@@ -102,11 +102,13 @@ void Jeu::genererPartie(map<std::string, TypeJoueur> listeJoueurs, map<Extension
     marche = new Marche(cartesEnJeu);
 
     //initialisation condition Victoire en fonction du nombre d'extensions en jeu
-    for (const auto &e : Controleur::getControleur()->getExtensions())
-        if (e.second)
-            this->conditionVictoire = 5;
-        else
-            this->conditionVictoire = 4;
+    if(Controleur::getControleur()->getExtensions().size() > 1){
+        this->conditionVictoire = 5;
+    }else{
+        this->conditionVictoire = 4;
+    }
+
+    this->joueurActif = joueurs.begin();
 }
 
 void Jeu::donnerCarteDeBase(){
@@ -147,8 +149,8 @@ void Jeu::boucleDeJeu() {
 
         //Jouer le tour de chaque joueur
         for(auto &j : joueurs){
-            joueurActif = &j;
-            jeu->tourDeJeu();
+            //joueurActif= &j;
+            //jeu->tourDeJeu();
         }
 
 	}
@@ -161,9 +163,18 @@ void Jeu::boucleDeJeu() {
 /**
  * @brief Jeu::tourDeJeu exprime un tour de jeu
  */
-void Jeu::tourDeJeu() { 
-    //jeu->achat();
+bool Jeu::finDeTour() {
+
     partieTerminee = jeu->verifierVictoire();
+    jeu->joueurSuivant();
+    return partieTerminee;
+}
+
+void Jeu::joueurSuivant(){
+    joueurActif++;
+    if(joueurActif == joueurs.end()){
+        joueurActif = joueurs.begin();
+    }
 }
 
 void Jeu::activerCartes(int resultatJet){
@@ -271,7 +282,7 @@ void Jeu::toucherRSA(){
 
 void Jeu::activerCartesRouges(int nbDes){
     for (auto &j : joueurs)
-        if(&j != joueurActif) //Peut etre que ça marhce pas
+        if(&j != joueurActif.base()) //Peut etre que ça marhce pas
             j.activerCartesRouges(nbDes);
 }
 void Jeu::activerCartesBleues(int nbDes){
@@ -293,7 +304,7 @@ int Jeu::getNbJoueurs() const{
 vector<Joueur*> Jeu::getJoueursSansActifPtr(){
     vector<Joueur*> res;
     for(auto &j : joueurs){
-        if(&j != joueurActif)
+        if(&j != joueurActif.base())
         res.push_back(&j);
     }
     return res;

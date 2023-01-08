@@ -5,13 +5,13 @@
 
 class InterfaceTerminal
 {
-    QLabel *ostream;
-    QString message;
+    QTextBrowser *ostream;
+    std::string message;
 
 public:
     //InterfaceTerminal();
-    InterfaceTerminal(QLabel *l);
-    void afficher(std::string f) const;
+    InterfaceTerminal(QTextBrowser *l);
+    void afficher(std::string f) ;
     void afficher(int i) const ;
     void afficher(vector<Joueur*> joueurs);
     void afficher(vector<Batiment*> batiments);

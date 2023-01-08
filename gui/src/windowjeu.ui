@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1150</width>
+    <width>1180</width>
     <height>629</height>
    </rect>
   </property>
@@ -241,50 +241,25 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_19">
        <item row="3" column="0">
-        <layout class="QGridLayout" name="gridLayout_14" rowstretch="0,50,0">
-         <item row="2" column="0">
-          <widget class="QPushButton" name="pb1de">
-           <property name="text">
-            <string>Lancer 1 dé</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0" colspan="3">
-          <widget class="QLabel" name="texteConsole">
-           <property name="minimumSize">
-            <size>
-             <width>300</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color : rgb(255, 255, 255);
-color : rgb(0,0,0)</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-           <property name="textFormat">
-            <enum>Qt::RichText</enum>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
+        <layout class="QGridLayout" name="gridLayout_14" rowstretch="0,0,0">
          <item row="0" column="0">
           <widget class="QLabel" name="label">
            <property name="text">
             <string>Tour de : </string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QPushButton" name="pb2de">
+           <property name="text">
+            <string>Lancer 2 dés</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QPushButton" name="pb1de">
+           <property name="text">
+            <string>Lancer 1 dé</string>
            </property>
           </widget>
          </item>
@@ -295,12 +270,21 @@ color : rgb(0,0,0)</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="2">
-          <widget class="QPushButton" name="pb2de">
-           <property name="text">
-            <string>Lancer 2 dés</string>
+         <item row="1" column="0" colspan="3">
+          <widget class="QTextBrowser" name="texteConsole"/>
+         </item>
+         <item row="2" column="1">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
-          </widget>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>200</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </item>
@@ -314,7 +298,7 @@ color : rgb(0,0,0)</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1150</width>
+     <width>1180</width>
      <height>25</height>
     </rect>
    </property>
@@ -352,5 +336,27 @@ color : rgb(0,0,0)</string>
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>listeAdversaires</sender>
+   <signal>itemClicked(QListWidgetItem*)</signal>
+   <receiver>WindowJeu</receiver>
+   <slot>afficherJoueur(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1004</x>
+     <y>564</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>963</x>
+     <y>594</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>CchangerJoueurSelectionne()</slot>
+  <slot>afficherJoueur(QListWidgetItem*)</slot>
+  <slot>slot1()</slot>
+ </slots>
 </ui>

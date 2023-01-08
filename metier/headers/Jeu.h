@@ -22,7 +22,7 @@ class Jeu
     //Attribus
     vector<Batiment*> cartesEnJeu;
     std::vector<Joueur> joueurs;
-    Joueur* joueurActif;
+    vector<Joueur>::iterator joueurActif;
     Marche* marche;
     bool partieTerminee = false;
     int conditionVictoire;
@@ -53,11 +53,11 @@ public:
     bool achat(Carte* c);
     void genererPartie(map<std::string, TypeJoueur> listeJoueurs, map<Extensions, bool> extensions);
     void boucleDeJeu();
-    void tourDeJeu();
+    bool finDeTour();
     void joueurSuivant();
     //void setJoueurActif(int i) { joueurActif = i; };
     bool getPartieTerminee() const { return partieTerminee; };
-    Joueur* getJoueurActif() const { return joueurActif; };
+    Joueur* getJoueurActif() const { return joueurActif.base(); };
     vector<Joueur> getJoueurs() const { return joueurs; };
     Marche* getMarche() const {return marche;};
     vector<Joueur*> getJoueursSansActifPtr();

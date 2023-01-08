@@ -13,6 +13,7 @@ DialogNouvellePartie::DialogNouvellePartie(QWidget *parent) :
     ui->lwExtensions->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->lwExtensions->addItem("Marina");
     ui->lwExtensions->addItem("Deluxe");
+    extensions.emplace(Extensions::base, true);
 }
 
 DialogNouvellePartie::~DialogNouvellePartie()

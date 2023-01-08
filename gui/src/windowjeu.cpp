@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "../../metier/headers/Batiment.h"
 #include "../../metier/headers/Joueur.h"
+#include <QMessageBox>
 
 WindowJeu::WindowJeu(QWidget *parent) :
     QMainWindow(parent),
@@ -21,10 +22,6 @@ WindowJeu::WindowJeu(QWidget *parent) :
 
     ui->pbAcheter->setEnabled(false);
     ui->pbPasser->setEnabled(false);
-
-    //TEST
-    joueurs = std::vector<Joueur*>();
-    batiments = std::vector<Batiment*>();
 
 }
 void WindowJeu::init(){
@@ -43,12 +40,12 @@ void WindowJeu::init(){
 //    batiments.push_back(new CarteRouge(12,"resto2",TypeBatiment::ble, 12, 4, {1,2}, Couleur::Rouge, 2));
 //    batiments.push_back(new CarteRouge(12,"resto3",TypeBatiment::ble, 12, 4, {1,2}, Couleur::Rouge, 2));
 
-    this->rafraichirMarcher();
-    this->rafraichirJoueurs();
+
+    this->debutDeTour();
 
 }
 
-QLabel* WindowJeu::getConsole()
+QTextBrowser* WindowJeu::getConsole()
 {return this->ui->texteConsole;}
 
 WindowJeu::~WindowJeu()
@@ -67,7 +64,7 @@ void WindowJeu::rafraichirMarcher(){
 
 
 
-
+    ui->listMarche->clear();
 
     for(auto &b : Jeu::getJeu().getMarche()->getCarteDispAchat()){
     //FIN DU JEU DE TEST
@@ -77,6 +74,24 @@ void WindowJeu::rafraichirMarcher(){
         QListWidgetItem *item = new QListWidgetItem();
         item->setText(QString::fromStdString(b->to_string()));
         // Association de l'adresse du batiment aux données de l'élément
+        QColor coul;
+        switch(b->getCouleur()){
+        case Couleur::Bleu :
+            coul = QColor(150, 150, 255);
+            break;
+        case Couleur::Rouge :
+            coul = QColor(255, 70, 0);
+            break;
+        case Couleur::Vert :
+            coul = QColor(150, 255, 70);
+            break;
+           case Couleur::Violet :
+            coul = QColor(230, 10, 255);
+            break;
+        }
+
+        item->setBackground(coul);
+
         item->setData(Qt::UserRole, QVariant::fromValue(b));
         ui->listMarche->addItem(item);
     }
@@ -89,25 +104,26 @@ void WindowJeu::rafraichirJoueurs(){
 
     //ajout joueur actif
     QListWidgetItem *item = new QListWidgetItem();
-    item->setText(QString::fromStdString(actif->getPseudo()));
+    item->setText(QString::fromStdString(Jeu::getJeu().getJoueurActif()->getPseudo()));
     // Association de l'adresse du batiment aux données de l'élément
-    item->setData(Qt::UserRole, QVariant::fromValue(actif));
+    item->setData(Qt::UserRole, QVariant::fromValue(Jeu::getJeu().getJoueurActif()));
     ui->listJoueurActif->addItem(item);
-    ui->tJoueurActif->setText(QString::fromStdString(actif->getPseudo()));
+    ui->tJoueurActif->setText(QString::fromStdString(Jeu::getJeu().getJoueurActif()->getPseudo()));
 
     //ajout adversaires
-    for(auto &j : Jeu::getJeu().getJoueurs()){
+    for(auto &j : Jeu::getJeu().getJoueursSansActifPtr()){
     //FIN DU JEU DE TEST
 
 
     //for(auto &j : Jeu::getJeu().getJoueurs()){
         QListWidgetItem *item = new QListWidgetItem();
-        item->setText(QString::fromStdString(j.getPseudo()));
+        item->setText(QString::fromStdString(j->getPseudo()));
         // Association de l'adresse du batiment aux données de l'élément
         item->setData(Qt::UserRole, QVariant::fromValue(j));
         ui->listeAdversaires->addItem(item);
 
     }
+    //qApp->processEvents();
 }
 
 
@@ -146,6 +162,7 @@ void WindowJeu::on_pbAcheter_clicked()
         QErrorMessage *error = new QErrorMessage();
         error->showMessage("Aucune carte sélectionnée.");
     }
+    this->rafraichirMarcher();
 }
 
 
@@ -163,6 +180,7 @@ void WindowJeu::on_listBatiment_itemClicked(QListWidgetItem *item)
     Batiment* b = item->data(Qt::UserRole).value<Batiment*>();
     this->mettreAJourCarteSelec(b);
     ui->pbAcheter->setEnabled(false);
+
 }
 
 
@@ -231,6 +249,23 @@ void WindowJeu::mettreAJourJoueurSelec(Joueur* j){
         item->setText(QString::fromStdString(b->getNom()));
         // Association de l'adresse du batiment aux données de l'élément
         item->setData(Qt::UserRole, QVariant::fromValue(b));
+        QColor coul;
+        switch(b->getCouleur()){
+        case Couleur::Bleu :
+            coul = QColor(150, 150, 255);
+            break;
+        case Couleur::Rouge :
+            coul = QColor(255, 70, 0);
+            break;
+        case Couleur::Vert :
+            coul = QColor(150, 255, 70);
+            break;
+           case Couleur::Violet :
+            coul = QColor(230, 10, 255);
+            break;
+        }
+
+        item->setBackground(coul);
         ui->listBatiment->addItem(item);
 
     }
@@ -257,6 +292,8 @@ void WindowJeu::mettreAJourJoueurSelec(Joueur* j){
 }
 
 void WindowJeu::debutDeTour(){
+    this->rafraichirMarcher();
+    this->rafraichirJoueurs();
     Jeu::getJeu().setDeLance(false);
     Controleur::getControleur()->afficher("\nC'est à " + Jeu::getJeu().getJoueurActif()->getPseudo() + " de jouer !\n");
     if(Jeu::getJeu().getJoueurActif()->hasGare()){
@@ -278,8 +315,10 @@ void WindowJeu::on_pb1de_clicked()
         this->proposerRelancer(1, nb);
     }
     ui->pb1de->setEnabled(false);
+    ui->pbPasser->setEnabled(true);
     this->activerCartes(nb);
     Jeu::getJeu().setDeLance(true);
+    this->rafraichirJoueurs();
 
 }
 
@@ -305,9 +344,10 @@ void WindowJeu::on_pb2de_clicked()
     }
     ui->pb1de->setEnabled(false);
     ui->pb2de->setEnabled(false);
-
+    ui->pbPasser->setEnabled(true);
     this->activerCartes(nb);
     Jeu::getJeu().setDeLance(true);
+    this->rafraichirJoueurs();
 }
 
 void WindowJeu::proposerRelancer(int nbdes, int score){
@@ -326,7 +366,8 @@ void WindowJeu::proposerRelancer(int nbdes, int score){
 void WindowJeu::activerCartes(int nb){
     Jeu::getJeu().activerCartes(nb);
     ui->pbAcheter->setEnabled(false);
-    ui->pbPasser->setEnabled(false);
+    ui->pbPasser->setEnabled(true);
+    this->mettreAJourJoueurSelec(joueurAffiche);
 }
 
 void WindowJeu::on_listJoueurActif_itemClicked(QListWidgetItem *item)
@@ -338,7 +379,11 @@ void WindowJeu::on_listJoueurActif_itemClicked(QListWidgetItem *item)
 
 }
 
-
+void WindowJeu::afficherJoueur(QListWidgetItem* item){
+    Joueur* j = item->data(Qt::UserRole).value<Joueur*>();
+    this->mettreAJourJoueurSelec(j);
+    ui->pbAcheter->setEnabled(false);
+}
 
 
 
@@ -357,6 +402,26 @@ void WindowJeu::on_pbPasser_clicked()
 void WindowJeu::finDeTour(){
     ui->pbAcheter->setEnabled(false);
     ui->pbPasser->setEnabled(false);
+    bool fin = Jeu::getJeu().finDeTour();
     Controleur::getControleur()->afficher("Fin de tour.\n");
+
+    if(fin){
+        QMessageBox msgBox;
+        msgBox.setText("Le joueur " + QString::fromStdString(Jeu::getJeu().getJoueurActif()->getPseudo()) + "a gagné !");
+        msgBox.setStandardButtons(QMessageBox::Close);
+        msgBox.setDefaultButton(QMessageBox::Close);
+        int ret = msgBox.exec();
+
+        switch (ret) {
+          case QMessageBox::Close:
+              delete(this);
+              break;
+          default:
+              // should never be reached
+              break;
+        }
+    }else{
+        this->debutDeTour();
+    }
 }
 
