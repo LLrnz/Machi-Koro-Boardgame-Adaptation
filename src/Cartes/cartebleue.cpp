@@ -15,7 +15,7 @@ void CarteBleue::activer(Joueur *joueurProprietaire)
     controleur->afficher(joueurProprietaire->getPseudo() + " a activé la carte bleue " + this->getNom() + "\n");
 
     joueurProprietaire->gagnerPieces(getGain());
-    controleur->afficher(joueurProprietaire->getPseudo() + " gagne " + std::to_string(gain) + "\n");
+    controleur->afficher(joueurProprietaire->getPseudo() + " gagne " + std::to_string(this->getGain()) + "\n");
 }
 
 std::string CarteBleue::to_string() const

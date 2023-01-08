@@ -4,10 +4,10 @@
 #include <algorithm>
 #include "../headers/enums.h"
 #include "../headers/Batiment.h"
-#include "../headers/CarteRouge.h"
-#include "../headers/CarteBleue.h"
-#include "../headers/CarteVerte.h"
-#include "../headers/CarteViolette.h"
+#include "headers/Cartes/CarteBleue.h"
+#include "headers/Cartes/CarteRouge.h"
+#include "headers/Cartes/CarteVerte.h"
+#include "headers/Cartes/CarteViolette.h"
 
 vector<Batiment*> chargerCartes(vector<Batiment*> cartes, QJsonObject lstCartes, map<Extensions, bool> extensions, Couleur couleur);
 Extensions determineExtension(std::string s);
@@ -130,8 +130,8 @@ CarteRouge* chargerCarteRouge(QJsonObject objCarte) {
 
         activation.value("gain").toInt(),             // gain
         getCombinaisons(activation.value("combinaisons").toArray().toVariantList()), // combinaisons
-        Couleur::Rouge,                        // couleur
-        activation.value("nbMonuToActivate").toInt() // effet
+        Couleur::Rouge                        // couleur
+        //activation.value("nbMonuToActivate").toInt() // effet
     );
     return carte;
 }
@@ -163,8 +163,8 @@ CarteVerte* chargerCarteVerte(QJsonObject objCarte) {
 
         activation.value("gain").toInt(),             // gain
         getCombinaisons(activation.value("combinaisons").toArray().toVariantList()), // combinaisons
-        Couleur::Vert,                              // couleur
-        determineType(activation.value("effectType").toString().toStdString()) // type d'effet
+        Couleur::Vert                              // couleur
+        //determineType(activation.value("effectType").toString().toStdString()) // type d'effet
     );
     return carte;
 }

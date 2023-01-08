@@ -1,4 +1,5 @@
 #include "../../headers/Cartes/BarASushi.h"
+#include "headers/Joueur.h"
 
 BarASushi::BarASushi(int id, std::string nom, TypeBatiment type,
                      int prix, int gain, std::vector<int> combinaisons,
@@ -6,7 +7,7 @@ BarASushi::BarASushi(int id, std::string nom, TypeBatiment type,
 {
 }
 
-BarASushi::activer(Joueur* joueurProprietaire)
+void BarASushi::activer(Joueur *joueurProprietaire)
 {
     if (joueurProprietaire->hasPort()) {
         CarteRouge::activer(joueurProprietaire);

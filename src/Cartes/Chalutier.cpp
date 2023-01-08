@@ -1,4 +1,5 @@
 #include "../../headers/Cartes/Chalutier.h"
+#include "headers/Joueur.h"
 
 Chalutier::Chalutier(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
     : CarteBleue(id, nom, type, prix, gain, combinaisons, couleur)

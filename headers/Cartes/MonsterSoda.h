@@ -3,9 +3,10 @@
 #include "CarteVerte.h"
 #include <vector>
 #include <string>
+#include "headers/enums.h"
 using namespace std;
 
-class MonsterSoda : public Batiment
+class MonsterSoda : public CarteVerte
 {
 private:
     TypeBatiment effectType;

@@ -1,4 +1,5 @@
 #include "../../headers/Cartes/Fleuriste.h"
+#include "headers/Joueur.h"
 
 Fleuriste::Fleuriste(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur) : CarteVerte(id, nom, type, prix, gain, combinaisons, couleur)
 {
@@ -7,11 +8,11 @@ Fleuriste::Fleuriste(int id, std::string nom, TypeBatiment type, int prix, int g
 void Fleuriste::activer(Joueur *joueurProprietaire)
 {
     int compteur = 0;
-    for (auto &it : joueurActif->getConstructions())
+    for (auto &it : joueurProprietaire->getConstructions())
     {                         // pour chaque batiment du joueur actif
         if (it->getId() == 9) // si le batiment est un champ de fleurs (voir CarteBleue.cpp)
             compteur += 1;
     }
-    this->setGain(compteur)
+    this->setGain(compteur);
     CarteVerte::activer(joueurProprietaire);
 }

@@ -1,17 +1,18 @@
-#include "../../headers/Cartes/MonsterSoda.h"
+#include "../../headers/Cartes/VerteEffet.h"
+#include "headers/Joueur.h"
 
-MonsterSoda::MonsterSoda(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, TypeBatiment effectType)
-    : Batiment(id, nom, type, prix, gain, combinaisons, couleur)
+VerteEffet::VerteEffet(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, TypeBatiment effectType)
+    : CarteVerte(id, nom, type, prix, gain, combinaisons, couleur)
 {
     this->effectType = effectType;
 }
 
-void activer(Joueur *joueurProprietaire)
+void VerteEffet::activer(Joueur *joueurProprietaire)
 {
     int compteur = 0;
-    for (auto &it : joueurActif->getConstructions())
+    for (auto &it : joueurProprietaire->getConstructions())
     { // pour chaque batiment du joueur actif
-        if (it->getType() == getEffectType())
+        if (it->getType() == this->getEffectType())
         { // si le batiment est du type de l'effet
             compteur++;
         }

@@ -1,16 +1,11 @@
-#include "./../headers/CarteRouge.h"
-#include "../headers/Jeu.h"
-#include "../headers/Controleur.h"
+#include "../../headers/Cartes/CarteRouge.h"
+#include "../../headers/Jeu.h"
+#include "../../headers/Controleur.h"
 #include <sstream>
 
 CarteRouge::CarteRouge(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur)
 {
-}
-
-int CarteRouge::getNbMonuToActivate()
-{
-    return nbMonuToActivate;
 }
 
 void CarteRouge::activer(Joueur *joueurProprietaire)
@@ -28,7 +23,7 @@ void CarteRouge::activer(Joueur *joueurProprietaire)
 
     // affichage
     stringstream s;
-    s << joueurActif->getPseudo() << " a payé " << gain << " pièces à " << joueurProprietaire->getPseudo() << endl;
+    s << joueurActif->getPseudo() << " a payé " << this->getGain() << " pièces à " << joueurProprietaire->getPseudo() << endl;
     controleur->afficher(s.str());
 }
 

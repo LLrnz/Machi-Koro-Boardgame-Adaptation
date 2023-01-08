@@ -1,5 +1,8 @@
 #include "../../headers/Cartes/EntrepriseTravauxPub.h"
 #include <vector>
+#include "headers/Joueur.h"
+#include "headers/Monument.h"
+#include "headers/Controleur.h"
 
 EntrepriseTravauxPub::EntrepriseTravauxPub(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur)
     : CarteVerte(id, nom, type, prix, gain, combinaisons, couleur)

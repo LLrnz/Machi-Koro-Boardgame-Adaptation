@@ -1,4 +1,5 @@
 #include "../../headers/Cartes/RougeNbBat.h"
+#include "headers/Jeu.h"
 
 RougeNbBat::RougeNbBat(int id, std::string nom, TypeBatiment type,
                        int prix, int gain, std::vector<int> combinaisons,
@@ -9,6 +10,8 @@ RougeNbBat::RougeNbBat(int id, std::string nom, TypeBatiment type,
 
 void RougeNbBat::activer(Joueur *joueurProprietaire)
 {
+    Jeu &jeu = Jeu::getJeu();
+    Joueur *joueurActif = jeu.getJoueurActif();
     int compteur = 0;
     for (size_t i = 0; i < size(joueurActif->getMonuments()); i++)
     {                                                               // pour chaque monument du joueur actif

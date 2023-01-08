@@ -9,16 +9,32 @@ CONFIG -= app_bundle
 
 SOURCES += \
     main.cpp \
+    src/Cartes/BarASushi.cpp \
+    src/Cartes/CarteBleue.cpp \
+    src/Cartes/CarteRouge.cpp \
+    src/Cartes/CarteVerte.cpp \
+    src/Cartes/CarteViolette.cpp \
+    src/Cartes/CentreAffaires.cpp \
+    src/Cartes/CentreImpot.cpp \
+    src/Cartes/ChaineTV.cpp \
+    src/Cartes/Chalutier.cpp \
+    src/Cartes/ClubPrive.cpp \
+    src/Cartes/EntrepriseDemenage.cpp \
+    src/Cartes/EntrepriseTravauxPub.cpp \
+    src/Cartes/Epicerie.cpp \
+    src/Cartes/Fleuriste.cpp \
+    src/Cartes/MaisonEdition.cpp \
+    src/Cartes/MonsterSoda.cpp \
+    src/Cartes/PetitBateauDePeche.cpp \
+    src/Cartes/RougeNbBat.cpp \
+    src/Cartes/Stade.cpp \
+    src/Cartes/VerteEffet.cpp \
         src\Batiment.cpp \
         src\Carte.cpp \
-        src\cartebleue.cpp \
-        src\CarteRouge.cpp \
         src\cartesbleues.cpp \
         src\cartesrouges.cpp \
         src\cartesvertes.cpp \
         src\cartesviolettes.cpp \
-        src\CarteVerte.cpp \
-        src\CarteViolette.cpp \
         src\Controleur.cpp \
         src\InterfaceTerminal.cpp \
         src\Jeu.cpp \
@@ -38,17 +54,33 @@ DISTFILES += \
     cartes.json
 
 HEADERS += \
+    headers/Cartes/BarASushi.h \
+    headers/Cartes/CarteBleue.h \
+    headers/Cartes/CarteRouge.h \
+    headers/Cartes/CarteVerte.h \
+    headers/Cartes/CarteViolette.h \
+    headers/Cartes/CentreAffaires.h \
+    headers/Cartes/CentreImpot.h \
+    headers/Cartes/ChaineTV.h \
+    headers/Cartes/Chalutier.h \
+    headers/Cartes/ClubPrive.h \
+    headers/Cartes/EntrepriseDemenage.h \
+    headers/Cartes/EntrepriseTravauxPub.h \
+    headers/Cartes/Epicerie.h \
+    headers/Cartes/Fleuriste.h \
+    headers/Cartes/MaisonEdition.h \
+    headers/Cartes/MonsterSoda.h \
+    headers/Cartes/PetitBateauDePeche.h \
+    headers/Cartes/RougeNbBat.h \
+    headers/Cartes/Stade.h \
+    headers/Cartes/VerteEffet.h \
     headers\Batiment.h \
     headers\Carte.h \
-    headers\CarteBleue.h \
-    headers\CarteRouge.h \
     headers\cartesbleues.h \
     headers\CartesMonuments.h \
     headers\cartesrouges.h \
     headers\cartesvertes.h \
     headers\cartesviolettes.h \
-    headers\CarteVerte.h \
-    headers\CarteViolette.h \
     headers\Controleur.h \
     headers\enums.h \
     headers\InterfaceTerminal.h \
