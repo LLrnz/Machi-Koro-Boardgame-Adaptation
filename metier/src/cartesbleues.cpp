@@ -21,7 +21,7 @@ void CarteBleue::activer(Joueur *joueurProprietaire)
 
 std::string CarteBleue::to_string() const
 {
-    std::string res = "[" + this->getNom() + "] \e[0;93m" + std::to_string(this->getPrix()) + "p\e[0m : produit <" + std::to_string(this->getGain()) + "> pièces sur (";
+    std::string res = "[" + this->getNom() + "] " + std::to_string(this->getPrix()) + " : produit <" + std::to_string(this->getGain()) + "> pièces sur (";
     for (const auto &i : this->getCombinaisons())
     {
         res += std::to_string(i);
@@ -39,7 +39,7 @@ Chalutier::Chalutier(int id, std::string nom, TypeBatiment type, int prix, int g
 
 std::string Chalutier::to_string() const
 {
-    std::string res = "[" + this->getNom() + "] \e[0;93m" + std::to_string(this->getPrix()) + "p\e[0m : lance 2 dés est donne ce nombre de pièces sur (";
+    std::string res = "[" + this->getNom() + "] " + std::to_string(this->getPrix()) + " : lance 2 dés est donne ce nombre de pièces sur (";
     for (const auto &i : this->getCombinaisons())
     {
         res += std::to_string(i);
@@ -70,7 +70,7 @@ PetitBateauDePeche::PetitBateauDePeche(int id, std::string nom, TypeBatiment typ
 
 std::string PetitBateauDePeche::to_string() const
 {
-    std::string res = "[" + this->getNom() + "] \e[0;93m" +std::to_string(this->getPrix()) + "p\e[0m : produit <" + std::to_string(this->getGain()) + "> pièces, si le joueur à le port, sur (" ;
+    std::string res = "[" + this->getNom() + "] " +std::to_string(this->getPrix()) + " : produit <" + std::to_string(this->getGain()) + "> pièces, si le joueur à le port, sur (" ;
     for(const auto &i : this->getCombinaisons()){
         res += std::to_string(i);
         res += ",";

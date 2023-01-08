@@ -48,6 +48,9 @@
          </item>
          <item row="1" column="2">
           <widget class="QLabel" name="lpieces">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="text">
             <string>Pièces</string>
            </property>
@@ -87,13 +90,13 @@
           <widget class="QListWidget" name="listMarche">
            <property name="minimumSize">
             <size>
-             <width>450</width>
+             <width>430</width>
              <height>305</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>450</width>
+             <width>430</width>
              <height>16777215</height>
             </size>
            </property>
@@ -305,7 +308,7 @@
      <x>0</x>
      <y>0</y>
      <width>1180</width>
-     <height>25</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPatie">

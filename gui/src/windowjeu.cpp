@@ -79,7 +79,7 @@ void WindowJeu::rafraichirMarcher(){
         string str = b->getNom() + "\n";
         for(const auto &i : b->getCombinaisons()){str += std::to_string(i) + ",";}
         str.pop_back(); // pour enlever la dernière virgule (après la liste des combinaisons)
-        str+= "🎲  + Gain : " + std::to_string(b->getGain()) + "\n" + std::to_string(b->getPrix()) + "🪙";
+        str+= "🎲 +" + std::to_string(b->getGain()) + "🪙\n"+"prix : " + std::to_string(b->getPrix());
         item->setText(QString::fromStdString(str));
 
         // Association de l'adresse du batiment aux données de l'élément
@@ -336,6 +336,7 @@ void WindowJeu::on_pb1de_clicked()
         this->proposerRelancer(1, nb);
     }
     ui->pb1de->setEnabled(false);
+    ui->pb2de->setEnabled(false);
     ui->pbPasser->setEnabled(true);
     this->activerCartes(nb);
     Jeu::getJeu().setDeLance(true);

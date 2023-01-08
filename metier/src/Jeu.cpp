@@ -266,7 +266,7 @@ bool Jeu::achat(Carte* c){
     int soldeJoueur = (*joueurActif)->getPieces();
     bool res;
 
-    Controleur::getControleur()->afficher("\nVous avez choisi : " + c->to_string() + ".\n");
+    Controleur::getControleur()->afficher("\nVous avez choisi : " + c->getNom() + ".\n");
     if(soldeJoueur >= c->getPrix()){
         c->acheter();
         (*joueurActif)->perdrePieces(c->getPrix());
