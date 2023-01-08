@@ -160,19 +160,16 @@ void Jeu::boucleDeJeu() {
 /**
  * @brief Jeu::tourDeJeu exprime un tour de jeu
  */
-void Jeu::tourDeJeu() {
-    Controleur::getControleur()->afficher(CYN "\nC'est à " + joueurActif->getPseudo() + " de jouer !\n" NC);
-    Controleur::getControleur()->afficher("Vous possédez actuellement les cartes suivantes : \n");
-    Controleur::getControleur()->afficher(joueurActif->getConstructions());
-
-	int resultatJet = jeu->lancerDes();
-	jeu->activerCartesRouges(resultatJet);
-	jeu->activerCartesBleues(resultatJet);
-	jeu->activerCartesVertes(resultatJet);
-	jeu->activerCartesViolettes(resultatJet);
-    Controleur::getControleur()->afficher(YLW "Vous avez " + to_string(joueurActif->getPieces()) + " pièces. \n" NC);
-    jeu->achat();
+void Jeu::tourDeJeu() { 
+    //jeu->achat();
     partieTerminee = jeu->verifierVictoire();
+}
+
+void Jeu::activerCartes(int resultatJet){
+    jeu->activerCartesRouges(resultatJet);
+    jeu->activerCartesBleues(resultatJet);
+    jeu->activerCartesVertes(resultatJet);
+    jeu->activerCartesViolettes(resultatJet);
 }
 
 /**
@@ -195,124 +192,80 @@ int aleat(int min, int max){
     return d(g);
 }
 
+int Jeu::lancer1de(){
+    int resultatJet;
+    resultatJet = aleat(1,6);
+
+    this->lancerDes(resultatJet);
+    this->afficherDes(resultatJet);
+    return resultatJet;
+}
+
+int Jeu::lancer2des(){
+    int resultatJet;
+    int de1 = aleat(1,6);
+    int de2 = aleat(1,6);
+    resultatJet = de1 + de2;
+
+    if ((de1 == de2) && joueurActif->hasParcAttractions()){
+        Controleur::getControleur()->afficher("Le resultat est un double, vous rejouez un tour après celui ci ! \n");
+        joueurActif->setRejoueTour(true);
+    }
+    else
+        joueurActif->setRejoueTour(false);
+
+
+    this->lancerDes(resultatJet);
+    this->afficherDes(resultatJet);
+    return resultatJet;
+}
+
 /**
  * @brief Execute le jet de dés en fonctions des modificateurs de lancés que le joueur possède
  * @return le nombre aux lancé de dés du joueur
  */
-int Jeu::jetDes(){
-	int resultatJet;
-    if (joueurActif->hasGare() == true){
-        Controleur::getControleur()->afficher("1 : Lancer un dé \n");
-        Controleur::getControleur()->afficher("2 : Lancer deux dés \n");
-        int reponse = Controleur::getControleur()->lire_int(1,2);
-
-        //le joueur lance 2 dés
-        if (reponse == 2){
-            int de1 = aleat(1,6);
-            int de2 = aleat(1,6);
-			resultatJet = de1 + de2;
-
-            if ((de1 == de2) && joueurActif->hasParcAttractions()){
-                Controleur::getControleur()->afficher("Le resultat est un double, vous rejouez un tour après celui ci ! \n");
-                joueurActif->setRejoueTour(true);
-			}
-			else
-                joueurActif->setRejoueTour(false);
-		}
-        //le joueur lance 1 dé
-		else
-            resultatJet = aleat(1,6);
-	}
-    //le joueur n'a pas le choix de lancer 1 dé
-	else
-        resultatJet = aleat(1,6);
-
-    //Avec le port, le joueur peut moduler son jet
-    if ((resultatJet >= 10) && (joueurActif->hasPort())){
-        Controleur::getControleur()->afficher("Le résultat est superieur à 10 ! \n");
-        Controleur::getControleur()->afficher("Le résultat du jet est ");
-        Controleur::getControleur()->afficher(to_string(resultatJet));
-        Controleur::getControleur()->afficher("Vous pouvez ajouter de 0 à 2 à votre jet. Combien ajouter ? \n");
-        int rep = Controleur::getControleur()->lire_int(0, 2);
-        resultatJet += rep;
-	}
-
-
+void Jeu::afficherDes(int resultatJet){
     Controleur::getControleur()->afficher("Le résultat du jet est ");
     Controleur::getControleur()->afficher(to_string(resultatJet));
     Controleur::getControleur()->afficher("\n");
-	return resultatJet;
 }
 
 /**
  * @brief Encapsule le jet de dé pour permettre aux possesseurs d'une tour radio de le relancer
  * @return Le numéro aux dés
  */
-int Jeu::lancerDes(){
-	int resultatJet = jetDes();
-    if (joueurActif->hasTourRadio()){
-        Controleur::getControleur()->afficher("0 : Ne pas relancer les dés \n");
-        Controleur::getControleur()->afficher("1 : Relancer les dés \n");
-        int reponse = Controleur::getControleur()->lire_int(0, 1);
-        if (reponse)
-			resultatJet = jetDes();
-	}
-	return resultatJet;
+void Jeu::lancerDes(int resultatJet){
+
 }
 
 /**
  * @brief Phase d'achat où le joueur peut acheter une carte
  */
-void Jeu::achat(){
+bool Jeu::achat(Carte* c){
 // 6e étape de la boucle de jeu. Propose au joueur la liste des cartes achetables
 // du Marché, puis appelle la méthode acheter() du Marché.
-
-    // vecteur des cartes achetables par l'utilisateur (monuments et cartes du marché) :
-    vector<Carte*> cartesAchetables;
-
-    for (auto &m : joueurActif->getMonuments())
-        if (!m->getConstruit())
-            cartesAchetables.push_back(m);
-        
-    for (auto &c : marche->getCarteDispAchat())
-        cartesAchetables.push_back(c);
     
     int soldeJoueur = joueurActif->getPieces();
-    bool choixFait = false;
-    bool achatFait = true;
-    Carte* achat;
+    bool res;
 
-    while(!choixFait){
-        Controleur::getControleur()->afficher("\nListe des cartes achetables :\n");
-        // on demande au joueur quelle carte il souhaite acheter :
-        achat = Controleur::getControleur()->selection_carte(cartesAchetables);
-
-        if(achat != nullptr){
-            Controleur::getControleur()->afficher("\nVous avez choisi : " + achat->to_string() + ".\n");
-            if(soldeJoueur >= achat->getPrix()){
-                achat->acheter();
-                joueurActif->perdrePieces(achat->getPrix());
-                Controleur::getControleur()->afficher("Achat effectué avec succès.\n");
-                choixFait = true;
-            }else{
-                Controleur::getControleur()->afficher("\nVous ne possédez pas assez d'argent pour acheter cette carte. Veuillez en choisir une autre, ou saisir '-1' pour terminer votre tour.\n");
-            }
-        }else{
-            Controleur::getControleur()->afficher("\nVous n'avez rien acheté ce tour-ci.\n");
-            choixFait = true;
-            achatFait = false;
-        }
+    Controleur::getControleur()->afficher("\nVous avez choisi : " + c->to_string() + ".\n");
+    if(soldeJoueur >= c->getPrix()){
+        c->acheter();
+        joueurActif->perdrePieces(c->getPrix());
+        res = true;
+    }else{
+        res = false;
     }
-    // Gestion du RSA :
-    if (!achatFait && soldeJoueur<2){
-        joueurActif->gagnerPieces(2-soldeJoueur);
-    }
-    else if(!achatFait && joueurActif->hasAeroport())
-        joueurActif->gagnerPieces(10);
 
-    Controleur::getControleur()->afficher("\nFin du tour\n");
-    return;
+    return res;
 };
+
+void Jeu::toucherRSA(){
+    joueurActif->gagnerPieces(2-joueurActif->getPieces());
+
+    if(joueurActif->hasAeroport())
+    joueurActif->gagnerPieces(10);
+}
 
 
 void Jeu::activerCartesRouges(int nbDes){
@@ -343,6 +296,10 @@ vector<Joueur*> Jeu::getJoueursSansActifPtr(){
         res.push_back(&j);
     }
     return res;
+}
+
+void Jeu::setDesRelances(bool val){
+    this->deRelances = val;
 }
 
 

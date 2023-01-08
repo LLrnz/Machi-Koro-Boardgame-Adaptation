@@ -26,13 +26,15 @@ class Jeu
     Marche* marche;
     bool partieTerminee = false;
     int conditionVictoire;
+    bool deRelances;
+    bool deLance;
 
     // Méthode pour l'initialisation du jeu
     void initialiserCartes(map<Extensions, bool> extensions);
     void initialiserJoueurs(map<std::string, TypeJoueur> listeJoueurs);
     // Méthode pour un tour de jeu
-    int lancerDes();
-    int jetDes();
+    void lancerDes(int resultatJet);
+    void afficherDes(int resultatJet);
     void activerCartesBleues(int nbDes);
     void activerCartesVertes(int nbDes);
     void activerCartesRouges(int nbDes);
@@ -40,15 +42,15 @@ class Jeu
     void extracted(Joueur &joueur, int &i,
                    vector<Monument *> &monumentsAchetables,
                    std::stringstream &s);
-    void achat();
+
     bool verifierVictoire();   
     void donnerCarteDeBase();
 public:
     static Jeu& getJeu();
     static void libererJeu();
     void afficherCartes();
-
-
+    void toucherRSA();
+    bool achat(Carte* c);
     void genererPartie(map<std::string, TypeJoueur> listeJoueurs, map<Extensions, bool> extensions);
     void boucleDeJeu();
     void tourDeJeu();
@@ -59,8 +61,14 @@ public:
     vector<Joueur> getJoueurs() const { return joueurs; };
     Marche* getMarche() const {return marche;};
     vector<Joueur*> getJoueursSansActifPtr();
-
+    int lancer1de();
+    int lancer2des();
     int getNbJoueurs() const;
+    void setDesRelances(bool val);
+    bool getDesRelances(){return this->deRelances;};
+    void activerCartes(int resultatJet);
+    bool getDeLance(){return this->deLance;};
+    void setDeLance(bool val){this->deLance = val;};
 
 };
 
