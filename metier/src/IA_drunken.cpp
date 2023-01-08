@@ -10,7 +10,7 @@ int IA_drunken::choixDes(){
 Carte* IA_drunken::choixAchat(vector<Carte*> cartes){
     Carte* res = nullptr;
     if(!cartes.empty()){
-        res = cartes.at(Controleur::aleat(0,cartes.size()));
+        res = cartes.at(Controleur::aleat(0,cartes.size()-1));
     }
     return res;
 }
@@ -18,7 +18,7 @@ Carte* IA_drunken::choixAchat(vector<Carte*> cartes){
 Joueur* IA_drunken::choixJoueur(vector<Joueur*> joueurs){
     Joueur* res = nullptr;
     if(!joueurs.empty()){
-        res = joueurs.at(Controleur::aleat(0,joueurs.size()));
+        res = joueurs.at(Controleur::aleat(0,joueurs.size()-1));
     }
     return res;
 }
@@ -26,7 +26,7 @@ Joueur* IA_drunken::choixJoueur(vector<Joueur*> joueurs){
 Batiment* IA_drunken::choixBatiment(vector<Batiment*> batiments){
     Batiment* res = nullptr;
     if(!batiments.empty()){
-        res = batiments.at(Controleur::aleat(0,batiments.size()));
+        res = batiments.at(Controleur::aleat(0,batiments.size()-1));
     }
     return res;
 }
