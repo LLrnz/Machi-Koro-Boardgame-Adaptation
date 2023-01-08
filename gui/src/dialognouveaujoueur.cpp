@@ -14,6 +14,9 @@ DialogNouveauJoueur::~DialogNouveauJoueur()
     delete ui;
 }
 
+/**
+ * @brief Valide le nom du joueur
+ */
 void DialogNouveauJoueur::on_buttonBox_accepted()
 {
     // Récupération des valeurs du formulaire :

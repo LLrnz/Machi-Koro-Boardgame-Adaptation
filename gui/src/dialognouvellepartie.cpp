@@ -1,10 +1,14 @@
 #include "../../gui/headers/dialognouvellepartie.h"
+#include "qerrormessage.h"
 #include "ui_dialognouvellepartie.h"
 #include "../../gui/headers/dialognouveaujoueur.h"
 #include <iostream>
 #include "../../metier/headers/Jeu.h"
 
-
+/**
+ * @brief DialogNouvellePartie::DialogNouvellePartie
+ * @param parent
+ */
 DialogNouvellePartie::DialogNouvellePartie(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogNouvellePartie)
@@ -16,11 +20,17 @@ DialogNouvellePartie::DialogNouvellePartie(QWidget *parent) :
     extensions.emplace(Extensions::base, true);
 }
 
+/**
+ * @brief DialogNouvellePartie::~DialogNouvellePartie
+ */
 DialogNouvellePartie::~DialogNouvellePartie()
 {
     delete ui;
 }
 
+/**
+ * @brief Ouvre le boite de dialogue pour ajouter un nouveau Joueur
+ */
 void DialogNouvellePartie::on_pbNouveauJoueur_clicked()
 {
     // on lance une boite de dialogue pour créer un nouveau joueur
@@ -37,7 +47,9 @@ void DialogNouvellePartie::on_pbNouveauJoueur_clicked()
     ui->lwJoueurs->addItem(QString::fromStdString(pseudo));
 }
 
-
+/**
+ * @brief Valide les parmaètres entrées
+ */
 void DialogNouvellePartie::on_buttonBox_accepted()
 {
     // on récupère les extensions selectionnées
@@ -50,6 +62,24 @@ void DialogNouvellePartie::on_buttonBox_accepted()
             extensions.emplace(Extensions::deluxe, true);
     }
     // on génère une nouvelle partie
-    Jeu::getJeu().genererPartie(joueurs, extensions);
+    int nbMax =4;
+    if(extensions.size() >= 2) nbMax = 5;
+    if(joueurs.size() >= 2){
+        if(joueurs.size() <= nbMax){
+            Jeu::getJeu().genererPartie(joueurs, extensions);
+        }else{
+            QErrorMessage *error = new QErrorMessage();
+            QString err = QString::number(nbMax) + " 2 joueurs maximum";
+            error->showMessage(err);
+        }
+
+    }else{
+        QErrorMessage *error = new QErrorMessage();
+        error->showMessage("2 joueurs minimum");
+    }
+
+
+
+
 }
 
