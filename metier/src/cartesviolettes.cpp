@@ -3,6 +3,7 @@
 #include "../../metier/headers/Jeu.h"
 #include "../../metier/headers/Controleur.h"
 #include <cmath>
+#include "../../metier/headers/IA_drunken.h"
 
 CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, std::string description)
     : Batiment(id, nom, type, prix, gain, combinaisons, couleur, description)
@@ -123,7 +124,14 @@ void ChaineTV::activer(Joueur *joueurProprietaire)
 
     controleur->afficher("A qui voulez vous prendre 5 pieces ? \n");
 
-    Joueur *joueurChoisi = controleur->selection_joueur(Jeu::getJeu().getJoueursSansActifPtr());
+    Joueur *joueurChoisi = nullptr;
+
+    if(joueurActif->isIA()){
+        joueurChoisi = static_cast<IA_drunken*>(joueurChoisi)->choixJoueur(Jeu::getJeu().getJoueursSansActifPtr());
+    }else{
+        joueurChoisi = controleur->selection_joueur(Jeu::getJeu().getJoueursSansActifPtr());
+    }
+
     int vol = joueurChoisi->perdrePieces(5);
     joueurActif->gagnerPieces(vol);
 }

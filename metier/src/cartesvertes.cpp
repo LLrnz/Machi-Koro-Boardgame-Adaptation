@@ -1,6 +1,8 @@
 #include "../../metier/headers/cartesvertes.h"
 #include "../../metier/headers/Jeu.h"
 #include "../../metier/headers/Controleur.h"
+
+#include "../../metier/headers/IA_drunken.h"
 #include "../../metier/headers/Joueur.h"
 #include <sstream>
 #include <vector>
@@ -62,16 +64,20 @@ EntrepriseDemenage::EntrepriseDemenage(int id, std::string nom, TypeBatiment typ
 
 void EntrepriseDemenage::activer(Joueur *joueurProprietaire)
 {
-    Controleur::getControleur()->afficher("Liste des cartes possibles à déménager : \n"); // on affiche les cartes possibles à déménager
+
     vector<Batiment *> choixBatiments;
     for (auto &b : joueurProprietaire->getConstructions())
     { // pour chaque batiment du joueur actif
         if (b->getType() != TypeBatiment::special)
             choixBatiments.push_back(b);
     }
+    Batiment *batimentChoisi = nullptr;
+    if(joueurProprietaire->isIA()){
+        batimentChoisi = static_cast<IA_drunken*>(joueurProprietaire)->choixBatiment(choixBatiments);
+    }else{
+        batimentChoisi = Controleur::getControleur()->selection_batiment(choixBatiments);
+    }
 
-    Controleur::getControleur()->afficher("Votre choix : \n");
-    Batiment *batimentChoisi = Controleur::getControleur()->selection_batiment(choixBatiments);
 
     Controleur::getControleur()->afficher("Choisisez un AUTRE joueur à qui gracieusement donner cette carte \n");
     // On peut choisir tous les joueurs sauf le joueur actif

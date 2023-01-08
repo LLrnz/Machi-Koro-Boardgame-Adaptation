@@ -280,7 +280,20 @@
           </widget>
          </item>
          <item row="1" column="0" colspan="3">
-          <widget class="QTextBrowser" name="texteConsole"/>
+          <widget class="QTextBrowser" name="texteConsole">
+           <property name="minimumSize">
+            <size>
+             <width>430</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>430</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
          </item>
          <item row="2" column="1">
           <spacer name="horizontalSpacer">
@@ -308,7 +321,7 @@
      <x>0</x>
      <y>0</y>
      <width>1180</width>
-     <height>17</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPatie">

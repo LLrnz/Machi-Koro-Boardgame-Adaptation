@@ -44,6 +44,11 @@ set(PROJECT_SOURCES
         metier/src/IA_drunken.cpp
         metier/headers/Humain.h
         metier/src/Humain.cpp
+
+        gui/src/dialogChoixJoueur.ui
+        gui/src/dialogChoixBatiment.ui
+        gui/src/dialogPort.ui
+
 )
 
 

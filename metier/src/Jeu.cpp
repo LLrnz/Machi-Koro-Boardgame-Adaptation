@@ -279,9 +279,10 @@ bool Jeu::achat(Carte* c){
 };
 
 void Jeu::toucherRSA(){
-    (*joueurActif)->gagnerPieces(2-(*joueurActif)->getPieces());
+    if ((*joueurActif)->getPieces() < 2)
+           (*joueurActif)->gagnerPieces(2-(*joueurActif)->getPieces());
 
-    if((*joueurActif)->hasAeroport())
+    else if((*joueurActif)->hasAeroport())
     (*joueurActif)->gagnerPieces(10);
 }
 
@@ -427,7 +428,7 @@ void Jeu::IAachat(IA* ia){
         achat = ia->choixAchat(cartesAchetables);
 
         if(achat != nullptr){
-            Controleur::getControleur()->afficher("\nL'IA choisi : " + achat->to_string() + ".\n");
+            Controleur::getControleur()->afficher("\nL'IA choisi : " + achat->getNom() + ".\n");
 
                 achat->acheter();
                 (*joueurActif)->perdrePieces(achat->getPrix());
