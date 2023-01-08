@@ -79,7 +79,7 @@ void WindowJeu::rafraichirMarcher(){
         string str = b->getNom() + "\n";
         for(const auto &i : b->getCombinaisons()){str += std::to_string(i) + ",";}
         str.pop_back(); // pour enlever la dernière virgule (après la liste des combinaisons)
-        str+= "🎲 +" + std::to_string(b->getGain()) + "🪙\n"+"prix : " + std::to_string(b->getPrix());
+        str+= "🎲 +" + std::to_string(b->getGain()) + "💰\n"+"prix : " + std::to_string(b->getPrix());
         item->setText(QString::fromStdString(str));
 
         // Association de l'adresse du batiment aux données de l'élément
@@ -259,7 +259,7 @@ void WindowJeu::mettreAJourJoueurSelec(Joueur* j){
         string str = b->getNom() + "\n";
         for(const auto &i : b->getCombinaisons()){str += std::to_string(i) + ",";}
         str.pop_back(); // pour enlever la dernière virgule (après la liste des combinaisons)
-        str+= "🎲  +" + std::to_string(b->getGain()) + "🪙";
+        str+= "🎲  +" + std::to_string(b->getGain()) + "💰";
         item->setText(QString::fromStdString(str));
         // Association de l'adresse du batiment aux données de l'élément
         item->setData(Qt::UserRole, QVariant::fromValue(b));
