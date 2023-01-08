@@ -14,9 +14,10 @@ class Batiment : public Carte
     TypeBatiment type;
     int gain;
     Couleur couleur;
+    std::string description;
 
 public:
-    Batiment(int id, std::string nom, TypeBatiment t, int prix, int gain, std::vector<int> combinaisons, Couleur c);
+    Batiment(int id, std::string nom, TypeBatiment t, int prix, int gain, std::vector<int> combinaisons, Couleur c, std::string description);
     std::vector<int> getCombinaisons() const {return combinaisons;}
     TypeBatiment getType() const{return type;};
     Couleur getCouleur() const {return couleur;};
@@ -26,5 +27,5 @@ public:
     virtual void activer(Joueur* joueurProprietaire) =0;
     void acheter();
     QString getStyle();
-
+    std::string getDescription() {return this->description;}
 };
