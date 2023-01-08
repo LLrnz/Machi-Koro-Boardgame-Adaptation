@@ -1,5 +1,6 @@
 #include "../../gui/headers/dialognouveaujoueur.h"
 #include "ui_dialognouveaujoueur.h"
+#include "../../metier/headers/Joueur.h"
 
 DialogNouveauJoueur::DialogNouveauJoueur(QWidget *parent) :
     QDialog(parent),
@@ -12,3 +13,14 @@ DialogNouveauJoueur::~DialogNouveauJoueur()
 {
     delete ui;
 }
+
+void DialogNouveauJoueur::on_buttonBox_accepted()
+{
+    // Récupération des valeurs du formulaire :
+    isHuman = ui->isHuman->isChecked();
+    pseudo = ui->pseudo->text().toStdString();
+
+
+
+}
+

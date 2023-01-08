@@ -70,9 +70,33 @@ void WindowJeu::rafraichirMarcher(){
 
     //for(auto &b : Jeu::getJeu().getMarche()->getCarteDispAchat()){
         QListWidgetItem *item = new QListWidgetItem();
-        item->setText(QString::fromStdString(b->to_string()));
+
+        // création du texte contenu dans les cases :
+        string str = b->getNom() + "\n";
+        for(const auto &i : b->getCombinaisons()){str += std::to_string(i) + ",";}
+        str.pop_back(); // pour enlever la dernière virgule (après la liste des combinaisons)
+        str+= "🎲  +" + std::to_string(b->getGain()) + "🪙";
+        str+= "\n prix : " + std::to_string(b->getPrix());
+        item->setText(QString::fromStdString(str));
         // Association de l'adresse du batiment aux données de l'élément
         item->setData(Qt::UserRole, QVariant::fromValue(b));
+        // Configuration de la taille et de la couleur de la case
+        item->setSizeHint(QSize(120, 80));
+        switch(b->getCouleur()){
+        case Couleur::Bleu:
+            item->setBackground(QBrush(QColor(130, 228, 244)));
+            break;
+        case Couleur::Vert:
+            item->setBackground(QBrush(QColor(190, 247, 159)));
+            break;
+        case Couleur::Rouge:
+            item->setBackground(QBrush(QColor(255, 159, 159)));
+            break;
+        case Couleur::Violet:
+            item->setBackground(QBrush(QColor(228, 159, 255)));
+            break;
+        }
+        ui->listMarche->setSpacing(10);
         ui->listMarche->addItem(item);
     }
 
