@@ -18,7 +18,8 @@ public:
     ~WindowJeu();
     QLabel* getConsole();
     void rafraichirMarcher();
-
+    void rafraichirJoueurs();
+    void init();
 private slots:
     void on_actionQuitter_2_triggered();
 
@@ -27,6 +28,8 @@ private slots:
 
 
     void on_listMarche_itemClicked(QListWidgetItem *item);
+
+    void on_pbAcheter_clicked();
 
 private:
     Ui::WindowJeu *ui;

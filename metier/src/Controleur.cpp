@@ -5,16 +5,18 @@
 #include <QApplication>
 
 Controleur::Controleur() {
+    wjeu = new WindowJeu();
+    interface = new InterfaceTerminal(wjeu->getConsole());
 }
 
-Controleur::~Controleur() {}
+Controleur::~Controleur() {
+    delete(&wjeu);
+    delete(interface);
+}
 
-int Controleur::menuPrincipal(int argc, char *argv[]){
-    QApplication a(argc, argv);
-    a.setQuitOnLastWindowClosed(true);
-    MainWindow w;
-    w.show();
-    return a.exec();
+void Controleur::menuPrincipal(){
+
+
 }
 
 
@@ -33,16 +35,16 @@ void Controleur::libererControleur() {
 }
 
 void Controleur::afficher(std::string f) const{
-    this->interface.afficher(f);
+    this->interface->afficher(f);
 }
 
 
 std::string Controleur::lire_str(){
-    return this->interface.lire();
+    return this->interface->lire();
 }
 
 int Controleur::lire_int(int borneInf, int borneSupp){
-    return this->interface.lire_int(borneInf, borneSupp);
+    return this->interface->lire_int(borneInf, borneSupp);
 }
 
 
@@ -54,10 +56,7 @@ void Controleur::nouvellePartie(){
 
     //Vérifier que les joueurs ont bien été initialisés
     //si oui ;
-    WindowJeu *j = new WindowJeu();
-    QLabel *l = j->getConsole();
-    this->interface.setLabel(l);
-    j->show();
+    wjeu->init();
     this->afficher("La partie peut commencer !");
     //Jeu::getJeu().boucleDeJeu();
 
@@ -114,17 +113,17 @@ void Controleur::demarrer(){
 }
 
 Joueur* Controleur::selection_joueur(vector<Joueur*> joueurs){
-    return this->interface.selection_joueur(joueurs);
+    return this->interface->selection_joueur(joueurs);
 }
 
 Batiment* Controleur::selection_batiment(vector<Batiment*> batiments){
-    return this->interface.selection_batiment(batiments);
+    return this->interface->selection_batiment(batiments);
 }
 
 void  Controleur::afficher(vector<Joueur*> joueurs){
-    this->interface.afficher(joueurs);
+    this->interface->afficher(joueurs);
 }
 void  Controleur::afficher(vector<Batiment*> batiments){
-    this->interface.afficher(batiments);
+    this->interface->afficher(batiments);
 }
 

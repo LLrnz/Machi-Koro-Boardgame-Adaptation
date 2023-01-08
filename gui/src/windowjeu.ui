@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_15" rowstretch="1,2,3" columnstretch="0,2,0">
+   <layout class="QGridLayout" name="gridLayout_15" rowstretch="1,2,3" columnstretch="0,2,0,0">
     <property name="sizeConstraint">
      <enum>QLayout::SetDefaultConstraint</enum>
     </property>
@@ -36,7 +36,7 @@
          <item row="1" column="1">
           <widget class="QLabel" name="tPiece">
            <property name="text">
-            <string>TextLabel</string>
+            <string> </string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -75,101 +75,6 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QGroupBox" name="gbTour">
-      <property name="title">
-       <string>Tour de :</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_16">
-       <item row="0" column="0">
-        <layout class="QGridLayout" name="gridLayout_9">
-         <item row="0" column="0">
-          <widget class="QListWidget" name="listJoueurActif"/>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QGroupBox" name="gbEvenement">
-      <property name="title">
-       <string>Evenements</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_19">
-       <item row="0" column="0">
-        <layout class="QGridLayout" name="gridLayout_14">
-         <item row="1" column="0">
-          <widget class="QPushButton" name="pb1de">
-           <property name="text">
-            <string>Lancer 1 dé</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QPushButton" name="pbRelancer">
-           <property name="text">
-            <string>Relancer</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" colspan="3">
-          <widget class="QLabel" name="texteConsole">
-           <property name="styleSheet">
-            <string notr="true">background-color : rgb(255, 255, 255);
-color : rgb(0,0,0)</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-           <property name="textFormat">
-            <enum>Qt::RichText</enum>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QPushButton" name="pb2de">
-           <property name="text">
-            <string>Lancer 2 dés</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QGroupBox" name="gbAdversaires">
-      <property name="title">
-       <string>Adversaires</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_20" columnstretch="0">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetDefaultConstraint</enum>
-       </property>
-       <item row="0" column="0">
-        <layout class="QGridLayout" name="gridLayout_10">
-         <item row="0" column="0">
-          <widget class="QListWidget" name="listeAdversaires"/>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item row="0" column="1" rowspan="2">
      <widget class="QGroupBox" name="gbMarche">
       <property name="title">
@@ -196,7 +101,39 @@ color : rgb(0,0,0)</string>
       </layout>
      </widget>
     </item>
-    <item row="0" column="2" rowspan="2">
+    <item row="2" column="2">
+     <widget class="QGroupBox" name="gbAdversaires">
+      <property name="title">
+       <string>Joueurs</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_20" columnstretch="0">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="gridLayout_10">
+         <item row="1" column="0" colspan="2">
+          <widget class="QListWidget" name="listeAdversaires"/>
+         </item>
+         <item row="2" column="0" colspan="2">
+          <widget class="QPushButton" name="pbFin">
+           <property name="text">
+            <string>Fin de tour</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="2" rowspan="2" colspan="2">
      <widget class="QGroupBox" name="bgCarte">
       <property name="title">
        <string>Carte Selectionnée</string>
@@ -294,6 +231,80 @@ color : rgb(0,0,0)</string>
       </layout>
      </widget>
     </item>
+    <item row="0" column="0" rowspan="2">
+     <widget class="QGroupBox" name="gbEvenement">
+      <property name="title">
+       <string>Evenements</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_19">
+       <item row="3" column="0">
+        <layout class="QGridLayout" name="gridLayout_14" rowstretch="0,50,0">
+         <item row="2" column="0">
+          <widget class="QPushButton" name="pb1de">
+           <property name="text">
+            <string>Lancer 1 dé</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QPushButton" name="pbRelancer">
+           <property name="text">
+            <string>Relancer</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="3">
+          <widget class="QLabel" name="texteConsole">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color : rgb(255, 255, 255);
+color : rgb(0,0,0)</string>
+           </property>
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::RichText</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="pb2de">
+           <property name="text">
+            <string>Lancer 2 dés</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Tour de : </string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <widget class="QLabel" name="tJoueurActif">
+           <property name="text">
+            <string> </string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -339,38 +350,5 @@ color : rgb(0,0,0)</string>
   </action>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>listMarche</sender>
-   <signal>itemClicked(QListWidgetItem*)</signal>
-   <receiver>bgCarte</receiver>
-   <slot>update()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>482</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>836</x>
-     <y>72</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>listMarche</sender>
-   <signal>itemClicked(QListWidgetItem*)</signal>
-   <receiver>tnomCarte</receiver>
-   <slot>update()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>680</x>
-     <y>103</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>932</x>
-     <y>87</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

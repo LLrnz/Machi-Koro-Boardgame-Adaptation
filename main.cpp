@@ -1,12 +1,16 @@
 
+#include "gui/headers/mainwindow.h"
 #include "metier/headers/Controleur.h"
+#include "qapplication.h"
 
 
 
 int main(int argc, char *argv[])
 {
+    QApplication a(argc, argv);
+    //a.setQuitOnLastWindowClosed(true);
+    MainWindow w;
+    w.show();
 
-    int a = Controleur::getControleur()->menuPrincipal(argc, argv);
-
-    return a;
+    return a.exec();
 }

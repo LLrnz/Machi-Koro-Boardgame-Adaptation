@@ -3,24 +3,15 @@
 #include "../../gui/headers/windowjeu.h"
 
 
-//InterfaceTerminal::InterfaceTerminal(WindowJeu &ui):
-//ostream(ui.getConsole())
-//{
-
-//}
-
-InterfaceTerminal::InterfaceTerminal():
-ostream(nullptr)
+InterfaceTerminal::InterfaceTerminal(QLabel *l)
 {
-
+    ostream = l;
 }
 
-void InterfaceTerminal::setLabel(QLabel *l){
-    this->ostream = l;
-}
 
 
 void InterfaceTerminal::afficher(std::string f) const{
+    message.toStdString().append(f);
     ostream->setText(QString::fromStdString(f));
 }
 

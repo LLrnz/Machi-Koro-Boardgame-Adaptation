@@ -6,12 +6,11 @@
 class InterfaceTerminal
 {
     QLabel *ostream;
-
+    QString message;
 
 public:
-    InterfaceTerminal();
-//    InterfaceTerminal(WindowJeu &ui);
-    void setLabel(QLabel *l);
+    //InterfaceTerminal();
+    InterfaceTerminal(QLabel *l);
     void afficher(std::string f) const;
     void afficher(int i) const ;
     void afficher(vector<Joueur*> joueurs);

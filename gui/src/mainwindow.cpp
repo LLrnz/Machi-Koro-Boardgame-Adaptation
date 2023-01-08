@@ -23,7 +23,7 @@ void MainWindow::on_pb_nouvellePartie_pressed()
 {
 
     Controleur::getControleur()->nouvellePartie();
-    this->close();
+    //this->close();
 
 }
 
@@ -36,6 +36,6 @@ void MainWindow::on_pbCharger_pressed()
 
 void MainWindow::on_pbQuitter_pressed()
 {
-    this->close();
+    delete(this);
 }
 
