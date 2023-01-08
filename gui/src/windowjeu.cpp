@@ -8,6 +8,8 @@
 #include "../../metier/headers/Controleur.h"
 #include <vector>
 #include <algorithm>
+#include "../../metier/headers/Batiment.h"
+#include "../../metier/headers/Joueur.h"
 
 WindowJeu::WindowJeu(QWidget *parent) :
     QMainWindow(parent),
