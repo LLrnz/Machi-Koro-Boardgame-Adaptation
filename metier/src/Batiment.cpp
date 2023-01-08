@@ -16,22 +16,22 @@ QString Batiment::getStyle(){
     QString res;
     switch(this->couleur) {
     case Couleur::Bleu :
-        res = "rgb(20,80,230)";
+        res = "rgb(130, 228, 244)";
     break;
 
 
     case Couleur::Rouge :
-        res = "rgb(240,60,0)";
+        res = "rgb(255, 159, 159)";
     break;
 
 
     case Couleur::Vert :
-        res = "rgb(40,220,0)";
+        res = "rgb(190, 247, 159)";
     break;
 
 
     case Couleur::Violet :
-        res = "rgb(200,0,230)";
+        res = "rgb(228, 159, 255)";
     break;
     }
     return res;

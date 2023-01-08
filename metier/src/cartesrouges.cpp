@@ -90,5 +90,5 @@ void ClubPrive::activer(Joueur *joueurProprietaire)
     Joueur *joueurActif = jeu.getJoueurActif();
     
     this->setGain(joueurActif->getPieces());
-    ClubPrive::activer(joueurProprietaire);
+    CarteRouge::activer(joueurProprietaire);
 }
