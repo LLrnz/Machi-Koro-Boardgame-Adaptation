@@ -267,7 +267,8 @@ bool Jeu::achat(Carte* c){
 };
 
 void Jeu::toucherRSA(){
-    joueurActif->gagnerPieces(2-joueurActif->getPieces());
+    if (joueurActif->getPieces() < 2)
+        joueurActif->gagnerPieces(2-joueurActif->getPieces());
 
     if(joueurActif->hasAeroport())
     joueurActif->gagnerPieces(10);
