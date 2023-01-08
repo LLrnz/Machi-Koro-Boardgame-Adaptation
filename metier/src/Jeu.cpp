@@ -177,7 +177,10 @@ void Jeu::boucleDeJeu() {
 bool Jeu::finDeTour() {
 
     partieTerminee = jeu->verifierVictoire();
-    jeu->joueurSuivant();
+    if(!partieTerminee){
+        jeu->joueurSuivant();
+    }
+
     return partieTerminee;
 }
 

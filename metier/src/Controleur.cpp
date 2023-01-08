@@ -2,6 +2,7 @@
 #include "../../gui/headers/dialognouvellepartie.h"
 #include "../../gui/headers/windowjeu.h"
 #include "../../gui/headers/mainwindow.h"
+
 #include <QApplication>
 #include <random>
 
@@ -114,6 +115,7 @@ void Controleur::demarrer(){
 }
 
 Joueur* Controleur::selection_joueur(vector<Joueur*> joueurs){
+    //DialogChoixJoueur
     return this->interface->selection_joueur(joueurs);
 }
 
