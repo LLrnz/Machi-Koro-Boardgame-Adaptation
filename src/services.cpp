@@ -4,10 +4,10 @@
 #include <algorithm>
 #include "../headers/enums.h"
 #include "../headers/Batiment.h"
-#include "headers/Cartes/CarteBleue.h"
-#include "headers/Cartes/CarteRouge.h"
-#include "headers/Cartes/CarteVerte.h"
-#include "headers/Cartes/CarteViolette.h"
+#include "headers/cartesbleues.h"
+#include "headers/cartesrouges.h"
+#include "headers/cartesvertes.h"
+#include "headers/cartesviolettes.h"
 
 vector<Batiment*> chargerCartes(vector<Batiment*> cartes, QJsonObject lstCartes, map<Extensions, bool> extensions, Couleur couleur);
 Extensions determineExtension(std::string s);

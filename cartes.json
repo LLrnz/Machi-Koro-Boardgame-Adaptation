@@ -10,6 +10,7 @@
                 "type": "ble",
                 "prix": 1,
                 "quantite": 6,
+                "description": "Recevez 1 piece de la banque",
                 "activation": {
                     "combinaisons": [
                         1
@@ -26,6 +27,7 @@
                 "type": "vache",
                 "prix": 1,
                 "quantite": 6,
+                "description": "Recevez 1 piece de la banque",
                 "activation": {
                     "combinaisons": [
                         2
@@ -42,6 +44,7 @@
                 "type": "ecrou",
                 "prix": 3,
                 "quantite": 6,
+                "description": "Recevez 1 piece de la banque",
                 "activation": {
                     "combinaisons": [
                         5
@@ -58,6 +61,7 @@
                 "type": "ecrou",
                 "prix": 6,
                 "quantite": 6,
+                "description": "Recevez 5 pieces de la banque",
                 "activation": {
                     "combinaisons": [
                         9
@@ -74,6 +78,7 @@
                 "type": "ble",
                 "prix": 3,
                 "quantite": 6,
+                "description": "Recevez 3 pieces de la banque",
                 "activation": {
                     "combinaisons": [
                         10
@@ -88,6 +93,7 @@
                 "type": "ble",
                 "prix": 3,
                 "quantite": 6,
+                "description": "Recevez 3 pieces de la banque",
                 "activation": {
                     "combinaisons": [
                         7
@@ -105,6 +111,7 @@
                 "type": "bateau",
                 "prix": 2,
                 "quantite": 6,
+                "description": "Si vous avez le port, recevez 3 pieces de la banque",
                 "activation": {
                     "combinaisons": [
                         8
@@ -122,6 +129,7 @@
                 "type": "bateau",
                 "prix": 4,
                 "quantite": 6,
+                "description": "Le joueur dont c'est le tou lance 2 des. Si vous avez le port recevez de la banque autant de pièces que le total des 2 des.",
                 "activation": {
                     "combinaisons": [
                         12,
@@ -141,6 +149,7 @@
                 "type": "ble",
                 "prix": 2,
                 "quantite": 6,
+                "description": "Recevez 1 piece de la banque",
                 "activation": {
                     "combinaisons": [
                         4
@@ -159,6 +168,7 @@
                 "type": "magasin",
                 "prix": 1,
                 "quantite": 6,
+                "description": "Recevez 1 piece de la banque",
                 "activation": {
                     "combinaisons": [
                         2,
@@ -177,6 +187,7 @@
                 "type": "magasin",
                 "prix": 2,
                 "quantite": 6,
+                "description": "Recevez un nombre abberant de pieces de la banque",
                 "activation": {
                     "combinaisons": [
                         4
@@ -194,6 +205,7 @@
                 "type": "usine",
                 "prix": 3,
                 "quantite": 6,
+                "description": "Recevez 3 piece de la banque pour chaque etablissement de type ble que vous possedez",
                 "activation": {
                     "combinaisons": [
                         7
@@ -211,6 +223,7 @@
                 "type": "usine",
                 "prix": 3,
                 "quantite": 6,
+                "description": "Recevez 3 pieces de la banque pour chaque etablissement de type engrenage que vous possedez",
                 "activation": {
                     "combinaisons": [
                         8
@@ -228,6 +241,7 @@
                 "type": "fruit",
                 "prix": 2,
                 "quantite": 6,
+                "description": "Recevez 2 pieces de la banque pour chaque etablissement de type ble que vous controllez",
                 "activation": {
                     "combinaisons": [
                         11,
@@ -247,6 +261,7 @@
                 "type": "magasin",
                 "prix": 1,
                 "quantite": 6,
+                "description": "Recevez 1 piece de la banque pour chaque champ de fleurs que vous possedez",
                 "activation": {
                     "combinaisons": [
                         6
@@ -265,6 +280,7 @@
                 "type": "usine",
                 "prix": 2,
                 "quantite": 6,
+                "description": "Recevez 2 pieces de la banque pour chaque etablissement de type restaurant que vous possedez",
                 "activation": {
                     "combinaisons": [
                         12,
@@ -285,6 +301,7 @@
                 "type": "restaurant",
                 "prix": 2,
                 "quantite": 6,
+                "description": "Recevez 1 piece du joueur qui a lance les des",
                 "activation": {
                     "combinaisons": [
                         3
@@ -293,15 +310,16 @@
                     "nbMonuToActivate": 0
                 }
             },
-            "restaurantFamiliale": {
+            "restaurantF": {
                 "id": 2,
-                "nom": "Restaurant Familiale",
+                "nom": "Restaurant",
                 "extension": [
                     "base"
                 ],
                 "type": "restaurant",
                 "prix": 3,
                 "quantite": 6,
+                "description": "Recevez 2 pieces du joueur qui a lance les des",
                 "activation": {
                     "combinaisons": [
                         9,
@@ -321,6 +339,7 @@
                 "type": "restaurant",
                 "prix": 1,
                 "quantite": 6,
+                "description": "Recevez 1 piece du joueur qui a lance les des",
                 "activation": {
                     "combinaisons": [
                         7
@@ -339,6 +358,7 @@
                 "type": "restaurant",
                 "prix": 1,
                 "quantite": 6,
+                "description": "Recevez 1 piece du joueur qui a lance les des",
                 "activation": {
                     "combinaisons": [
                         8
@@ -357,6 +377,7 @@
                 "type": "restaurant",
                 "prix": 2,
                 "quantite": 6,
+                "description": "Si vous possedez le port, recevez 3 piece du joueur qui a lance les des",
                 "activation": {
                     "combinaisons": [
                         1
@@ -374,6 +395,7 @@
                 "type": "restaurant",
                 "prix": 4,
                 "quantite": 6,
+                "description": "Recevez toutes les pieces du joueur qui a lance les des si celui ci possede au moins trois monuments construits",
                 "activation": {
                     "combinaisons": [
                         12, 13, 14
@@ -382,15 +404,16 @@
                     "nbMonuToActivate": 3
                 }
             },
-            "restaurant gastronomique": {
+            "restaurant 5 etoiles": {
                 "id": 7,
-                "nom": "Restaurant gastronomique",
+                "nom": "Restaurant 5 etoiles",
                 "extension": [
                     "deluxe"
                 ],
                 "type": "restaurant",
                 "prix": 3,
                 "quantite": 6,
+                "description": "Recevez 5 pieces du joueur qui a lance les des si celui ci possede au moins deux monuments construits",
                 "activation": {
                     "combinaisons": [
                         5
@@ -410,6 +433,7 @@
                 ],
                 "prix": 6,
                 "quantite": 4,
+                "description": "Recevez 2 pieces de la part de chaque autre joueur",
                 "activation": {
                     "combinaisons": [
                         6
@@ -427,6 +451,7 @@
                 "type": "special",
                 "prix": 7,
                 "quantite": 4,
+                "description": "Recevez 5 pieces du joueur de votre choix",
                 "activation": {
                     "combinaisons": [
                         6
@@ -444,6 +469,7 @@
                 "type": "special",
                 "prix": 8,
                 "quantite": 4,
+                "description": "Vous pouvez echanger avec le joueur de votre choix un etablissement qui ne sont pas de type Special",
                 "activation": {
                     "combinaisons": [
                         6
@@ -462,6 +488,7 @@
                 "type": "special",
                 "prix": 5,
                 "quantite": 5,
+                "description": "Recevez 1 piece de chaque joueur pour chaque etablissement de type Restaurant et Magasin qu'il possede",
                 "activation": {
                     "combinaisons": [
                         7
@@ -480,6 +507,7 @@
                 "type": "special",
                 "prix": 4,
                 "quantite": 5,
+                "description": "Recevez la moitie (arrondie a l'inferieur) des pieces de chaque joueur qui en possede 10 ou plus",
                 "activation": {
                     "combinaisons": [
                         8,
