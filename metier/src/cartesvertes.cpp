@@ -1,7 +1,7 @@
-#include "metier/headers/cartesvertes.h"
-#include "metier/headers/Jeu.h"
-#include "metier/headers/Controleur.h"
-#include "metier/headers/Joueur.h"
+#include "../../metier/headers/cartesvertes.h"
+#include "../../metier/headers/Jeu.h"
+#include "../../metier/headers/Controleur.h"
+#include "../../metier/headers/Joueur.h"
 #include <sstream>
 #include <vector>
 

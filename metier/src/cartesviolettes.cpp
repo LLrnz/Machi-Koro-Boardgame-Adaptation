@@ -1,7 +1,7 @@
-#include "metier/headers/cartesviolettes.h"
-#include "metier/headers/enums.h"
-#include "metier/headers/Jeu.h"
-#include "metier/headers/Controleur.h"
+#include "../../metier/headers/cartesviolettes.h"
+#include "../../metier/headers/enums.h"
+#include "../../metier/headers/Jeu.h"
+#include "../../metier/headers/Controleur.h"
 #include <cmath>
 
 CarteViolette::CarteViolette(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, std::string description)

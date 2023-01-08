@@ -28,6 +28,7 @@ Jeu::Jeu():cartesEnJeu(), joueurs(), joueurActif(nullptr), marche(nullptr){
 }
 void Jeu::initialiserCartes(map<Extensions, bool> extensions) {// charger le fichier json
     cartesEnJeu = Service::chargerFichier(extensions);
+
 }
 
 /**

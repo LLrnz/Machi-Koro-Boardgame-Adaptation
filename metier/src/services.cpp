@@ -2,22 +2,16 @@
 #include <string>
 #include <QtCore>
 #include <algorithm>
-#include "metier/headers/enums.h"
-#include "metier/headers/Batiment.h"
-#include "metier/headers/cartesbleues.h"
-#include "metier/headers/cartesrouges.h"
-#include "metier/headers/cartesvertes.h"
-#include "metier/headers/cartesviolettes.h"
+#include "../../metier/headers/enums.h"
+#include "../../metier/headers/Batiment.h"
+#include "../../metier/headers/cartesbleues.h"
+#include "../../metier/headers/cartesrouges.h"
+#include "../../metier/headers/cartesvertes.h"
+#include "../../metier/headers/cartesviolettes.h"
+#include "../../metier/headers/services.h"
 
-vector<Batiment *> chargerCartes(vector<Batiment *> cartes, QJsonObject lstCartes, map<Extensions, bool> extensions, Couleur couleur);
-Extensions determineExtension(std::string s);
-TypeBatiment determineType(std::string s);
-CarteRouge *chargerCarteRouge(QJsonObject objCarte);
-CarteBleue *chargerCarteBleue(QJsonObject objCarte);
-CarteVerte *chargerCarteVerte(QJsonObject objCarte);
-CarteViolette *chargerCarteViolette(QJsonObject objCarte);
 
-TypeBatiment determineType(std::string s)
+TypeBatiment Service::determineType(std::string s)
 {
     return s == "ble"          ? TypeBatiment::ble
            : s == "vache"      ? TypeBatiment::vache
@@ -33,7 +27,7 @@ TypeBatiment determineType(std::string s)
     //  restaurant si s == "restaurant", special sinon
 }
 
-Extensions determineExtension(std::string s)
+Extensions Service::determineExtension(std::string s)
 {
     return s == "base"     ? Extensions::base
            : s == "marina" ? Extensions::marina
@@ -43,9 +37,8 @@ Extensions determineExtension(std::string s)
 
 // oui j'aime bien les ternaires
 
-vector<int> getCombinaisons(QList<QVariant> combi);
 
-vector<int> getCombinaisons(QList<QVariant> combi)
+vector<int> Service::getCombinaisons(QList<QVariant> combi)
 {
     std::vector<int> combis;
     for (auto it = combi.begin(); it != combi.end(); ++it)
@@ -55,11 +48,11 @@ vector<int> getCombinaisons(QList<QVariant> combi)
     return combis;
 }
 
-vector<Batiment *> chargerFichier(map<Extensions, bool> extensions)
+vector<Batiment *> Service::chargerFichier(map<Extensions, bool> extensions)
 {
     vector<Batiment *> cartes;
     QByteArray fichier;
-    QFile file(":/cartes/cartes.json");
+    QFile file(PATH_TO_JSON);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         std::cerr << "Impossible d'accéder au fichier" << std::endl;
@@ -78,7 +71,7 @@ vector<Batiment *> chargerFichier(map<Extensions, bool> extensions)
     return cartes;
 }
 
-vector<Batiment *> chargerCartes(vector<Batiment *> cartes, QJsonObject lstCartes, map<Extensions, bool> extensions, Couleur couleur)
+vector<Batiment *> Service::chargerCartes(vector<Batiment *> cartes, QJsonObject lstCartes, map<Extensions, bool> extensions, Couleur couleur)
 {
     for (const QString &key : lstCartes.keys())
     {
@@ -131,7 +124,7 @@ vector<Batiment *> chargerCartes(vector<Batiment *> cartes, QJsonObject lstCarte
 }
 
 // fonction qui charge une carte Rouge
-CarteRouge *chargerCarteRouge(QJsonObject objCarte)
+CarteRouge *Service::chargerCarteRouge(QJsonObject objCarte)
 {
     QJsonObject activation = objCarte.value("activation").toObject();
 
@@ -198,7 +191,7 @@ CarteRouge *chargerCarteRouge(QJsonObject objCarte)
 }
 
 // fonction qui charge une carte Bleue
-CarteBleue *chargerCarteBleue(QJsonObject objCarte)
+CarteBleue *Service::chargerCarteBleue(QJsonObject objCarte)
 {
     QJsonObject activation = objCarte.value("activation").toObject();
 
@@ -249,7 +242,7 @@ CarteBleue *chargerCarteBleue(QJsonObject objCarte)
 }
 
 // fonction qui charge une carte Verte
-CarteVerte *chargerCarteVerte(QJsonObject objCarte)
+CarteVerte *Service::chargerCarteVerte(QJsonObject objCarte)
 {
     QJsonObject activation = objCarte.value("activation").toObject();
 
@@ -303,7 +296,7 @@ CarteVerte *chargerCarteVerte(QJsonObject objCarte)
     }
 }
 // fonction qui charge une carte Violette
-CarteViolette *chargerCarteViolette(QJsonObject objCarte)
+CarteViolette *Service::chargerCarteViolette(QJsonObject objCarte)
 {
     QJsonObject activation = objCarte.value("activation").toObject();
 

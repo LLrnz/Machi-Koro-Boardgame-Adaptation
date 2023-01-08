@@ -23,14 +23,10 @@ set(PROJECT_SOURCES
 
         metier/src/Batiment.cpp metier/headers/Batiment.h
         metier/src/Carte.cpp metier/headers/Carte.h
-        metier/src/cartebleue.cpp metier/headers/CarteBleue.h
-        metier/src/CarteRouge.cpp metier/headers/CarteRouge.h
         metier/src/cartesbleues.cpp metier/headers/cartesbleues.h
         metier/src/cartesrouges.cpp metier/headers/cartesrouges.h
         metier/src/cartesvertes.cpp metier/headers/cartesvertes.h
         metier/src/cartesviolettes.cpp metier/headers/cartesviolettes.h
-        metier/src/CarteVerte.cpp metier/headers/CarteVerte.h
-        metier/src/CarteViolette.cpp metier/headers/CarteViolette.h
         metier/src/Controleur.cpp metier/headers/Controleur.h
         metier/src/InterfaceTerminal.cpp
         metier/src/Jeu.cpp metier/headers/Jeu.h
@@ -41,7 +37,10 @@ set(PROJECT_SOURCES
         metier/headers/services.h
         metier/headers/enums.h
         metier/headers/InterfaceTerminal.h
+        cartes.json
 )
+
+
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(rsa-gui-v2
@@ -83,3 +82,5 @@ install(TARGETS rsa-gui-v2
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(rsa-gui-v2)
 endif()
+
+add_definitions("-DPATH_TO_JSON=\"${CMAKE_SOURCE_DIR}/cartes.json\" ")

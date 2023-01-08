@@ -28,4 +28,5 @@ public:
     void acheter();
     QString getStyle();
     std::string getDescription() {return this->description;}
+    void setGain(int val){this->gain = val;}
 };

@@ -1,6 +1,6 @@
-#include "metier/headers/cartesrouges.h"
-#include "metier/headers/Jeu.h"
-#include "metier/headers/Controleur.h"
+#include "../../metier/headers/cartesrouges.h"
+#include "../../metier/headers/Jeu.h"
+#include "../../metier/headers/Controleur.h"
 #include <sstream>
 
 CarteRouge::CarteRouge(int id, std::string nom, TypeBatiment type, int prix, int gain, std::vector<int> combinaisons, Couleur couleur, std::string description)

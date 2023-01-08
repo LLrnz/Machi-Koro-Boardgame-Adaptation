@@ -1,7 +1,7 @@
 #include "../../gui/headers/windowjeu.h"
 #include "ui_windowjeu.h"
 #include "../../metier/headers/Jeu.h"
-#include "../../metier/headers/CarteRouge.h"
+#include "../../metier/headers/cartesrouges.h"
 #include <QErrorMessage>
 #include "../../metier/headers/enums.h"
 #include <QVBoxLayout>

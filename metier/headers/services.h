@@ -4,12 +4,12 @@
 #include "qjsonobject.h"
 #endif // SERVICES_H
 
-#include "../headers/enums.h"
-#include "../headers/Batiment.h"
-#include "../headers/CarteRouge.h"
-#include "../headers/CarteBleue.h"
-#include "../headers/CarteVerte.h"
-#include "../headers/CarteViolette.h"
+#include "../../metier/headers/enums.h"
+#include "../../metier/headers/Batiment.h"
+#include "../../metier/headers/cartesrouges.h"
+#include "../../metier/headers/Cartesbleues.h"
+#include "../../metier/headers/cartesvertes.h"
+#include "../../metier/headers/cartesviolettes.h"
 
 class Service{
 
