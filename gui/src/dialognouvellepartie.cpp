@@ -71,6 +71,7 @@ void DialogNouvellePartie::on_buttonBox_accepted()
             QErrorMessage *error = new QErrorMessage();
             QString err = QString::number(nbMax) + " 2 joueurs maximum";
             error->showMessage(err);
+            ui->lwJoueurs->clear();
         }
 
     }else{
