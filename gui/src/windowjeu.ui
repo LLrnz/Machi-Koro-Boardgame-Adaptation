@@ -90,13 +90,13 @@
           <widget class="QListWidget" name="listMarche">
            <property name="minimumSize">
             <size>
-             <width>450</width>
+             <width>430</width>
              <height>305</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>420</width>
+             <width>430</width>
              <height>16777215</height>
             </size>
            </property>
