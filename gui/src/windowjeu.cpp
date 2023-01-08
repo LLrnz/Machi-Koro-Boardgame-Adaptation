@@ -18,14 +18,29 @@ WindowJeu::WindowJeu(QWidget *parent) :
     ui->pbAcheter->setEnabled(false);
     ui->pbFin->setEnabled(false);
 
-
+    //TEST
+    joueurs = std::vector<Joueur*>();
+    batiments = std::vector<Batiment*>();
 
 }
 void WindowJeu::init(){
     this->show();
+
+
+    //JEU DE TEST
+    this->actif = new Joueur("Eudes", TypeJoueur::humain);
+    actif->ajouterBatiment(new CarteRouge(12,"Café",TypeBatiment::ble, 12, 4, {1,2}, Couleur::Rouge, 2));
+
+    joueurs.push_back(actif);
+    joueurs.push_back(new Joueur("Gilles", TypeJoueur::humain));
+    joueurs.push_back(new Joueur("Chantale", TypeJoueur::humain));
+
+    batiments.push_back(new CarteRouge(12,"resto1",TypeBatiment::ble, 12, 4, {1,2}, Couleur::Rouge, 2));
+    batiments.push_back(new CarteRouge(12,"resto2",TypeBatiment::ble, 12, 4, {1,2}, Couleur::Rouge, 2));
+    batiments.push_back(new CarteRouge(12,"resto3",TypeBatiment::ble, 12, 4, {1,2}, Couleur::Rouge, 2));
+
     this->rafraichirMarcher();
     this->rafraichirJoueurs();
-
 }
 
 QLabel* WindowJeu::getConsole()
@@ -45,11 +60,7 @@ void WindowJeu::on_actionQuitter_2_triggered()
 
 void WindowJeu::rafraichirMarcher(){
 
-    //JEU DE TEST
-    std::vector<Batiment*> batiments;
-        batiments.push_back(new CarteRouge(12,"resto1",TypeBatiment::ble, 12, 4, {1,2}, Couleur::Rouge, 2));
-        batiments.push_back(new CarteRouge(12,"resto2",TypeBatiment::ble, 12, 4, {1,2}, Couleur::Rouge, 2));
-        batiments.push_back(new CarteRouge(12,"resto3",TypeBatiment::ble, 12, 4, {1,2}, Couleur::Rouge, 2));
+
 
 
 
@@ -70,13 +81,6 @@ void WindowJeu::rafraichirMarcher(){
 void WindowJeu::rafraichirJoueurs(){
     ui->listeAdversaires->clear();
 
-    //JEU DE TEST
-    Joueur* actif = new Joueur("Eudes", TypeJoueur::humain);
-
-    std::vector<Joueur*> joueurs;
-        joueurs.push_back(actif);
-        joueurs.push_back(new Joueur("Gilles", TypeJoueur::humain));
-        joueurs.push_back(new Joueur("Chantale", TypeJoueur::humain));
 
 
 
@@ -94,13 +98,6 @@ void WindowJeu::rafraichirJoueurs(){
     }
 }
 
-void WindowJeu::on_listMarche_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
-{
-
-
-
-}
-
 
 
 
@@ -108,22 +105,8 @@ void WindowJeu::on_listMarche_currentItemChanged(QListWidgetItem *current, QList
 void WindowJeu::on_listMarche_itemClicked(QListWidgetItem *item)
 {
     Batiment* b = item->data(Qt::UserRole).value<Batiment*>();
+    this->mettreAJourCarteSelec(b);
 
-    ui->tnomCarte->setText(QString::fromStdString(b->getNom()));
-    ui->tGain->setText(QString::number(b->getGain()));
-    ui->tPrix->setText(QString::number(b->getPrix()));
-    QString combinaisons = "";
-    for(auto &c : b->getCombinaisons()){
-        combinaisons.append(QString::number(c));
-        combinaisons.append(" ");
-    }
-
-    ui->tCombinaisons->setText(combinaisons);
-    ui->tEffet->setText(QString::fromStdString(b->to_string()));
-
-    QString style = "background-color : " + b->getStyle() + "; color : rgb(0,0,0)";
-    ui->tnomCarte->setStyleSheet(style);
-    qApp->processEvents();
 }
 
 
@@ -137,5 +120,97 @@ void WindowJeu::on_pbAcheter_clicked()
         QErrorMessage *error = new QErrorMessage();
         error->showMessage("Aucune carte sélectionnée.");
     }
+}
+
+
+void WindowJeu::on_listeAdversaires_itemClicked(QListWidgetItem *item)
+{
+    Joueur* j = item->data(Qt::UserRole).value<Joueur*>();
+
+    ui->tJoueur->setText(QString::fromStdString(j->getPseudo()));
+    ui->tPiece->setText(QString::number(j->getPieces()));
+
+    ui->listBatiment->clear();
+    for(auto &b : j->getConstructions()){
+
+        QListWidgetItem *item = new QListWidgetItem();
+        item->setText(QString::fromStdString(b->getNom()));
+        // Association de l'adresse du batiment aux données de l'élément
+        item->setData(Qt::UserRole, QVariant::fromValue(b));
+        ui->listBatiment->addItem(item);
+
+    }
+
+    ui->listMonuments->clear();
+    for(auto &m : j->getMonuments()){
+
+        QListWidgetItem *item = new QListWidgetItem();
+        item->setText(QString::fromStdString(m->getNom()));
+        // Association de l'adresse du batiment aux données de l'élément
+        item->setData(Qt::UserRole, QVariant::fromValue(m));
+        if(m->getConstruit()){
+            const QColor jaune = QColor(220, 200, 0);
+            item->setBackground(jaune);
+        }else{
+            const QColor gris = QColor(220, 230, 230);
+            item->setBackground(gris);
+        }
+        ui->listMonuments->addItem(item);
+
+    }
+
+    qApp->processEvents();
+}
+
+
+void WindowJeu::on_listBatiment_itemClicked(QListWidgetItem *item)
+{
+    Batiment* b = item->data(Qt::UserRole).value<Batiment*>();
+    this->mettreAJourCarteSelec(b);
+}
+
+
+
+void WindowJeu::mettreAJourCarteSelec(Batiment *b){
+    this->mettreAJourCarteCarteSelec(b);
+    ui->tGain->setText(QString::number(b->getGain()));
+
+    QString combinaisons = "";
+    for(auto &c : b->getCombinaisons()){
+        combinaisons.append(QString::number(c));
+        combinaisons.append(" ");
+    }
+
+    ui->tCombinaisons->setText(combinaisons);
+
+    QString style = "background-color : " + b->getStyle() + "; color : rgb(0,0,0)";
+    ui->tnomCarte->setStyleSheet(style);
+    qApp->processEvents();
+}
+
+void WindowJeu::mettreAJourCarteSelec(Monument *b){
+    this->mettreAJourCarteCarteSelec(b);
+    ui->tGain->setText("N/A");
+
+    ui->tCombinaisons->setText("N/A");
+
+    QString style = "background-color : (220, 200, 0); color : rgb(0,0,0)";
+    ui->tnomCarte->setStyleSheet(style);
+    qApp->processEvents();
+}
+
+void WindowJeu::mettreAJourCarteCarteSelec(Carte *c){
+    ui->tnomCarte->setText(QString::fromStdString(c->getNom()));
+
+    ui->tPrix->setText(QString::number(c->getPrix()));
+
+    ui->tEffet->setText(QString::fromStdString(c->to_string()));
+}
+
+
+void WindowJeu::on_listMonuments_itemClicked(QListWidgetItem *item)
+{
+    Monument* m = item->data(Qt::UserRole).value<Monument*>();
+    this->mettreAJourCarteSelec(m);
 }
 
