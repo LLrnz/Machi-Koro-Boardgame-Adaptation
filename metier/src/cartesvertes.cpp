@@ -11,7 +11,7 @@ CarteVerte::CarteVerte(int id, std::string nom, TypeBatiment type, int prix, int
 void CarteVerte::activer(Joueur *joueurProprietaire)
 {
     Joueur *joueurActif = Jeu::getJeu().getJoueurActif();
-    vector<Joueur> joueurs = Jeu::getJeu().getJoueurs();
+    vector<Joueur*> joueurs = Jeu::getJeu().getJoueurs();
 
     Controleur::getControleur()->afficher(this->getNom() + " vous a rapporté " + std::to_string(this->getGain()) + " pièces.\n");
     joueurActif->gagnerPieces(this->getGain());

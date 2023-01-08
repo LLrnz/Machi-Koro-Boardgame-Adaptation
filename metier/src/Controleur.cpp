@@ -3,6 +3,7 @@
 #include "../../gui/headers/windowjeu.h"
 #include "../../gui/headers/mainwindow.h"
 #include <QApplication>
+#include <random>
 
 Controleur::Controleur() {
     wjeu = new WindowJeu();
@@ -125,5 +126,12 @@ void  Controleur::afficher(vector<Joueur*> joueurs){
 }
 void  Controleur::afficher(vector<Batiment*> batiments){
     this->interface->afficher(batiments);
+}
+
+int Controleur::aleat(int min, int max){
+    random_device rd;
+    mt19937 g(rd());
+    uniform_int_distribution<int> d(min, max);
+    return d(g);
 }
 

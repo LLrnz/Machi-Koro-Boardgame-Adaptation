@@ -103,8 +103,8 @@ void CentreImpot::activer(Joueur *joueurProprietaire)
 
     for (auto &j : Jeu::getJeu().getJoueurs())
     {
-        if (j.getPieces() >= 10)
-            joueurActif->gagnerPieces(j.perdrePieces(floor(j.getPieces() / 2)));
+        if (j->getPieces() >= 10)
+            joueurActif->gagnerPieces(j->perdrePieces(floor(j->getPieces() / 2)));
     }
 }
 
@@ -145,10 +145,10 @@ void MaisonEdition::activer(Joueur *joueurProprietaire)
     for (auto &j : Jeu::getJeu().getJoueurs())
     {
         compteur = 0;
-        for (auto &b : j.getConstructions())
+        for (auto &b : j->getConstructions())
             if (b->getType() == TypeBatiment::magasin || b->getType() == TypeBatiment::restaurant)
                 compteur += 1;
-        joueurActif->gagnerPieces(j.perdrePieces(compteur));
+        joueurActif->gagnerPieces(j->perdrePieces(compteur));
     }
 }
 
@@ -167,9 +167,9 @@ void Stade::activer(Joueur *joueurProprietaire)
 
     for (auto &j : Jeu::getJeu().getJoueurs())
     {
-        if (&j != joueurActif)
+        if (j != joueurActif)
         {
-            joueurActif->gagnerPieces(j.perdrePieces(2));
+            joueurActif->gagnerPieces(j->perdrePieces(2));
         }
     }
 }

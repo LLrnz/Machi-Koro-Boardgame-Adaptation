@@ -40,6 +40,10 @@ set(PROJECT_SOURCES
         cartes.json
         metier/headers/IA.h
         metier/src/IA.cpp
+        metier/headers/IA_drunken.h
+        metier/src/IA_drunken.cpp
+        metier/headers/Humain.h
+        metier/src/Humain.cpp
 )
 
 

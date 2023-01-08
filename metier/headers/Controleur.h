@@ -29,6 +29,7 @@ public:
 
     //assesseurs
     static Controleur* getControleur();
+    static int aleat(int min, int max);
     int getNbJoueurs() const { return nbJoueurs; };
     WindowJeu* getWJeu(){return this->wjeu;};
     void menuPrincipal();

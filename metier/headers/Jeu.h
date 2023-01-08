@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include "../headers/Marche.h"
+#include "IA.h"
 //#include "../headers/controleur.h"
 
 
@@ -21,8 +22,8 @@ class Jeu
 
     //Attribus
     vector<Batiment*> cartesEnJeu;
-    std::vector<Joueur> joueurs;
-    vector<Joueur>::iterator joueurActif;
+    std::vector<Joueur*> joueurs;
+    vector<Joueur*>::iterator joueurActif;
     Marche* marche;
     bool partieTerminee = false;
     int conditionVictoire;
@@ -45,9 +46,14 @@ class Jeu
 
     bool verifierVictoire();   
     void donnerCarteDeBase();
+    int IAjetDes(IA* ia);
+    int IAlancerDes(IA* ia);
+    void IAachat(IA* ia);
+
 public:
     static Jeu& getJeu();
     static void libererJeu();
+
     void afficherCartes();
     void toucherRSA();
     bool achat(Carte* c);
@@ -57,8 +63,8 @@ public:
     void joueurSuivant();
     //void setJoueurActif(int i) { joueurActif = i; };
     bool getPartieTerminee() const { return partieTerminee; };
-    Joueur* getJoueurActif() const { return joueurActif.base(); };
-    vector<Joueur> getJoueurs() const { return joueurs; };
+    Joueur* getJoueurActif() const { return (*joueurActif); };
+    std::vector<Joueur*> getJoueurs() const { return joueurs; };
     Marche* getMarche() const {return marche;};
     vector<Joueur*> getJoueursSansActifPtr();
     int lancer1de();
@@ -70,6 +76,7 @@ public:
     bool getDeLance(){return this->deLance;};
     void setDeLance(bool val){this->deLance = val;};
     void jouerTourIA();
+
 
 };
 

@@ -41,9 +41,10 @@ void WindowJeu::init(){
 //    batiments.push_back(new CarteRouge(12,"resto3",TypeBatiment::ble, 12, 4, {1,2}, Couleur::Rouge, 2));
 
 
-    this->debutDeTour();
+
     ui->listMarche->setViewMode(QListView::IconMode);
     ui->listBatiment->setViewMode(QListView::IconMode);
+    this->debutDeTour();
 
 }
 
