@@ -1,6 +1,6 @@
 #include "../headers/Controleur.h"
 
-#include "services.cpp"
+#include "../headers/services.h"
 #include <QtCore>
 #include <iostream>
 #include <cstdlib>
@@ -27,7 +27,7 @@ Jeu::Jeu():cartesEnJeu(), joueurs(), joueurActif(nullptr), marche(nullptr){
 
 }
 void Jeu::initialiserCartes(map<Extensions, bool> extensions) {// charger le fichier json
-    cartesEnJeu = chargerFichier(extensions);
+    cartesEnJeu = Service::chargerFichier(extensions);
 }
 
 /**
@@ -148,8 +148,8 @@ void Jeu::boucleDeJeu() {
         for(auto &j : joueurs){
             joueurActif = &j;
             jeu->tourDeJeu();
-            if (partieTerminee) break;
         }
+
 	}
 	
     Controleur::getControleur()->afficher("Le joueur ");

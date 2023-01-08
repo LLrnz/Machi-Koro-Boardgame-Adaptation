@@ -20,7 +20,8 @@ class Controleur
     // Attributs
     int nbJoueurs;
     map<Extensions, bool> extensions;
-    InterfaceTerminal interface;
+    InterfaceTerminal* interface;
+    WindowJeu* wjeu;
 
 public:
 
@@ -29,12 +30,12 @@ public:
     //assesseurs
     static Controleur* getControleur();
     int getNbJoueurs() const { return nbJoueurs; };
-
-
+    WindowJeu* getWJeu(){return this->wjeu;};
+    void menuPrincipal();
     void nouvellePartie();
     void demarrer();
     void afficher(std::string f) const;
-    void afficher(int i) {interface.afficher(i);};
+    void afficher(int i) {interface->afficher(i);};
     std::string lire_str();
     int lire_int(int borneInf, int borneSupp);
     map<Extensions, bool> getExtensions() const {return extensions;};
@@ -43,15 +44,15 @@ public:
     void afficher(vector<Joueur*> joueurs);
     void afficher(vector<Batiment*> batiments);
     Joueur* selection_joueur_batiment(vector<Joueur*> joueurs){
-        return interface.selection_joueur_batiment(joueurs);
+        return interface->selection_joueur_batiment(joueurs);
 
     };
 
     Carte* selection_carte(vector<Carte*> cartes){
-        return interface.selection_carte(cartes);
+        return interface->selection_carte(cartes);
     }
 
     Monument* selection_monument(vector<Monument*> monuments){
-        return interface.selection_monument(monuments);
+        return interface->selection_monument(monuments);
     }
 };

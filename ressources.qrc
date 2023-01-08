@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/cartes">
-        <file>cartes.json</file>
-    </qresource>
-</RCC>

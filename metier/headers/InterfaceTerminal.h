@@ -1,15 +1,18 @@
 #pragma once
-
-#include "Jeu.h"
-
+#include "../../gui/headers/windowjeu.h"
+#include "../headers/Jeu.h"
+#include <QLabel>
 
 class InterfaceTerminal
 {
+    QLabel *ostream;
+    QString message;
 
 public:
-    InterfaceTerminal();
+    //InterfaceTerminal();
+    InterfaceTerminal(QLabel *l);
     void afficher(std::string f) const;
-    void afficher(int i) const {std::cout << i;};
+    void afficher(int i) const ;
     void afficher(vector<Joueur*> joueurs);
     void afficher(vector<Batiment*> batiments);
     void afficher(vector<Monument*> monuments);
